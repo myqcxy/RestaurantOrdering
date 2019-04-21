@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="refresh" content="5;url=getAllMeals"> 
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -25,16 +26,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-    LoginSuccess
-    	<s:form action="adminLog" method="post">
-    	<s:textfield name="aid" label="用户名"/>
-    	<s:password name="apass" label="密码"></s:password>
-    	
-    	<s:submit value="登录" ></s:submit>
-    </s:form>
-    <a href="meal/meal.jsp">餐品管理</a><br>
-    <a href="table/table.jsp">餐桌管理</a><br>
-    <a href="" >信息统计</a>
+  	  <h1>添加成功！！修改的餐品信息为：5s返回</h1><s:debug></s:debug>
+    	<s:form action="" method="post">
+    	<s:textfield name="mname" label="餐品名称"/>
+    	<s:textfield name="price" label="价格"/>
+		 
+    	<s:submit value="提交" ></s:submit>
+    	</s:form> 
+    	<img alt="sdf" src="images/20190419172544432.jpg"/>
     </center>
   </body>
 </html>

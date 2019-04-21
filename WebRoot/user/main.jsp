@@ -25,8 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-    	user Login success
-    
+    	
     </center>
   </body>
 </html>

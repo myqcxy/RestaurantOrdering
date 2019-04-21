@@ -8,10 +8,41 @@
 	
 	
 	<package name="default" namespace="/" extends="struts-default">
+		<!-- 获取所有Meal 的Action -->
+		<action name="getAllMeals" class="action.MealAction" method="getAllMeals">
+		
+			<result name="success">/meal/showAllMeals.jsp</result>
+			<result name="false">/admin/loginFalse.jsp</result>
+	
+		</action>
+		
+		<!-- 更新Meal之前先通过mid获取meal信息 -->
+		<action name="toUpdateMeal" class="action.MealAction" method="toUpdateMeal">
+		
+			<result name="success">/meal/updateMeal.jsp</result>
+			<result name="false">/admin/loginFalse.jsp</result>
+	
+		</action>
+		<!-- 更新Meal -->
+		<action name="updateMeal" class="action.MealAction" method="updateMeal">
+		
+			<result name="success">/meal/updateMealSuccess.jsp</result>
+			<result name="false">/meal/updateMealFalse.jsp</result>
+	
+		</action>
+		
+		<!-- 删除Meal -->
+		<action name="delMeal" class="action.MealAction" method="delMeal">
+		
+			<result name="success" type="redirectAction">getAllMeals</result>
+			<result name="false">/meal/updateMealFalse.jsp</result>
+	
+		</action>
+	
 		<action name="addMeal" class="action.MealAction">
 		
-			<result name="success" type="redirect">/addMealSuccess.jsp</result>
-			<result name="flase">/addMealFalse.jsp</result>
+			<result name="success" type="redirect">/meal/addMealSuccess.jsp</result>
+			<result name="flase">/meal/addMealFalse.jsp</result>
 		</action>
 		<action name="adminLog" class="action.AdminAction">
 		
@@ -19,6 +50,7 @@
 			<result name="false">/admin/loginFalse.jsp</result>
 	
 		</action>
+		
 		<action name="userLogin" class="action.UserAction">
 		
 			<result name="success">/user/main.jsp</result>

@@ -25,14 +25,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-  	  <h1>添加成功！！添加的餐品信息为：</h1>
-    	<s:form action="" method="post">
-    	<s:textfield name="mname" label="餐品名称"/>
+  	  输入添加的餐品信息
+    	<s:form action="addMeal" method="post" enctype="multipart/form-data">
+    	<s:textfield name="mname" label="餐品名称" />
     	<s:textfield name="price" label="价格"/>
-		 
+		 <s:file name="mphoto" label="餐品图片"></s:file>
     	<s:submit value="提交" ></s:submit>
-    	</s:form> 
-    	<img alt="sdf" src="images/20190419172544432.jpg"/>
+    	</s:form>
     </center>
   </body>
 </html>

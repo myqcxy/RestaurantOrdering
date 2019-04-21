@@ -25,16 +25,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-    LoginSuccess
-    	<s:form action="adminLog" method="post">
-    	<s:textfield name="aid" label="用户名"/>
-    	<s:password name="apass" label="密码"></s:password>
+    显示所有Meal<s:debug></s:debug>
+    <h1>餐品信息为：</h1><br>
+ 	
+ 
+   <s:iterator value="list">
+   	
+   		<s:property value="mname"/>
+   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
+   		
+   		<img alt="图片走丢了" src="${ photo }" width="100px" height="80px"><br>
+   		<s:url var="updateUrl" action="toUpdateMeal">
+         <s:param name="mid" value="mid"/>
+      </s:url>
+   		<a href="${updateUrl }">修改</a>
+   		
+   		 <s:url var="delUrl" action="delMeal">
+         <s:param name="mid" value="mid"/>
+      </s:url>
+      <a href="${delUrl}" onClick="return readyDel();">删除</a>
+   	  <script>
+      function readyDel(){
+        return confirm("是否真的删除?");
+      }
+    </script>
+   		<br><br>
+   </s:iterator>
+    	<br>
     	
-    	<s:submit value="登录" ></s:submit>
-    </s:form>
-    <a href="meal/meal.jsp">餐品管理</a><br>
-    <a href="table/table.jsp">餐桌管理</a><br>
-    <a href="" >信息统计</a>
     </center>
   </body>
 </html>

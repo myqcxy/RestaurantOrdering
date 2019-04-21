@@ -1,8 +1,11 @@
 package action;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -19,8 +22,42 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	private File mphoto;//上传的文件
 	private String mphotoContenType;//上传的文件类型
 	private String mphotoFileName;//上传的文件名
-	@Override
-	public String execute() throws Exception {
+	private List<Meal> list = new ArrayList<Meal>();
+	
+	public List<Meal> getList() {
+		return list;
+	}
+	
+	public String delMeal(){
+		if(new MealDao().delMeal(meal.getMid())) return SUCCESS;
+		else return "delFalse";
+	}
+	
+	public String getAllMeals(){
+		list = new MealDao().getAllMeals();
+		return SUCCESS;
+	}
+	
+	public String toUpdateMeal(){
+		
+		Meal m = new MealDao().getMealById(meal.getMid());
+	
+		meal.setMid(m.getMid());
+		meal.setMname(m.getMname());
+		meal.setPhoto(m.getPhoto());
+		meal.setPrice(m.getPrice());
+		return SUCCESS;
+	}
+	
+	public String updateMeal(){
+		savePhoto();
+		if(new MealDao().updateMeal(meal)) return SUCCESS;
+		else return "updateFalse";
+	
+	}
+	
+	
+	private void savePhoto(){
 		String realPath = ServletActionContext.getServletContext().getRealPath("/images");
 		File f = new File(realPath);
 		if(!f.exists()) f.mkdirs();
@@ -30,8 +67,29 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		newFileName=sdf.format(date)+fileType;
-		FileUtils.copyFile(mphoto, new File(f,newFileName));
+		newFileName=meal.getMid()+newFileName;
+		try {
+			FileUtils.copyFile(mphoto, new File(f,newFileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		meal.setPhoto(newFileName);
+	}
+	@Override
+	public String execute() throws Exception {
+/*		String realPath = ServletActionContext.getServletContext().getRealPath("/images");
+		File f = new File(realPath);
+		if(!f.exists()) f.mkdirs();
+		int start = mphotoFileName.lastIndexOf(".");
+		String fileType = mphotoFileName.substring(start);
+		String newFileName;
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		newFileName=sdf.format(date)+fileType;
+		FileUtils.copyFile(mphoto, new File(f,newFileName));
+		meal.setPhoto(newFileName);*/
+		savePhoto();
 		if(md.addMeal(meal))
 			return SUCCESS;
 		else return "false";
@@ -39,7 +97,7 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 
 	@Override
 	public Meal getModel() {
-		// TODO Auto-generated method stub
+	
 		return meal;
 	}
 
@@ -66,5 +124,6 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	public void setMphotoFileName(String mphotoFileName) {
 		this.mphotoFileName = mphotoFileName;
 	}
+
 	
 }

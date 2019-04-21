@@ -25,16 +25,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-    LoginSuccess
-    	<s:form action="adminLog" method="post">
-    	<s:textfield name="aid" label="用户名"/>
-    	<s:password name="apass" label="密码"></s:password>
-    	
-    	<s:submit value="登录" ></s:submit>
-    </s:form>
-    <a href="meal/meal.jsp">餐品管理</a><br>
-    <a href="table/table.jsp">餐桌管理</a><br>
-    <a href="" >信息统计</a>
+  	  请修改餐品信息<s:debug></s:debug>
+    	<s:form action="updateMeal" method="post" enctype="multipart/form-data">
+    		<s:hidden name="mid"></s:hidden>
+	    	<s:textfield name="mname" label="餐品名称" />
+	    	<s:textfield name="price" label="价格"/>
+	    	<img alt="图片走丢了" src="${photo }" width="100px" height="80px"><br>
+			 <s:file name="mphoto" label="餐品图片"></s:file>
+	    	<s:submit value="提交" ></s:submit>
+    	</s:form>
     </center>
   </body>
 </html>

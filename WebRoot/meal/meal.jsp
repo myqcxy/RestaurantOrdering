@@ -26,8 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <center>
     <h1>餐品信息</h1><br>
-    	<a href="addMeal.jsp">添加品信息</a><br>
-    	<a href=“”>修改餐品信息</a>
+    	<a href="meal/addMeal.jsp">添加餐品信息</a><br>
+    	<a href="getAllMeals">修改餐品信息</a><br>
+    	<a href="getAllMeals">浏览餐品信息</a><br>
     	
     	
     </center>
