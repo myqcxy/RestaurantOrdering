@@ -25,15 +25,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-    LoginSuccess
-    	<s:form action="adminLog" method="post">
-    	<s:textfield name="aid" label="用户名"/>
-    	<s:password name="apass" label="密码"></s:password>
-    	
-    	<s:submit value="登录" ></s:submit>
-    </s:form>
-    <a href="meal/meal.jsp">餐品管理</a><br>
-    <a href="table/table.jsp">餐桌管理</a><br>
+    您好！admin<br><br>
+    
+    <a href="meal/meal.jsp">餐品管理</a><br><br>
+    <a href="table/table.jsp">餐桌管理</a><br><br>
     <a href="" >信息统计</a>
     </center>
   </body>

@@ -5,6 +5,7 @@ public class User {
 	String upass;
 	float balance;
 	String phone;
+
 	public String getUid() {
 		return uid;
 	}

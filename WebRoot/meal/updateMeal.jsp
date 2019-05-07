@@ -30,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<s:hidden name="mid"></s:hidden>
 	    	<s:textfield name="mname" label="餐品名称" />
 	    	<s:textfield name="price" label="价格"/>
+	    	<s:select list="{'主食','甜点','晚餐'}" name="Category" label="类别"></s:select>
 	    	<img alt="图片走丢了" src="${photo }" width="100px" height="80px"><br>
 			 <s:file name="mphoto" label="餐品图片"></s:file>
 	    	<s:submit value="提交" ></s:submit>

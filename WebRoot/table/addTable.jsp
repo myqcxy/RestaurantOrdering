@@ -26,10 +26,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <center>
   	  输入添加的餐桌信息
-    	<s:form action="addMeal" method="post">
-    	<s:textfield name="mname" label="餐品名称"/>
-    	<s:textfield name="price" label="价格"/>
-		    	
+    	<s:form action="addTable" method="post">
+    	<s:textfield name="number" label="入座人数"/>
+		
+		<s:textarea name="describe" label="描述"/>
     	<s:submit value="提交" ></s:submit>
     	</s:form>
     </center>

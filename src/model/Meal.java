@@ -5,6 +5,28 @@ public class Meal {
 	String mname;
 	float price;
 	String photo;
+	String category;
+	int sales;
+	int addToCacheNumber;
+	
+	public int getAddToCacheNumber() {
+		return addToCacheNumber;
+	}
+	public void setAddToCacheNumber(int addToCacheNumber) {
+		this.addToCacheNumber = addToCacheNumber;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public int getSales() {
+		return sales;
+	}
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
 	public int getMid() {
 		return mid;
 	}

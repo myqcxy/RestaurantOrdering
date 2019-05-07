@@ -33,7 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	
    		<s:property value="mname"/>
    		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
-   		
+   		类别：<s:property value="category"/><br>
+   		销量：<s:property value="sales"/><br>
    		<img alt="图片走丢了" src="${ photo }" width="100px" height="80px"><br>
    		<s:url var="updateUrl" action="toUpdateMeal">
          <s:param name="mid" value="mid"/>

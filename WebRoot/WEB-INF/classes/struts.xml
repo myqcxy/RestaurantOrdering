@@ -5,13 +5,32 @@
     "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
 	
+	<package name="order" namespace="/" extends="struts-default">
+		<action name="placeAnOrder" class="action.OrderAction" method="placeAnOrder">
+			<result name="success">/order/order.jsp</result>
+		</action>
+		
+		<action name="toPay" class="action.OrderAction" method="toPay">
+			<result name="success">/order/toPaySuccess.jsp</result>
+			<result name="toPayFalse">/order/toPayFalse.jsp</result>
+		</action>
+	</package>
 	
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="struts-default,json-default">
 		<!-- 获取所有Meal 的Action -->
 		<action name="getAllMeals" class="action.MealAction" method="getAllMeals">
 		
 			<result name="success">/meal/showAllMeals.jsp</result>
+			<result name="false">/admin/loginFalse.jsp</result>
+	
+		</action>
+		
+		<!-- 按照类别搜索餐品 -->
+		<action name="getByCategory" class="action.MealAction" method="getByCategory">
+		
+			<result name="success">/index.jsp</result>
 			<result name="false">/admin/loginFalse.jsp</result>
 	
 		</action>
@@ -38,12 +57,65 @@
 			<result name="false">/meal/updateMealFalse.jsp</result>
 	
 		</action>
-	
+		<!-- 添加meal -->
 		<action name="addMeal" class="action.MealAction">
 		
 			<result name="success" type="redirect">/meal/addMealSuccess.jsp</result>
 			<result name="flase">/meal/addMealFalse.jsp</result>
 		</action>
+		
+		<!-- 添加餐桌 -->
+		<action name="addTable" class="action.TableAction">
+		
+			<result name="success" type="redirect">/table/addTableSuccess.jsp</result>
+			<result name="addTableFalse">/table/addTableFalse.jsp</result>
+		</action>
+		<!-- 将餐品添加进缓存 -->
+		<action name="addToCache" class="action.CacheAction" method="addToCache">
+		
+			<!-- <result name="success" >/index.jsp</result> -->
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+			<result name="addToCacheFalse">/table/updateTableFalse.jsp</result>
+		</action>
+		
+		<!-- 将餐品从缓存删除 -->
+		<action name="delFromCache" class="action.CacheAction" method="delFromCache">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+			<!-- <result name="success" >/index.jsp</result> -->
+			<result name="delFromCacheFalse">/table/updateTableFalse.jsp</result>
+		</action>
+		
+		<!-- 去结算 -->
+		<action name="settlement" class="action.CacheAction" method="settlement">
+		
+			<result name="success" >/cache/cache.jsp</result>
+			<result name="delFromCacheFalse">/table/updateTableFalse.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 获取所有餐桌 -->
+		<action name="showAllTables" class="action.TableAction" method="showAllTables">
+		
+			<result name="success" >/table/showAllTables.jsp</result>
+		</action>
+		
+		<action name="toUpdateTable" class="action.TableAction" method="toUpdateTable">
+		
+			<result name="success" >/table/updateTable.jsp</result>
+		</action>
+		
+		<action name="updateTable" class="action.TableAction" method="updateTable">
+		
+			<result name="success" type="redirectAction">showAllTables</result>
+			<result name="updateTableFalse" >/table/updateTableFalse.jsp</result>
+		</action>
+		
+		
 		<action name="adminLog" class="action.AdminAction">
 		
 			<result name="success">/admin/main.jsp</result>
@@ -53,9 +125,29 @@
 		
 		<action name="userLogin" class="action.UserAction">
 		
-			<result name="success">/user/main.jsp</result>
+			<result name="success">/index.jsp</result>
 			<result name="false">/user/loginFalse.jsp</result>
-	
+		</action>
+		<action name="userRegist" class="action.UserAction" method="regist">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
+		
+		<action name="checkusername" class="action.UserAction" method="checkusername">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
 		</action>
 	</package>
+	<package name="simpleton"  namespace="/" extends="struts-default,json-default">
+         
+        <action name="JsonAction" class="action.JsonAction" method="excuteAjax" >
+            <!-- 返回json类型数据 -->
+            <result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+        </action>
+         
+    </package>
 </struts>
