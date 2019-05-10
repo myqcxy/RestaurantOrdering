@@ -82,4 +82,28 @@ public class UserDao {
 				}
 			    return isSuc;
 	}
+
+	public User getUser(String uid) {
+		User user = new User();
+		String sql = "select * from [User] where uid=?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, uid);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				user.setUid(uid);
+				user.setUpass(rs.getString("upass"));
+				user.setBalance(rs.getFloat("balance"));
+				user.setPhone(rs.getString("phone"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return user;
+	}
 }

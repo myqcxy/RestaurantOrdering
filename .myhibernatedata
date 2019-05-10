@@ -1,0 +1,20 @@
+#MyEclipse Hibernate Properties
+#Sat Apr 27 19:17:36 CST 2019
+genBasicCompId=false
+sessionFactoryName=model.HibernateSessionFactory
+profile=
+daoSFId=
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=
+useJavaTypes=true
+keyGenerator=native
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/RestaurantOrdering/src/hibernate.cfg.xml
+createConfigFile=true

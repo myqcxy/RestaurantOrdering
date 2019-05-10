@@ -59,8 +59,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  %>
             <a href="user/login.jsp"><%= uname %></a></li>
             <li><a href="settlement">购物车</a></li>
+             <li><a href="myOrder">我的订单</a></li>
             <li><a href="user/regist.jsp">注册</a></li>
             <li><a href="#">帮助</a></li>
+            <li><a href="admin/AdminLogin.jsp">管理员</a></li>
+            <li><a href="waiter/waiterLogin.jsp">服务员</a></li>
+            <li><a href="cashier/cashierLogin.jsp">收银员</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="搜索...">
@@ -104,29 +108,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="row placeholders">
            <s:iterator value="list">
             <div class="col-xs-6 col-sm-3 placeholder">
-              <%-- <img src="${ list[0].photo }" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span> --%>
+              
               <s:property value="mname"/>
 		   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
 		   		类别：<s:property value="category"/><br>
 		   		销量：<s:property value="sales"/><br>
 		   		<img alt="图片走丢了" src="${ photo }" width="200px" height="200px" ><br>
-		   		
-		   		<s:url var="addToCacheUrl" action="addToCache">
-		         <s:param name="mid" value="mid"/>
-		      </s:url>
+		   	
 		       <a class="btn" onclick="add(<s:property value="mid"/>)"><font color="red" size="10">+</font></a>
 		      <input name="mid" class="mid<s:property value="mid"/>" id="%{mid}" type="hidden" value='<s:property value="mid"/>'>
-		   		 <span class="mid<s:property value="mid"/>" id="number<s:property value="mid"/>"><s:property value="sales"/> </span>
+		   		 <span class="mid<s:property value="mid"/>" id="number<s:property value="mid"/>"><s:property value="addToCacheNumber"/> </span>
 		      <a class="btn" onclick="del(<s:property value="mid"/>)"><font color="red" size="10">-</font></a>
-		   		<%-- <a href="${ addToCacheUrl }"><font color="red" size="10">+</font></a>
-		   		<input readonly="readonly" type="text" style="width:50px;text-align:center;" value="<s:property value="addToCacheNumber"/>" >
 		   		
-		   		 <s:url var="delFromCacheUrl" action="delFromCache">
-		         <s:param name="mid" value="mid"/>
-		      </s:url>
-		      <a href="${delFromCacheUrl}" onClick="return readyDel();"><font color="red" size="10">-</font></a> --%>
             </div></s:iterator>
             
           </div>
@@ -145,33 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               </thead>
               
               <tbody>
-    <%--          
-      <s:iterator value="list">
-   	
-   		<s:property value="mname"/>
-   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
-   		类别：<s:property value="category"/><br>
-   		销量：<s:property value="sales"/><br>
-   		<img alt="图片走丢了" src="${ photo }" width="100px" height="80px" ><br>
-   		<s:url var="updateUrl" action="toUpdateMeal">
-         <s:param name="mid" value="mid"/>
-      </s:url>
-   		<a href="${updateUrl }">修改</a>
-   		
-   		 <s:url var="delUrl" action="delMeal">
-         <s:param name="mid" value="mid"/>
-      </s:url>
-      <a href="${delUrl}" onClick="return readyDel();">删除</a>
-   	  <script>
-      function readyDel(){
-        return confirm("是否真的删除?");
-      }
-    </script> 
-   		<br><br>
-   </s:iterator>--%>
-              
-              
-              
+  
                 <tr>
                   <td>1,001</td>
                   <td>Lorem</td>
@@ -179,41 +146,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <td>dolor</td>
                   <td>sit</td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
+               
+                
+              
             
               </tbody>
             </table>

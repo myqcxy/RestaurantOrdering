@@ -7,28 +7,80 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	
-	<package name="order" namespace="/" extends="struts-default">
+	<package name="cashier" namespace="/" extends="struts-default,json-default">
+	
+		<action  name="choiceTable" class="action.CashierAction" method="choiceTable">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
+	
+		<action  name="cashRegister" class="action.CashierAction" method="cashRegister">
+			<result name="success">/cashier/main.jsp</result>
+		</action>
+	
+		<action  name="cashierLogin" class="action.CashierAction" method="checkLogin">
+			<result name="success">/cashier/main.jsp</result>
+		</action>
+		
+		<action  name="CashierSearch" class="action.CashierAction" method="search">
+			<result name="success">/cashier/main.jsp</result>
+		</action>
+		
+		<action  name="recharge" class="action.CashierAction" method="recharge">
+			<result name="success">/cashier/main.jsp</result>
+		</action>
+		
+		
+	</package>
+	
+	<package name="waiter" namespace="/" extends="struts-default,json-default">
+		<action  name="waiterLogin" class="action.WaiterAction" method="checkLogin">
+			<result name="success" type="redirectAction">obtainUnservedOrders</result>
+		</action>
+		<action  name="obtainUnservedOrders" class="action.WaiterAction" method="obtainUnservedOrders">
+			<result name="success">/waiter/main.jsp</result>
+		</action>
+		<action  name="changeOrderState" class="action.WaiterAction" method="changeOrderState">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
+	</package>
+	<package name="admin" namespace="/" extends="struts-default">
+		
+		<action name="salesStatistics" class="action.AdminAction" method="salesStatistics">
+			<result name="success">/admin/main.jsp</result>
+		</action>
+		<action name="getAllMeals" class="action.MealAction" method="AllMeals">
+		
+			<result name="success">/admin/main.jsp</result>
+			
+	
+		</action>
+	</package>
+	<package name="order" namespace="/" extends="struts-default,json-default">
 		<action name="placeAnOrder" class="action.OrderAction" method="placeAnOrder">
 			<result name="success">/order/order.jsp</result>
 		</action>
 		
+		<action name="myOrder" class="action.OrderAction" method="myOrder">
+			<result name="success">/order/myOrder.jsp</result>
+		</action>
+		
 		<action name="toPay" class="action.OrderAction" method="toPay">
-			<result name="success">/order/toPaySuccess.jsp</result>
-			<result name="toPayFalse">/order/toPayFalse.jsp</result>
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
 		</action>
 	</package>
 	
 	<package name="default" namespace="/" extends="struts-default,json-default">
 		<!-- 获取所有Meal 的Action -->
-		<action name="getAllMeals" class="action.MealAction" method="getAllMeals">
 		
-			<result name="success">/meal/showAllMeals.jsp</result>
-			<result name="false">/admin/loginFalse.jsp</result>
-	
-		</action>
 		
 		<!-- 按照类别搜索餐品 -->
-		<action name="getByCategory" class="action.MealAction" method="getByCategory">
+		<action name="getByCategory" class="action.MealAction" method="obtainMealsByCategory">
 		
 			<result name="success">/index.jsp</result>
 			<result name="false">/admin/loginFalse.jsp</result>

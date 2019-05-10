@@ -25,8 +25,13 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	private File mphoto;//上传的文件
 	private String mphotoContenType;//上传的文件类型
 	private String mphotoFileName;//上传的文件名
-	private List<Meal> list = new ArrayList<Meal>();
+	private List<Meal> list;
 	
+	
+	public void setList(List<Meal> list) {
+		this.list = list;
+	}
+
 	public List<Meal> getList() {
 		return list;
 	}
@@ -35,7 +40,12 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		if(new MealDao().delMeal(meal.getMid())) return SUCCESS;
 		else return "delFalse";
 	}
-	public String getByCategory(){
+	public String AllMeals(){
+		list= new MealDao().getHotMeals();
+		
+		return SUCCESS;
+	}
+	public String obtainMealsByCategory(){
 		//meal.setCategory("主食");
 		ActionContext actionContext = ActionContext.getContext();
         Map session = actionContext.getSession();
@@ -45,17 +55,14 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		m.put("2", "晚餐");
 		m.put("3", "饮料");
 		m.put("4", "小吃");
-		list = new MealDao().getByCategory(m.get(meal.getCategory()),uid);
-		return SUCCESS;
-	}
-	public String getAllMeals(){
-		list = new MealDao().getAllMeals();
+		list = md.getByCategory(m.get(meal.getCategory()),uid);
 		return SUCCESS;
 	}
 	
+	
 	public String toUpdateMeal(){
 		
-		Meal m = new MealDao().getMealById(meal.getMid());
+		Meal m = md.getMealById(meal.getMid());
 	
 		meal.setMid(m.getMid());
 		meal.setMname(m.getMname());
