@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
 
   </head>
-  
+ 
   <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -51,16 +51,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li>
+           
              <% String uname=(String)session.getAttribute("uid");
              	if(uname==null){
-             	uname="请登录！";
-             	}else uname="你好！" + uname;
+             	uname="请登录！";%>
+             	 <li><a href="user/login.jsp"><%= uname %></a></li>
+             	  <li><a href="user/regist.jsp">注册</a></li>
+             	<% 
+             	
+             	}else {
+             	uname="你好！" + uname;%>
+             	<li><a href="user/login.jsp"><%= uname %></a></li>
+             	<li><a href="logout">注销</a></li>
+             	<% 
+             	}
 			  %>
-            <a href="user/login.jsp"><%= uname %></a></li>
+       
             <li><a href="settlement">购物车</a></li>
              <li><a href="myOrder">我的订单</a></li>
-            <li><a href="user/regist.jsp">注册</a></li>
+           
+            
             <li><a href="#">帮助</a></li>
             <li><a href="admin/AdminLogin.jsp">管理员</a></li>
             <li><a href="waiter/waiterLogin.jsp">服务员</a></li>
@@ -104,8 +114,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">今日热卖</h1>
-
+			
+			
           <div class="row placeholders">
+          <s:if test="list==null">
+          	<script language="javascript" type="text/javascript">
+           window.location.href="initRecommend"; 
+    </script>
+          </s:if>
            <s:iterator value="list">
             <div class="col-xs-6 col-sm-3 placeholder">
               

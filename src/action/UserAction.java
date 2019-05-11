@@ -30,12 +30,20 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		if(ud.login(user)){
 			Map session=ActionContext.getContext().getSession();
 		
-			   session.put("uid", user.getUid());
+			 session.put("uid", user.getUid());
 			return SUCCESS;
 		}
 		
 		else return "false";
 	}
+	//×¢Ïú
+	public String logout(){
+		Map session=ActionContext.getContext().getSession();
+		
+		   session.remove("uid");
+		return SUCCESS;
+	}
+	
 	//×¢²á
 	public String checkusername(){
 		Map<String,Object> map = new HashMap<String,Object>();

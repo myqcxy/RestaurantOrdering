@@ -45,6 +45,13 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		
 		return SUCCESS;
 	}
+	
+	public String initRecommend(){
+		list = md.initRecommend();
+		return SUCCESS;
+	}
+	
+	
 	public String obtainMealsByCategory(){
 		//meal.setCategory("Ö÷Ê³");
 		ActionContext actionContext = ActionContext.getContext();

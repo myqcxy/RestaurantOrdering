@@ -462,4 +462,40 @@ public class MealDao {
 				
 				return meals;
 	}
+
+	public List<Meal> initRecommend() {
+		//创建一个List<Meal>对象
+		List<Meal> meals = new ArrayList<Meal>();
+		//sql语句
+		String sql = "select top 3 * from meal Order By sales desc";
+		//使用PreparedStatement将SQL语句执行
+		PreparedStatement ps;
+		String ans="";
+		try {
+			ps = con.prepareStatement(sql);
+		
+			//逐个获取得到的结果
+			try (ResultSet rs = ps.executeQuery();) {
+				while(rs.next()){//如果还有house没有获取
+					Meal m = new Meal();
+					
+					m.setMid(rs.getInt("mid"));
+					m.setMname(rs.getString("mname"));
+					m.setPhoto(rs.getString("photo"));
+					m.setPrice(rs.getFloat("price"));
+					m.setPhoto("images/"+m.getPhoto());
+					m.setCategory(rs.getString("Category"));
+					m.setSales(rs.getInt("sales"));
+					meals.add(m);
+					
+				}
+			}
+			ps.close();//关闭ps
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return meals;
+	}
 }

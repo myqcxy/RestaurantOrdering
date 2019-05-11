@@ -60,11 +60,25 @@
 		</action>
 	</package>
 	<package name="order" namespace="/" extends="struts-default,json-default">
+	<interceptors>
+		<interceptor name="loginInterceptor" class="interceptor.LoginValidateInterceptor"></interceptor>
+		<interceptor-stack name="loginInterceptorStack">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	<global-results>
+	
+	<result name="login">/user/login.jsp</result>
+	
+	</global-results>
 		<action name="placeAnOrder" class="action.OrderAction" method="placeAnOrder">
+		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<result name="success">/order/order.jsp</result>
 		</action>
 		
 		<action name="myOrder" class="action.OrderAction" method="myOrder">
+		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<result name="success">/order/myOrder.jsp</result>
 		</action>
 		
@@ -76,7 +90,26 @@
 	</package>
 	
 	<package name="default" namespace="/" extends="struts-default,json-default">
+	<interceptors>
+		<interceptor name="loginInterceptor" class="interceptor.LoginValidateInterceptor"></interceptor>
+		<interceptor-stack name="loginInterceptorStack">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	<global-results>
+	
+	<result name="login">/user/login.jsp</result>
+	
+	</global-results>
 		<!-- 获取所有Meal 的Action -->
+		
+		<!-- 初始化搜索餐品 -->
+		<action name="initRecommend" class="action.MealAction" method="initRecommend">
+		
+			<result name="success">/index.jsp</result>
+	
+		</action>
 		
 		
 		<!-- 按照类别搜索餐品 -->
@@ -143,7 +176,7 @@
 		
 		<!-- 去结算 -->
 		<action name="settlement" class="action.CacheAction" method="settlement">
-		
+		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<result name="success" >/cache/cache.jsp</result>
 			<result name="delFromCacheFalse">/table/updateTableFalse.jsp</result>
 		</action>
@@ -173,6 +206,10 @@
 			<result name="success">/admin/main.jsp</result>
 			<result name="false">/admin/loginFalse.jsp</result>
 	
+		</action>
+		<action name="logout" class="action.UserAction" method="logout">
+		
+			<result name="success">/index.jsp</result>
 		</action>
 		
 		<action name="userLogin" class="action.UserAction">
