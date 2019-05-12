@@ -111,6 +111,13 @@
 	
 		</action>
 		
+		<!-- 用户搜索餐品 -->
+		<action name="userSearch" class="action.MealAction" method="userSearch">
+		
+			<result name="success">/index.jsp</result>
+			<result name="false">/admin/loginFalse.jsp</result>
+	
+		</action>
 		
 		<!-- 按照类别搜索餐品 -->
 		<action name="getByCategory" class="action.MealAction" method="obtainMealsByCategory">

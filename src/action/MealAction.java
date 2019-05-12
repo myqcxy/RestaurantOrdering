@@ -26,8 +26,16 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	private String mphotoContenType;//上传的文件类型
 	private String mphotoFileName;//上传的文件名
 	private List<Meal> list;
+	String searchContent;
 	
-	
+	public String getSearchContent() {
+		return searchContent;
+	}
+
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
+
 	public void setList(List<Meal> list) {
 		this.list = list;
 	}
@@ -36,6 +44,10 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		return list;
 	}
 	
+	public String userSearch(){
+		list= md.userSearch(searchContent);
+		return SUCCESS;
+	}
 	public String delMeal(){
 		if(new MealDao().delMeal(meal.getMid())) return SUCCESS;
 		else return "delFalse";

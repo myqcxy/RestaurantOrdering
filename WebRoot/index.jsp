@@ -76,8 +76,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a href="waiter/waiterLogin.jsp">服务员</a></li>
             <li><a href="cashier/cashierLogin.jsp">收银员</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="搜索...">
+          <form action="userSearch" method="post" class="navbar-form navbar-right">
+            <input name="searchContent" type="text" class="form-control" placeholder="搜索餐品...">
             <input type="submit" value="搜索">
           </form>
         </div>
