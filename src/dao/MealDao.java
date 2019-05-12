@@ -463,7 +463,7 @@ public class MealDao {
 				return meals;
 	}
 
-	public List<Meal> initRecommend() {
+	public List<Meal> initRecommend(String uid) {
 		//创建一个List<Meal>对象
 		List<Meal> meals = new ArrayList<Meal>();
 		//sql语句
@@ -486,6 +486,7 @@ public class MealDao {
 					m.setPhoto("images/"+m.getPhoto());
 					m.setCategory(rs.getString("Category"));
 					m.setSales(rs.getInt("sales"));
+					m.setAddToCacheNumber(this.getAddToCacheNumber(m.getMid(), uid));
 					meals.add(m);
 					
 				}
@@ -498,4 +499,5 @@ public class MealDao {
 
 		return meals;
 	}
+
 }

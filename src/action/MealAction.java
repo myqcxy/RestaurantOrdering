@@ -47,7 +47,10 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	}
 	
 	public String initRecommend(){
-		list = md.initRecommend();
+		ActionContext actionContext = ActionContext.getContext();
+        Map session = actionContext.getSession();
+        String uid=((String)session.get("uid"));
+		list = md.initRecommend(uid);
 		return SUCCESS;
 	}
 	

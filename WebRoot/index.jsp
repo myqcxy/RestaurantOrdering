@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              	
              	}else {
              	uname="你好！" + uname;%>
-             	<li><a href="user/login.jsp"><%= uname %></a></li>
+             	<li><a href="userEdit"><%= uname %></a></li>
              	<li><a href="logout">注销</a></li>
              	<% 
              	}
@@ -134,7 +134,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       <a class="btn" onclick="add(<s:property value="mid"/>)"><font color="red" size="10">+</font></a>
 		      <input name="mid" class="mid<s:property value="mid"/>" id="%{mid}" type="hidden" value='<s:property value="mid"/>'>
 		   		 <span class="mid<s:property value="mid"/>" id="number<s:property value="mid"/>"><s:property value="addToCacheNumber"/> </span>
-		      <a class="btn" onclick="del(<s:property value="mid"/>)"><font color="red" size="10">-</font></a>
+		   	
+		   		 <a class="btn" onclick="del(<s:property value="mid"/>)"><font color="red" size="10">-</font></a>
+		   		
+		      
 		   		
             </div></s:iterator>
             
@@ -188,6 +191,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
   <script type="text/javascript">
                 function add(aa){
+                var a='<%=session.getAttribute("uid")%>';
+                if(a == "null"){
+                	window.location.href="<%=basePath%>/user/login.jsp";
+                }else{
                 $.ajax({
                     type:"post",
                     url:"addToCache",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
@@ -206,8 +213,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         alert("系统异常，请稍后重试！");
                     }//这里不要加","
                 });
+                }
+                
             };
             function del(aa){
+            
+            var a='<%=session.getAttribute("uid")%>';
+                if(a == "null"){
+                	window.location.href="<%=basePath%>/user/login.jsp";
+                }else{
                 $.ajax({
                     type:"post",
                     url:"delFromCache",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
@@ -220,12 +234,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
                          
                         $("#number"+aa).text(""+d.number+"");
-                         
+                         if($("#number"+aa).val()==0){
+            				$("#number"+aa).style.visibility="hidden";
+            }
                     },
                     error:function(){
                         alert("系统异常，请稍后重试！");
                     }//这里不要加","
                 });
+                }
+                
             };
 
   </script>

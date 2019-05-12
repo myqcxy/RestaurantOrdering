@@ -157,7 +157,7 @@
 		</action>
 		<!-- 将餐品添加进缓存 -->
 		<action name="addToCache" class="action.CacheAction" method="addToCache">
-		
+		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<!-- <result name="success" >/index.jsp</result> -->
 			<result type="json">
                 <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
@@ -167,10 +167,10 @@
 		
 		<!-- 将餐品从缓存删除 -->
 		<action name="delFromCache" class="action.CacheAction" method="delFromCache">
+		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<result type="json">
                 <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
             </result>
-			<!-- <result name="success" >/index.jsp</result> -->
 			<result name="delFromCacheFalse">/table/updateTableFalse.jsp</result>
 		</action>
 		
@@ -212,6 +212,14 @@
 			<result name="success">/index.jsp</result>
 		</action>
 		
+		<action name="userUpdate" class="action.UserAction" method="userUpdate">
+			<result name="input">/user/edit.jsp</result>
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="userEdit" class="action.UserAction" method="userEdit">
+		
+			<result name="success">/user/edit.jsp</result>
+		</action>
 		<action name="userLogin" class="action.UserAction">
 		
 			<result name="success">/index.jsp</result>

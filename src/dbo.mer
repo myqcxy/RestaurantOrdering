@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ERDiagram version="1.1">
+  <Connection session="sql server" database="RestaurantOrdering" schema="dbo" />
+  <Drawing gridVisible="false" snapOn="false" fastRouting="false" labelsVisible="true" />
+  <Tables>
+    <Table name="Admin">
+      <Drawing expanded="true" location="50,50" dimensions="163,80" />
+      <Columns>
+        <Column name="aid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="apass" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="20" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Cache">
+      <Drawing expanded="true" location="350,50" dimensions="188,103" />
+      <Columns>
+        <Column name="cid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="int identity" size="10" />
+        </Column>
+        <Column name="mid" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="200" />
+        </Column>
+        <Column name="uid" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Cashier">
+      <Drawing expanded="true" location="650,50" dimensions="162,80" />
+      <Columns>
+        <Column name="cid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="cpass" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Discount">
+      <Drawing expanded="true" location="950,169" dimensions="236,172" />
+      <Columns>
+        <Column name="did" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="int identity" size="10" />
+        </Column>
+        <Column name="discount" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="float" size="53" />
+        </Column>
+        <Column name="mid" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="describe" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="100" />
+        </Column>
+        <Column name="starttime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="datetime" size="null,3" />
+        </Column>
+        <Column name="endtime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="datetime" size="null,3" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Meal">
+      <Drawing expanded="true" location="573,162" dimensions="227,172" />
+      <Columns>
+        <Column name="mid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="int identity" size="10" />
+        </Column>
+        <Column name="price" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="float" size="53" />
+        </Column>
+        <Column name="photo" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="100" />
+        </Column>
+        <Column name="mname" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="30" />
+        </Column>
+        <Column name="Category" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="30" />
+        </Column>
+        <Column name="sales" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Order">
+      <Drawing expanded="true" location="558,422" dimensions="272,379" />
+      <Columns>
+        <Column name="oid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="bigint identity" size="19" />
+        </Column>
+        <Column name="uid" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="price" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="float" size="53" />
+        </Column>
+        <Column name="date" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="datetime" size="null,3" />
+        </Column>
+        <Column name="state" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="mid" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="200" />
+        </Column>
+        <Column name="tid" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="totle" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="float" size="53" />
+        </Column>
+        <Column name="phone" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="11" />
+        </Column>
+        <Column name="method" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="discount" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="float" size="53" />
+        </Column>
+        <Column name="payMethod" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="payState" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="number" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="note" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="120" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Table">
+      <Drawing expanded="true" location="191,277" dimensions="223,126" />
+      <Columns>
+        <Column name="tid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="int identity" size="10" />
+        </Column>
+        <Column name="number" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="describe" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="100" />
+        </Column>
+        <Column name="used" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="User">
+      <Drawing expanded="true" location="174,465" dimensions="180,126" />
+      <Columns>
+        <Column name="uid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="upass" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="phone" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="nchar" size="11" />
+        </Column>
+        <Column name="balance" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="float" size="53" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="Waiter">
+      <Drawing expanded="true" location="950,550" dimensions="167,80" />
+      <Columns>
+        <Column name="wid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="wpass" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="nchar" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="comment">
+      <Drawing expanded="true" location="147,717" dimensions="228,126" />
+      <Columns>
+        <Column name="cid" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="bigint identity" size="19" />
+        </Column>
+        <Column name="uid" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="nchar" size="10" />
+        </Column>
+        <Column name="oid" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="bigint" size="19" />
+        </Column>
+        <Column name="grade" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="sysdiagrams">
+      <Drawing expanded="true" location="927,746" dimensions="306,149" />
+      <Columns>
+        <Column name="name" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="sysname" size="128" />
+        </Column>
+        <Column name="principal_id" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="diagram_id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="int identity" size="10" />
+        </Column>
+        <Column name="version" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="int" size="10" />
+        </Column>
+        <Column name="definition" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="varbinary" size="2147483647" />
+        </Column>
+      </Columns>
+    </Table>
+  </Tables>
+  <Relationships>
+    <Relationship name="FK_Discount_Meal">
+      <Details primary_table="Meal" foreign_table="Discount">
+        <PrimaryKeys>
+          <ColumnName name="mid" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="mid" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK_Order_Table">
+      <Details primary_table="Table" foreign_table="Order">
+        <PrimaryKeys>
+          <ColumnName name="tid" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="tid" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK_comment_User">
+      <Details primary_table="User" foreign_table="comment">
+        <PrimaryKeys>
+          <ColumnName name="uid" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="uid" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK_comment_Order">
+      <Details primary_table="Order" foreign_table="comment">
+        <PrimaryKeys>
+          <ColumnName name="oid" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="oid" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+  </Relationships>
+</ERDiagram>
+

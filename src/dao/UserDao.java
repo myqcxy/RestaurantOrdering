@@ -106,4 +106,21 @@ public class UserDao {
 		
 		return user;
 	}
+
+	public boolean updateUser(User user) {
+		String sql="update  [User] set upass=?,phone=? where uid=?";
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      pstmt.setString(3,user.getUid());
+			      pstmt.setString(1,user.getUpass());
+			      pstmt.setString(2,user.getPhone());
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
 }

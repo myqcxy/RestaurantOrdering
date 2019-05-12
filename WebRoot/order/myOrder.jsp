@@ -58,16 +58,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <s:textfield name="note" value="%{ note }" label="批注"  disabled="true"/>
      
 		     	</s:form><br>
-            <!-- </div> --></s:iterator>
-            
-           
-        <!--   </div> -->
- 
-          
-       <!--  </div> -->
+       </s:iterator>
       </div>
     </div>
-</center>
+	</center>
+	
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
   <script type="text/javascript">
