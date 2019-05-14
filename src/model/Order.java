@@ -47,7 +47,7 @@ public class Order {
 	private int method;//下单方式
 	private float discount;//折扣
 	private int payMethod;//付款方式：网上支付（0）：默认
-	private int payState;//付款状态 未付款（默认）：2 付款：1
+	private int payState;//付款状态 未付款（默认）：2  付款：1
 	private String payStateString;
 	private  static final Map<Integer,String> payStateMap = new HashMap<Integer, String>(){
 		{

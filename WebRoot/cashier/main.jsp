@@ -56,9 +56,8 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li>您好！admin
-				<li><a href="#">帮助</a></li>
-				<li><a href="admin/AdminLogin.jsp">注销</a></li>
+				<li><a >您好！<s:property value="#session.cid"/></a></li>
+				<li><a href="cashierLogout">注销</a></li>
 			</ul>
 			
 			<form action="CashierSearch" method="post" class="navbar-form navbar-right">
@@ -128,8 +127,6 @@
               <s:textfield name="state" value="%{ stateString }" label="订单状态"  disabled="true"/>
               <s:textfield name="mid" value="%{ midString }" label="购买餐品"  disabled="true"/>
               <s:textfield name="phone" value="%{ phone }" label="联系电话"  disabled="true"/>
-             <%--  <s:textfield name="method" value="%{ method }" label="下单方式"  disabled="true"/>
-              <s:textfield name="payMethod" value="%{ payMethodString }" label="付款方式"  disabled="true"/> --%>
               <s:if test="%{payStateString==\"已付款\"}"><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/></s:if>
               <s:else><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/>
           <s:url action="cashRegister"  var="cashRegisterUrl">

@@ -1,16 +1,18 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import model.Discount;
 import model.Meal;
 
 public class MealDao {
@@ -213,6 +215,9 @@ public class MealDao {
 	}
 
 	public List<Meal> getAllMeals(String mid, String uid) {
+		
+		if(mid==null||mid.length()<1)
+			return null;
 		//创建一个List<Meal>对象
 				List<Meal> meals = new ArrayList<Meal>();
 				//sql语句
@@ -500,14 +505,13 @@ public class MealDao {
 		return meals;
 	}
 
-	public List<Meal> userSearch(String searchContent) {
+	public List<Meal> userSearch(String searchContent, String uid) {
 		//创建一个List<Meal>对象
 		List<Meal> meals = new ArrayList<Meal>();
 		//sql语句
 		String sql = "select * from meal where mname like '%"+searchContent+"%'";
 		//使用PreparedStatement将SQL语句执行
 		PreparedStatement ps;
-		String ans="";
 		try {
 			ps = con.prepareStatement(sql);
 		
@@ -523,6 +527,7 @@ public class MealDao {
 					m.setPhoto("images/"+m.getPhoto());
 					m.setCategory(rs.getString("Category"));
 					m.setSales(rs.getInt("sales"));
+					m.setAddToCacheNumber(this.getAddToCacheNumber(m.getMid(), uid));
 					meals.add(m);
 					
 				}
@@ -534,6 +539,114 @@ public class MealDao {
 		}
 
 		return meals;
+	}
+	//获取餐品的打折信息
+	public Discount getDiscount(int mid) {
+		Discount d=null;
+		//sql语句
+		String sql = "select * from discount where mid=?";
+		//使用PreparedStatement将SQL语句执行
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, mid);
+			//逐个获取得到的结果
+			try (ResultSet rs = ps.executeQuery();) {
+				while(rs.next()){//如果还有house没有获取
+					d=new Discount();
+					d.setDid(rs.getInt("did"));
+					d.setDescribe(rs.getString("describe"));
+					d.setDiscount(rs.getFloat("discount"));
+					d.setMid(mid);
+					d.setStarttime(rs.getDate("starttime"));
+					d.setEndtime(rs.getDate("endtime"));
+				}
+			}
+			ps.close();//关闭ps
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
+		
+		return d;
+	}
+
+	public boolean addDiscount(Discount discount) {
+		String sql="";
+		if(isInDiscount(discount.getMid())){
+			sql="update Discount set discount=?,describe=?,starttime=?,endtime=? where mid=?";
+			boolean isSuc=false;
+			 try (
+				        PreparedStatement pstmt = con.prepareStatement(sql);) {
+				      pstmt.setFloat(1,discount.getDiscount());
+				      pstmt.setInt(5,discount.getMid());
+				      pstmt.setString(2,discount.getDescribe());
+				      pstmt.setDate(3,discount.getStarttime());
+				      pstmt.setDate(4, discount.getEndtime());
+				      int row=pstmt.executeUpdate();
+				      isSuc=row>0;
+				    } catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
+			 return isSuc;
+		}else{
+			sql="insert into Discount(discount,mid,describe,starttime,endtime) values(?,?,?,?,?)";
+			boolean isSuc=false;
+			 try (
+				        PreparedStatement pstmt = con.prepareStatement(sql);) {
+				      pstmt.setFloat(1,discount.getDiscount());
+				      pstmt.setInt(2,discount.getMid());
+				      pstmt.setString(3,discount.getDescribe());
+				      pstmt.setDate(4,discount.getStarttime());
+				      pstmt.setDate(5, discount.getEndtime());
+				      int row=pstmt.executeUpdate();
+				      isSuc=row>0;
+				    } catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
+				    return isSuc;
+		}
+		
+	}
+
+	private boolean isInDiscount(int mid) {
+		String sql="select * from Discount where mid=?";
+		boolean isin=false;
+		 try (
+			      PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      pstmt.setInt(1,mid);
+			      ResultSet rs=pstmt.executeQuery();
+			     return rs.next();
+			      
+			    } catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		return false;
+	}
+
+	public float getDicountByMid(int mid) {
+		String sql="select * from Discount where mid=? and getdate() > starttime and getdate()<endtime";
+		float discount=0;
+		 try (
+			      PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      pstmt.setInt(1,mid);
+			      ResultSet rs=pstmt.executeQuery();
+			      if(rs.next()){
+			    	  discount = rs.getFloat("discount");
+			      }
+			      
+			    } catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		return discount;
 	}
 
 }

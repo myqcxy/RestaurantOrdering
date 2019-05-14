@@ -43,10 +43,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">购物车</h1>
+          <h1 class="page-header"><a href="index.jsp">返回主页</a></h1>
+          
 			<h1 class="page-header">
-			<a href="placeAnOrder">下单</a>
+			<s:if test="list!=null">
+			<a href="placeAnOrder">下单</a></s:if>
 			</h1>
           <div class="row placeholders">
+          <s:if test="list!=null">
            <s:iterator value="list" >
             <div class="col-xs-6 col-sm-3 placeholder">
              
@@ -59,7 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		 <span class="mid<s:property value="mid"/>" id="number<s:property value="mid"/>"><s:property value="sales"/> </span>
 		      <a class="btn" onclick="del(<s:property value="mid"/>)"><font color="red" size="10">-</font></a>
             </div></s:iterator>
-            
+            </s:if>
+            <s:else>
+            	<h1 class="page-header">
+				购物车中暂无餐品
+			</h1>
+            </s:else>
           </div>
  
         </div>
@@ -113,6 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
                          
                         $("#number"+aa).text(""+d.number+"");
+                        if(d.number==0)
+                        	window.location.href="settlement";
                          
                     },
                     error:function(){

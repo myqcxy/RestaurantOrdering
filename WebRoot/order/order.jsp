@@ -43,7 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<img alt="图片走丢了" src="${ photo }" width="100px" height="100px" ><br>
 		   		
 		   		
-            </div></s:iterator>
+            </div>
+            
+            </s:iterator>
             
             <s:form >
             	<s:textfield name="totle" label="总金额" class="totle"/>
@@ -55,11 +57,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	 <% String isok=(String)session.getAttribute("placeAnOrderRes");
              	if(isok.equalsIgnoreCase("ok")){
              		%>
-             		<input type="button" onclick="topay(1)" value="去付款">
+             		<input type="button" onclick="topay(1)" value="去付款"><br>
+             		<input type="button"  onclick="topay(2)" value="预约，到店付款">
              		<% 
              	}else {
              	%>
-             		<input type="button"  onclick="topay(2)" value="余额不足，到店付款">
+             		<input type="button"  onclick="topay(2)" value="余额不足，先预约，到店付款">
              		<% 
              	}
 			  %>

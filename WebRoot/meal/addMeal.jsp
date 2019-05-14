@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<s:form action="addMeal" method="post" enctype="multipart/form-data">
     	<s:textfield name="mname" label="餐品名称" />
     	<s:textfield name="price" label="价格"/>
-    	<s:select list="{'主食','甜点','晚餐'}" name="Category" label="类别"></s:select>
+    	<s:select list="{'主食','饮料','晚餐','小吃'}" name="Category" label="类别"></s:select>
 		 <s:file name="mphoto" label="餐品图片"></s:file>
     	<s:submit value="提交" ></s:submit>
     	</s:form>

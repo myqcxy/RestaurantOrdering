@@ -34,7 +34,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <s:debug></s:debug>
        <!--  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
          <!--  <div class="row placeholders"> -->
-          
+          <s:if test="orders==null">
+          	<h1 class="page-header">
+				暂无订单
+			</h1>
+          </s:if>
           <s:iterator value="orders">
           
            <!--  <div class="col-xs-6 col-sm-3 placeholder"> -->

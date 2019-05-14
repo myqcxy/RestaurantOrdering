@@ -24,7 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <center>
+    <center> <h1><a href="<%=basePath%>/admin/main.jsp">返回主页</a></h1><br>
+ 	
     显示所有Table<s:debug></s:debug>
     <h1>餐桌信息为：</h1><br>
  	

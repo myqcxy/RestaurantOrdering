@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -51,10 +52,23 @@ public class CashierAction extends ActionSupport implements ModelDriven<Cashier>
 		return SUCCESS;
 	}
 	
+	//×¢Ïú
+	public String cashierLogout(){
+		Map session=ActionContext.getContext().getSession();
+		
+		 session.remove("cid");
+		 return SUCCESS;
+	}
+	
 	
 	public String checkLogin() {
-		if (cd.checkLogin(cashier))
+		if (cd.checkLogin(cashier)){
+			Map session=ActionContext.getContext().getSession();
+			
+			 session.put("cid", cashier.getCid());
 			return SUCCESS;
+		}
+			
 		return SUCCESS;
 	}
 	

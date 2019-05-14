@@ -143,35 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
           </div>
  
-          <h2 class="sub-header">餐品</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>餐饮名称</th>
-                  <th>价格</th>
-                  <th>售出</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              
-              <tbody>
-  
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-               
-                
-              
-            
-              </tbody>
-            </table>
-          </div>
+          
         </div>
       </div>
     </div>

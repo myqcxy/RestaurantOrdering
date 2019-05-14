@@ -15,6 +15,10 @@
             </result>
 		</action>
 	
+	<action  name="cashierLogout" class="action.CashierAction" method="cashierLogout">
+			<result name="success">/cashier/cashierLogin.jsp</result>
+		</action>
+	
 		<action  name="cashRegister" class="action.CashierAction" method="cashRegister">
 			<result name="success">/cashier/main.jsp</result>
 		</action>
@@ -47,16 +51,23 @@
             </result>
 		</action>
 	</package>
-	<package name="admin" namespace="/" extends="struts-default">
+	<package name="admin" namespace="/" extends="struts-default,json-default">
 		
+		<action name="addDiscount" class="action.MealAction" method="addDiscount">
+			<!-- <result name="success">/meal/setDiscount.jsp</result> -->
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
+		
+		<action name="setDiscount" class="action.MealAction" method="setDiscount">
+			<result name="success">/meal/setDiscount.jsp</result>
+		</action>
 		<action name="salesStatistics" class="action.AdminAction" method="salesStatistics">
 			<result name="success">/admin/main.jsp</result>
 		</action>
 		<action name="getAllMeals" class="action.MealAction" method="AllMeals">
-		
 			<result name="success">/admin/main.jsp</result>
-			
-	
 		</action>
 	</package>
 	<package name="order" namespace="/" extends="struts-default,json-default">

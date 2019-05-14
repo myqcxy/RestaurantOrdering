@@ -55,7 +55,7 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li>您好！admin
+				<li><a>您好！admin</a></li>
 				<li><a href="#">帮助</a></li>
 				<li><a href="admin/AdminLogin.jsp">注销</a></li>
 			</ul>
@@ -98,11 +98,26 @@
 		   		类别：<s:property value="category"/><br>
 		   		销量：<s:property value="sales"/><br>
 		   		<img alt="图片走丢了" src="${ photo }" width="200px" height="200px" ><br>
-		   	
-		       <a class="btn" onclick="add(<s:property value="mid"/>)"><font color="red" size="10">+</font></a>
-		      <input name="mid" class="mid<s:property value="mid"/>" id="%{mid}" type="hidden" value='<s:property value="mid"/>'>
-		   		 <span class="mid<s:property value="mid"/>" id="number<s:property value="mid"/>"><s:property value="addToCacheNumber"/> </span>
-		      <a class="btn" onclick="del(<s:property value="mid"/>)"><font color="red" size="10">-</font></a>
+		   	<s:url var="updateUrl" action="toUpdateMeal">
+         <s:param name="mid" value="mid"/>
+      </s:url>
+   		<a href="${updateUrl }">修改</a>
+   		
+   		 <s:url var="delUrl" action="delMeal">
+         <s:param name="mid" value="mid"/>
+      	</s:url>
+      <a href="${delUrl}" onClick="return readyDel();">删除</a>
+	      <s:url var="setDiscountUrl" action="setDiscount">
+	         <s:param name="mid" value="mid"/>
+	      	</s:url>
+      	<a href="${setDiscountUrl }">设置此餐品的优惠信息</a>
+   	  <script>
+      function readyDel(){
+        return confirm("是否真的删除?");
+      }
+    </script>
+   		<br><br>
+		       
 		   		
             </div></s:iterator>
             

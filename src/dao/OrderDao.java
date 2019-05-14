@@ -114,7 +114,7 @@ public class OrderDao extends Dao{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		if(orders.isEmpty()) return null;
 		return orders;
 	}
 
@@ -310,6 +310,23 @@ public class OrderDao extends Dao{
 					return false;
 				}
 		 return isSuc;
+	}
+
+
+	public float getDiscount(String mid) {
+		mid=mid.trim();
+		String []mids = mid.split(":");
+		float discount=0;
+		for(String m:mids){
+			if(m.length()>0){
+				System.out.println(m+"111111111111");
+				discount+=new MealDao().getDicountByMid(Integer.parseInt(m));
+				System.out.println(discount);
+			}
+		}
+			
+			
+		return discount;
 	}
 
 
