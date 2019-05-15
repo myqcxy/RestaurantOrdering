@@ -21,19 +21,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<meta charset="utf-8">
 
+<style>
+<!--
+input{
+	color: #0A0A0A;
+	BACKGROUND-COLOR: #FFFFFF;
+}
+form{
+	BACKGROUND-COLOR: #E8F2FE;
+	width: 500px;
+	border: 1px solid #dddddd;
+	float: auto;
+}
 
+-->
+</style>
     
 
   </head>
   
-  <body>
-	<center>
+  <body bgcolor="#A6A6A6">
+	<center >
+	<h1><b>我的主页</b></h1>
 	<a href="index.jsp">返回主页</a>
     <div class="container-fluid">
       <div class="row">
         <s:debug></s:debug>
-       <!--  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
-         <!--  <div class="row placeholders"> -->
           <s:if test="orders==null">
           	<h1 class="page-header">
 				暂无订单
@@ -41,8 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </s:if>
           <s:iterator value="orders">
           
-           <!--  <div class="col-xs-6 col-sm-3 placeholder"> -->
-            <s:form>
+            <s:form style="color:#0314FB">
            
               <s:textfield name="oid" value="%{ oid }" label="订单编号"  disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
@@ -60,7 +72,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <s:textfield name="payMethod" value="%{ payMethodString }" label="付款方式"  disabled="true"/> --%>
               <s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/>
               <s:textfield name="note" value="%{ note }" label="批注"  disabled="true"/>
-     
+              <s:if test="state==2">
+             <tr><td>
+             
+             	评价等级 <td><select id="select<s:property value="oid"/>" class="select<s:property value="oid"/>" name="evaluationLevel">
+					<option value="1">很不满意 ★</option>
+					<option value="2">较不满意 ★★</option>
+					<option value="3">基本满意 ★★★</option>
+					<option value="4">满意 ★★★★</option>
+					<option value="5">非常满意 ★★★★★</option>
+				</select>
+             	<input type="button" id="button<s:property value="oid"/>" onclick="toComment(<s:property value="oid"/>,'<s:property value="uid"/>')" value="评价"/>
+              </s:if>
 		     	</s:form><br>
        </s:iterator>
       </div>
@@ -93,7 +116,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               }//这里不要加","
           });
       };
-           
-
+   function toComment(commentOid,commentUid){
+   		$.ajax({
+              type:"post",
+              url:"toComment",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+              data:{//设置数据源
+              	'comment.oid':commentOid,
+              	'comment.uid':commentUid,
+              	'comment.grade':$(".select"+commentOid).val()
+              	
+              },
+              dataType:"json",//设置需要返回的数据类型
+              success:function(data){
+                  alert("评价成功！");
+                  $("#select"+commentOid).attr("disabled","disabled");
+                  $("#button"+commentOid).attr("style","display:none;");
+              },
+              error:function(){
+                  alert("系统异常，请稍后重试！");
+              }//这里不要加","
+          });
+   }
   </script>
+ 
 </html>

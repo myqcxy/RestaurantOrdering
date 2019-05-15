@@ -36,7 +36,34 @@
 <link href="./bootstrap/dashboard.css" rel="stylesheet">
 
 <script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+<style type="text/css">
+body{margin:0;padding:0;overflow-x:hidden;}
+html, body{height:100%;}
+img{border:none;}
+*{font-family:'微软雅黑';font-size:12px;color:#626262;}
+dl,dt,dd{display:block;margin:0;}
+a{text-decoration:none;}
 
+#bg{background-image:url(<%=basePath%>admin/images/content/dotted.png);}
+.container{width:100%;height:100%;margin:auto;}
+
+/*left*/
+.leftsidebar_box{width:160px;height:auto !important;overflow:visible !important;position:fixed;height:100% !important;background-color:#3992d0;}
+.line{height:2px;width:100%;background-image:url(<%=basePath%>admin/images/left/line_bg.png);background-repeat:repeat-x;}
+.leftsidebar_box dt{padding-left:40px;padding-right:10px;background-repeat:no-repeat;background-position:10px center;color:#f5f5f5;font-size:14px;position:relative;line-height:48px;cursor:pointer;}
+.leftsidebar_box dd{background-color:#317eb4;padding-left:40px;}
+.leftsidebar_box dd a{color:#f5f5f5;line-height:20px;}
+.leftsidebar_box dt img{position:absolute;right:10px;top:20px;}
+.system_log dt{background-image:url(<%=basePath%>admin/images/left/system.png)}
+.custom dt{background-image:url(<%=basePath%>admin/images/left/custom.png)}
+.channel dt{background-image:url(<%=basePath%>admin/images/left/channel.png)}
+.app dt{background-image:url(<%=basePath%>admin/images/left/app.png)}
+.cloud dt{background-image:url(<%=basePath%>admin/images/left/cloud.png)}
+.syetem_management dt{background-image:url(<%=basePath%>admin/images/left/syetem_management.png)}
+.source dt{background-image:url(<%=basePath%>admin/images/left/source.png)}
+.statistics dt{background-image:url(<%=basePath%>admin/images/left/statistics.png)}
+.leftsidebar_box dl dd:last-child{padding-bottom:10px;}
+</style>
 </head>
 
 <body>
@@ -50,7 +77,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">用户管理员</a>
+			<a class="navbar-brand" href="#">用户管理员</a>s
 			<s:debug></s:debug>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
@@ -69,22 +96,38 @@
 
 	<div class="container-fluid">
 		<div class="row">
+		
 			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li><a href="">餐品管理<span class="sr-only">(current)</span></a></li>
-					<li><a href="meal/addMeal.jsp">添加餐品<span class="sr-only">(current)</span></a></li>
-					<li><a href="getAllMeals">修改餐品信息</a></li>
-					<li><a href="getAllMeals">浏览餐品信息</a></li>
-					<li><a href="table/addTable.jsp">添加餐桌<span class="sr-only">(current)</span></a></li>
-					<li><a href="showAllTables">修改餐桌<span class="sr-only">(current)</span></a></li>
-					<li><a href="showAllTables">显示餐桌<span class="sr-only">(current)</span></a></li>
-					<li><a href="salesStatistics">统计销量<span class="sr-only">(current)</span></a></li>
+			<div class="container">
 
-
-
-
-				</ul>
-
+			<div class="leftsidebar_box">
+				<div class="line"></div>
+				<dl class="system_log">
+					<dt onClick="changeImage()">餐品管理<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
+					<dd class="first_dd"><a href="meal/addMeal.jsp">添加餐品</a></dd>
+					<dd><a href="getAllMeals">修改餐品信息</a></dd>
+					<dd><a href="getAllMeals">浏览餐品信息</a></dd>
+					<dd><a href="#">操作记录</a></dd>
+				</dl>
+			
+				<dl class="custom">
+					<dt onClick="changeImage()">餐桌管理<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
+					<dd class="first_dd"><a href="table/addTable.jsp">添加餐桌</a></dd>
+					<dd><a href="showAllTables">显示餐桌<span class="sr-only">(current)</span></a></dd>
+					<dd><a href="showAllTables">修改餐桌<span class="sr-only">(current)</span></a></dd>
+					<dd><a href="#">即将到期客户管理</a></dd>
+				</dl>
+				<dl class="statistics">
+					<dt>统计分析<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
+					<dd class="first_dd"><a href="salesStatistics">统计销量<span class="sr-only">(current)</span></a></dd>
+				</dl>
+			
+				
+			
+			</div>
+		
+		</div>
+				
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1 class="page-header">统计结果</h1>
@@ -111,11 +154,7 @@
 	         <s:param name="mid" value="mid"/>
 	      	</s:url>
       	<a href="${setDiscountUrl }">设置此餐品的优惠信息</a>
-   	  <script>
-      function readyDel(){
-        return confirm("是否真的删除?");
-      }
-    </script>
+   	 
    		<br><br>
 		       
 		   		
@@ -123,35 +162,8 @@
             
           </div>
 
-				<h2 class="sub-header">餐品</h2>
-				<div class="table-responsive">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>餐饮名称</th>
-								<th>价格</th>
-								<th>售出</th>
-								<th>Header</th>
-								<th>Header</th>
-							</tr>
-						</thead>
-
-						<tbody>
-
-							<tr>
-								<td>1,001</td>
-								<td>Lorem</td>
-								<td>ipsum</td>
-								<td>dolor</td>
-								<td>sit</td>
-							</tr>
-
-
-
-
-						</tbody>
-					</table>
-				</div>
+				
+				
 			</div>
 		</div>
 	</div>
@@ -159,7 +171,7 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script>window.jQuery || document.write('<script src="./bootstrap/assets/js/vendor/jquery.min.js"><\/script>')
+	<script>window.jQuery || document.write('<script src="<%=basePath%>bootstrap/assets/js/vendor/jquery-2.1.1.min.js"><\/script>')
 	</script>
 	<script src="./bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
@@ -179,4 +191,26 @@
 <script type="text/javascript">
 	
 </script>
+<script type="text/javascript">
+$(".leftsidebar_box dt").css({"background-color":"#3992d0"});
+$(".leftsidebar_box dt img").attr("src","<%=basePath%>admin/images/left/select_xl01.png");
+$(function(){
+	$(".leftsidebar_box dd").hide();
+	$(".leftsidebar_box dt").click(function(){
+		$(".leftsidebar_box dt").css({"background-color":"#3992d0"})
+		$(this).css({"background-color": "#317eb4"});
+		$(this).parent().find('dd').removeClass("menu_chioce");
+		$(".leftsidebar_box dt img").attr("src","<%=basePath%>admin/images/left/select_xl01.png");
+		$(this).parent().find('img').attr("src","<%=basePath%>admin/images/left/select_xl.png");
+		$(".menu_chioce").slideUp(); 
+		$(this).parent().find('dd').slideToggle();
+		$(this).parent().find('dd').addClass("menu_chioce");
+	});
+})
+</script>
+ <script>
+      function readyDel(){
+        return confirm("是否真的删除?");
+      }
+    </script>
 </html>

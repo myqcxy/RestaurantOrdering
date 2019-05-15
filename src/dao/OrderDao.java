@@ -9,6 +9,7 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Cache;
+import model.Comment;
 import model.Meal;
 import model.Order;
 
@@ -319,14 +320,31 @@ public class OrderDao extends Dao{
 		float discount=0;
 		for(String m:mids){
 			if(m.length()>0){
-				System.out.println(m+"111111111111");
 				discount+=new MealDao().getDicountByMid(Integer.parseInt(m));
-				System.out.println(discount);
 			}
 		}
 			
 			
 		return discount;
+	}
+
+
+	public boolean comment(Comment comment) {
+		String sql="update Comment set grade=? where oid=?";
+		boolean isSuc=false;
+		
+		 try (
+			      PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      pstmt.setLong(2,comment.getOid());
+			      pstmt.setInt(1,comment.getGrade());
+			   
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
 	}
 
 

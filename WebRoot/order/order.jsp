@@ -48,20 +48,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </s:iterator>
             
             <s:form >
-            	<s:textfield name="totle" label="总金额" class="totle"/>
-            	<s:textfield name="discount" label="折扣" class="discount"/>
-            	<s:textfield name="price" label="应付" class="price"/>
-            	<s:textfield name="phone" label="电话" class="phone"/>
-            	<s:textfield name="number" label="人数" class="number"/>
+            	<s:textfield name="totle" label="总金额" readonly="true" class="totle"/>
+            	<s:textfield name="discount" label="折扣"  readonly="true" class="discount"/>
+            	<s:textfield name="price" label="应付"  readonly="true" class="price"/>
+            	<s:textfield name="user.phone" label="电话" class="phone"/>
+           <%--  	<s:textfield  label="人数" /> --%>
+           <tr>
+           <td>人数:
+           <td>
+            	<select name="searchCondition" class="number">
+					<option value="1">1人</option>
+					<option value="2">2人</option>
+					<option value="3">3人</option>
+					<option value="4">4人</option>
+					<option value="5">5人</option>
+					<option value="6">6人</option>
+					<option value="7">7人</option>
+					<option value="8">8人</option>
+					<option value="9">9人</option>
+					<option value="10">10人以上</option>
+					
+				</select>
             	<s:textarea name="note" label="备注" class="note"/>
             	 <% String isok=(String)session.getAttribute("placeAnOrderRes");
              	if(isok.equalsIgnoreCase("ok")){
              		%>
-             		<input type="button" onclick="topay(1)" value="去付款"><br>
+             		<tr>
+             		<td>
+             		<input type="button" onclick="topay(1)" value="去付款"><td>
              		<input type="button"  onclick="topay(2)" value="预约，到店付款">
              		<% 
              	}else {
-             	%>
+             	%><tr><td><td>
              		<input type="button"  onclick="topay(2)" value="余额不足，先预约，到店付款">
              		<% 
              	}

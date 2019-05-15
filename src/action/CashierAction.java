@@ -74,7 +74,6 @@ public class CashierAction extends ActionSupport implements ModelDriven<Cashier>
 	
 	public String  choiceTable(){
 		Map<String,Object> map = new HashMap<String,Object>();
-		System.out.println(oid+" "+number+"22222222");
 		int ans = new OrderDao().choiceTable(oid,number);
 		map.put("tid", ans);
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据

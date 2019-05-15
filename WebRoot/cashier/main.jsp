@@ -77,8 +77,6 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="">餐品管理<span class="sr-only">(current)</span></a></li>
-					<li><a href="cashier/shou">显示用户信息<span class="sr-only">(current)</span></a></li>
 				</ul>
 
 			</div>
@@ -110,14 +108,18 @@
           
           <div class="col-xs-6 col-sm-4 placeholder">
             <s:form style="background-color:gray;color:black;">
-            <s:if test="tid==0">
-            <font style="color:yellow">餐桌：<span id="table<s:property value="oid"/>">
-         	餐桌尚未选择&nbsp;&nbsp;&nbsp;</span></font>
-          		<input type="button" onclick="choiceTable(<s:property value="oid"/>)" style="color:red"  value="选择餐桌">	
-          		</s:if>
+            
          	
               <s:textfield name="oid" value="%{ oid }" label="订单编号" class="choiceTableoid%{oid}" disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
+              <s:if test="tid==0">
+	           <tr><td> <font style="color:yellow"><span id="table<s:property value="oid"/>">
+	         	餐桌尚未选择&nbsp;&nbsp;&nbsp;</span></font>
+          		<td><input id="button<s:property value="oid"/>" type="button" onclick="choiceTable(<s:property value="oid"/>)" style="color:red"  value="选择餐桌">	
+          		</s:if><s:else>
+          		<s:textfield name="tid"  label="餐桌编号"  readonly="true"/>
+          		
+          		</s:else>
               <s:textfield name="number" label="就餐人数"  class="choiceTablenumber%{oid}" disabled="true"/>
               <s:textfield name="totle" value="%{ totle }" label="总共金额"  disabled="true"/>
               <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>
@@ -127,16 +129,17 @@
               <s:textfield name="state" value="%{ stateString }" label="订单状态"  disabled="true"/>
               <s:textfield name="mid" value="%{ midString }" label="购买餐品"  disabled="true"/>
               <s:textfield name="phone" value="%{ phone }" label="联系电话"  disabled="true"/>
+               <s:textfield name="note" value="%{ note }" label="批注"  disabled="true"/>
               <s:if test="%{payStateString==\"已付款\"}"><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/></s:if>
-              <s:else><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/>
+              <s:else><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  readonly="true"/>
           <s:url action="cashRegister"  var="cashRegisterUrl">
           	<s:param name="oid" value="%{ oid }"></s:param>
           	<s:param name="user.uid" value="%{ user.uid }"></s:param>
           	
-          </s:url>
-            <a href="${ cashRegisterUrl}" style="background-color:gray;color:white;">收银!!!</a> 
+          </s:url><tr><td><td style="text-align:right;padding:10px;bgcolor:#FFFFFF">
+            <a href="${ cashRegisterUrl}" style="background-color:red;color:#FFFFFF;padding:10px">收银</a> 
               </s:else>
-              <s:textfield name="note" value="%{ note }" label="批注"  disabled="true"/>
+             
      			
 		     	</s:form>
              </div></s:iterator> 
@@ -186,7 +189,9 @@
               alert("请稍等，现在餐桌已经用完！！");
               else{
                alert("订单编号为"+aa + "的餐桌为" + d.tid);
-               $("#table"+aa).text(""+d.tid+"");}
+               $("#table"+aa).text("餐桌为" + d.tid);
+               $("#button"+aa).attr("style","display:none;");
+               }
          },
          error:function(){
              alert("系统异常，请稍后重试！");

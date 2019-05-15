@@ -88,6 +88,14 @@
 			<result name="success">/order/order.jsp</result>
 		</action>
 		
+		<!-- 评论 -->
+		<action name="toComment" class="action.OrderAction" method="toComment">
+		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
+		
 		<action name="myOrder" class="action.OrderAction" method="myOrder">
 		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<result name="success">/order/myOrder.jsp</result>
