@@ -348,6 +348,69 @@ public class OrderDao extends Dao{
 	}
 
 
+	public boolean hasNewOrder() {
+		String sql = "select * from [Order] where state=3";
+		//使用PreparedStatement将SQL语句执行
+		PreparedStatement ps;
+		
+		try {
+			ps = con.prepareStatement(sql);
+			//逐个获取得到的结果
+			try (ResultSet rs = ps.executeQuery();) {
+				return rs.next();
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	return false;
+	}
+
+
+	public List<Order> getNewOrders() {
+		//创建一个List<Order>对象
+		List<Order> orders = new ArrayList<Order>();
+		//sql语句
+		String sql = "select * from [Order] Where state=3 Order By date Desc";
+		//使用PreparedStatement将SQL语句执行
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			//逐个获取得到的结果
+			try (ResultSet rs = ps.executeQuery();) {
+		
+				while(rs.next()){//如果还有house没有获取
+					Order o  = new Order();
+					o.setOid(rs.getLong("oid"));
+					o.setUid(rs.getString("uid"));
+					o.setTid(rs.getInt("tid"));
+					o.setPrice(rs.getFloat("price"));
+					o.setDate(rs.getDate("date"));
+					o.setState(rs.getInt("state"));
+					o.setMid(rs.getString("mid"));
+					o.setMidString(new MealDao().getMealName(o.getMid()));
+					o.setTotle(rs.getFloat("totle"));
+					o.setPhone(rs.getString("phone"));
+					o.setMethod(rs.getInt("method"));
+					o.setDiscount(rs.getFloat("discount"));
+					o.setPayMethod(rs.getInt("payMethod"));
+					o.setPayState(rs.getInt("payState"));
+					o.setNote(rs.getString("note"));
+					o.setNumber(rs.getInt("number"));
+					orders.add(o);
+				
+				}
+			}
+			ps.close();//关闭ps
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return orders;
+	}
+
+
 	
 
 	

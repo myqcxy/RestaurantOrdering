@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <s:if test="list!=null">
            <s:iterator value="list" >
             <div class="col-xs-6 col-sm-3 placeholder">
-             
+             <b style="color:red">优惠：<s:property value="discount"/></b><br>
               <s:property value="mname"/>
 		   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
 		   		类别：<s:property value="category"/><br>
@@ -89,48 +89,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
   <script type="text/javascript">
-                function add(aa){
-                $.ajax({
-                    type:"post",
-                    url:"addToCache",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
-                    data:{//设置数据源
-                    	mid:$(".mid"+aa).val()
-                    },
-                    dataType:"json",//设置需要返回的数据类型
-                    success:function(data){
-                        var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
-                        //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
-                         
-                        $("#number"+aa).text(""+d.number+"");
-                         
-                    },
-                    error:function(){
-                        alert("系统异常，请稍后重试！");
-                    }//这里不要加","
-                });
-            };
-            function del(aa){
-                $.ajax({
-                    type:"post",
-                    url:"delFromCache",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
-                    data:{//设置数据源
-                    	mid:$(".mid"+aa).val()
-                    },
-                    dataType:"json",//设置需要返回的数据类型
-                    success:function(data){
-                        var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
-                        //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
-                         
-                        $("#number"+aa).text(""+d.number+"");
-                        if(d.number==0)
-                        	window.location.href="settlement";
-                         
-                    },
-                    error:function(){
-                        alert("系统异常，请稍后重试！");
-                    }//这里不要加","
-                });
-            };
+          function add(aa){
+	         $.ajax({
+	             type:"post",
+	             url:"addToCache",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+	             data:{//设置数据源
+	             	mid:$(".mid"+aa).val()
+	             },
+	             dataType:"json",//设置需要返回的数据类型
+	             success:function(data){
+	                 var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
+	                 //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
+	                 $("#number"+aa).text(""+d.number+"");
+	             },
+	             error:function(){
+	                 alert("系统异常，请稍后重试！");
+	             }//这里不要加","
+	         });
+   		   };
+function del(aa){
+	var a='<%=session.getAttribute("uid")%>';
+	if(a == "null"){
+		window.location.href="<%=basePath%>/user/login.jsp";
+	}else{
+    $.ajax({
+        type:"post",
+        url:"delFromCache",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+        data:{//设置数据源
+        	mid:$(".mid"+aa).val()
+        },
+        dataType:"json",//设置需要返回的数据类型
+        success:function(data){
+            var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
+            //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
+            $("#number"+aa).text(""+d.number+"");
+            if(d.number==0)
+            	window.location.href="settlement";
+        },
+        error:function(){
+            alert("系统异常，请稍后重试！");
+        }
+    });
+   }
+};
 
   </script>
 </html>

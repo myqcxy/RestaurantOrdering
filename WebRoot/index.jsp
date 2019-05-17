@@ -34,25 +34,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="./bootstrap/dashboard.css" rel="stylesheet">
 
     <script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
-
+	<link href="<%=basePath%>css/css.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.navbar {
+  		min-height: 60px;
+}
+	</style>
   </head>
  
   <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
+  <nav class="navbar navbar-inverse navbar-fixed-top navbar-right">
+      <div class="container-fluid navbar-fixed-top">
+        <div class="navbar-header menu">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">餐厅点餐</a><s:debug></s:debug>
+          <a class="navbar-brand" href="#">餐厅点餐</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-           
-             <% String uname=(String)session.getAttribute("uid");
+        <div id="navbar" class="navbar-collapse collapse navbar-right">
+          <ul class="menu" >
+          <li> <form action="userSearch" method="post" class="navbar-form">
+            <input name="searchContent" type="text" class="form-control" placeholder="搜索餐品...">
+            <input type="submit" class="btn btn-defalut" value="搜索">
+          </form></li>
+          <% String uname=(String)session.getAttribute("uid");
              	if(uname==null){
              	uname="请登录！";%>
              	 <li><a href="user/login.jsp"><%= uname %></a></li>
@@ -61,34 +69,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              	
              	}else {
              	uname="你好！" + uname;%>
-             	<li><a href="userEdit"><%= uname %></a></li>
-             	<li><a href="logout">注销</a></li>
+             	
+		        <li width=100><a ><%= uname %></a>
+					<ul class="submenu">
+					 <li><a href="userEdit">个人信息</a>
+						 <li><a href="settlement">购物车</a></li>
+						<li><a href="myOrder">我的订单</a></li>
+						<li><a href="logout">注销</a></li>
+					</ul>
+				</li>
              	<% 
              	}
 			  %>
-       
-            <li><a href="settlement">购物车</a></li>
-             <li><a href="myOrder">我的订单</a></li>
-           
-            
-            <li><a href="#">帮助</a></li>
+            <li><a  href="#">帮助</a></li>
             <li><a href="admin/AdminLogin.jsp">管理员</a></li>
             <li><a href="waiter/waiterLogin.jsp">服务员</a></li>
             <li><a href="cashier/cashierLogin.jsp">收银员</a></li>
+            
           </ul>
-          <form action="userSearch" method="post" class="navbar-form navbar-right">
-            <input name="searchContent" type="text" class="form-control" placeholder="搜索餐品...">
-            <input type="submit" value="搜索">
-          </form>
+         
         </div>
       </div>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active">
+        <div class="col-sm-3 col-md-2 sidebar" style="font-size:25px;background: black;">
+          <ul class="nav nav-sidebar" >
+          	<li class="active"><a href="specialOffer">今日特惠</a></li>
+          	<li ><a href="specialOffer">按销量降序</a></li>
+          	<li ><a href="specialOffer">按价格降序</a></li>
+          	
+            <li >
 		            <s:url var="getByCategory1Url" action="getByCategory">
 		            <s:param name="category" value="1"/>
 			      	</s:url>
@@ -112,19 +124,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </ul>
        
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">今日热卖</h1>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-left: 0px;">
+          <h1 class="page-header" style="background: red;line-height: 60px">今日热卖</h1>
 			
 			
-          <div class="row placeholders">
+          <div class="row placeholders" >
           <s:if test="list==null">
           	<script language="javascript" type="text/javascript">
            window.location.href="initRecommend"; 
     </script>
           </s:if>
            <s:iterator value="list">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              
+            <div class="col-xs-6 col-sm-3 placeholder" style="background: #C2D0DF;margin-right:10px;">
+              	<b style="color:red">优惠：<s:property value="discount"/></b><br>
               <s:property value="mname"/>
 		   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
 		   		类别：<s:property value="category"/><br>

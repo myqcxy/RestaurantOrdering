@@ -74,7 +74,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
         String uid=((String)session.get("uid"));
         order.setUid(uid);
         order.setPrice(od.getOrderPrice(uid));
-        order.setState(0);
+        order.setState(3);
         order.setMid(new CacheDao().getMid(uid));
         list = new MealDao().getAllMeals(order.getMid(),uid);
         order.setTotle(order.getPrice());
@@ -95,7 +95,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	//	od.placeAnOrder(order,uid);
         order.setUid(uid);
         
-        order.setState(0);
+        order.setState(3);
         order.setMid(new CacheDao().getMid(uid));
         list = new MealDao().getAllMeals(order.getMid(),uid);
         order.setTotle(od.getOrderPrice(uid));

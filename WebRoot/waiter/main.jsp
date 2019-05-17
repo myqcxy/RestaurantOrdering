@@ -52,11 +52,15 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">服务员</a>
-			<s:debug></s:debug>
+			
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li>您好！admin
+				<li> <a>您好！waiter</a>
+				<li><a onclick="getResult()" type="button" class="a a-default" aria-label="Left Align">
+						  <span style="font-size:25px;" id="newOrder" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+						</a></li>
+				<li><a href="obtainNewOrders" class="navbar-brand" id="newOrderText"></a></li>
 				<li><a href="#">帮助</a></li>
 				<li><a href="admin/AdminLogin.jsp">注销</a></li>
 			</ul>
@@ -70,21 +74,7 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li><a href="">餐品管理<span class="sr-only">(current)</span></a></li>
-					<li><a href="meal/addMeal.jsp">添加餐品<span class="sr-only">(current)</span></a></li>
-					<li><a href="getAllMeals">修改餐品信息</a></li>
-					<li><a href="getAllMeals">浏览餐品信息</a></li>
-					<li><a href="">餐桌管理<span class="sr-only">(current)</span></a></li>
-					<li><a href="salesStatistics">统计销量<span class="sr-only">(current)</span></a></li>
-
-
-
-
-				</ul>
-
-			</div>
+			
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1 class="page-header">统计结果</h1>
 
@@ -97,10 +87,13 @@
            
             <font style="color:yellow">订单状态：<span id="state<s:property value="oid"/>"><s:property value="stateString" />&nbsp;&nbsp;&nbsp;</span></font>
       <s:if test="state==0">
-              		<input type="button" onclick="sendToChef(<s:property value="oid"/>,1)" value="送至厨师">
+              		<input class="btn btn-default" type="button" onclick="sendToChef(<s:property value="oid"/>,1)" value="送至厨师">
               </s:if>
               <s:elseif test="state==1">
-              		<input type="button" onclick="sendToChef(<s:property value="oid"/>,2)" value="完成就餐">
+              		<input class="btn btn-default" type="button" onclick="sendToChef(<s:property value="oid"/>,2)" value="完成就餐">
+              </s:elseif>
+              <s:elseif test="state==3">
+              	<input class="btn btn-default" type="button" onclick="sendToChef(<s:property value="oid"/>,0)" value="确认接单">
               </s:elseif>
               <s:textfield name="oid" value="%{ oid }" label="订单编号" class="sendToChefoid%{oid}" disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
@@ -116,8 +109,6 @@
               
               <s:textfield name="mid" value="%{ midString }" label="购买餐品"  disabled="true"/>
               <s:textfield name="phone" value="%{ phone }" label="联系电话"  disabled="true"/>
-              <s:textfield name="method" value="%{ method }" label="下单方式"  disabled="true"/>
-              <s:textfield name="payMethod" value="%{ payMethodString }" label="付款方式"  disabled="true"/>
               <s:if test="%{payStateString==\"已付款\"}"><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/></s:if>
               <s:else><s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/>
           
@@ -130,35 +121,6 @@
             
           </div>
 
-				<h2 class="sub-header">餐品</h2>
-				<div class="table-responsive">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>餐饮名称</th>
-								<th>价格</th>
-								<th>售出</th>
-								<th>Header</th>
-								<th>Header</th>
-							</tr>
-						</thead>
-
-						<tbody>
-
-							<tr>
-								<td>1,001</td>
-								<td>Lorem</td>
-								<td>ipsum</td>
-								<td>dolor</td>
-								<td>sit</td>
-							</tr>
-
-
-
-
-						</tbody>
-					</table>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -180,6 +142,33 @@
 <script type="text/javascript"
 	src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 <script type="text/javascript">
+   $("#newOrder").ready(function(){  
+ 	 c = window.setInterval("getResult()",10000); //间隔多少秒去触发ajax
+ 	 }); 
+ 
+  function getResult(){
+	$.ajax({
+         type:"post",
+         url:"newOrder",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+         data:{//设置数据源
+         },
+         dataType:"json",//设置需要返回的数据类型
+         success:function(data){
+             var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
+             /* alert("" + d.hadpay+""); */
+             if(d.hadpay==1001){
+             document.getElementById('newOrder').style.color="red";
+              document.getElementById('newOrderText').textContent="有新的订单,点此接受";
+              document.getElementById('newOrderText').style="color:red;front:30px"
+             }
+             
+         },
+         error:function(){
+             alert("系统异常，请稍后重试！");
+         }//这里不要加","
+     });	
+  };
+
 	function sendToChef(aa,statenum){
 	$.ajax({
          type:"post",

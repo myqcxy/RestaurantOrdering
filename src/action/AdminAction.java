@@ -16,14 +16,27 @@ import model.Order;
 public class AdminAction extends ActionSupport implements ModelDriven<Admin>{
 	AdminDao ad = new AdminDao();
 	Admin admin = new Admin();
+	int statisticMethod;
 	private List<Meal> list;
 	private List<Order> orders;
+	
+	public int getStatisticMethod() {
+		return statisticMethod;
+	}
+
+
+	public void setStatisticMethod(int statisticMethod) {
+		this.statisticMethod = statisticMethod;
+	}
+
+
 	@Override
 	public String execute() throws Exception {
 	//	System.out.println(admin.getAid());
 		if(ad.login(admin))
 		return SUCCESS;
-		else return "false";
+		this.addFieldError("aid", "用户名和密码不匹配");
+		return "input";
 	}
 	
 	
@@ -33,7 +46,7 @@ public class AdminAction extends ActionSupport implements ModelDriven<Admin>{
 		return admin;
 	}
 	public String salesStatistics(){
-		list = new MealDao().getHotMeals();
+		list = new MealDao().getHotMeals(statisticMethod);
 		return SUCCESS;
 	}
 	public List<Meal> getList() {

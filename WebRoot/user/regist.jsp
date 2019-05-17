@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -16,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<link rel="stylesheet" href="<%=basePath%>/css/style.css">
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -23,6 +25,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <div id="wrapper" class="login-page">
+		<div id="login_form" class="form">
+		<form class="registerform" action="userRegist" method="post">
+		<s:fielderror name="error"></s:fielderror>
+				<input type="text" name="uid" placeholder="用户名" id="r_user_name"/>
+				<input type="password" name="upass" placeholder="密码" id="r_password" />
+				<input type="password" name="upass1" placeholder="确认密码" id="r_password" />
+				<input type="text" name="phone" placeholder="电话" id="r_emial"/>
+				<button typde="submit" id="create">创建账户</button>
+				<p class="message">已经有了一个账户? <a href="<%=basePath%>user/login.jsp">立刻登录</a></p>
+			</form>
+		
+	</div>
+	</div>
+  
     <center>
     <table align="center">
 

@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+<link rel="stylesheet" href="<%=basePath%>/css/style.css">
     <title>user登录</title>
 
 
@@ -23,15 +23,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   
 	<center>
-     <s:form action="userLogin" method="post" namespace="/">
-    	<s:textfield name="uid" label="用户名"/>
-    	<s:password name="upass" label="密码"></s:password>
-    	<table>
-    		<tr><s:reset value="重置" theme="simple" style="margin:5px,30px"></s:reset>
-    			<s:submit value="登录" theme="simple" style="padding:5,30"/></tr>
-    	</table>
-    	
-    	
-    </s:form></center>
+	<div id="wrapper" class="login-page">
+		<div id="login_form" class="form">
+		
+		<form class="login-form" action="userLogin" method="post">
+		<s:fielderror name="error"></s:fielderror>
+				<input type="text" placeholder="用户名" name="uid" id="user_name"/>
+				<input type="password" placeholder="密码"  name="upass" id="password"/>
+				<button type="submit" id="login">登　录</button>
+				<p class="message">还没有账户? <a href="<%=basePath%>user/regist.jsp">立刻创建</a></p>
+			</form>
+	</div>
+	</div>
+	
+     </center>
   </body>
 </html>

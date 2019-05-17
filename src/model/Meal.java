@@ -8,7 +8,14 @@ public class Meal {
 	String category;
 	int sales;
 	int addToCacheNumber;
+	float discount;
 	
+	public float getDiscount() {
+		return discount;
+	}
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
 	public int getAddToCacheNumber() {
 		return addToCacheNumber;
 	}

@@ -29,7 +29,7 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	private String mphotoFileName;//上传的文件名
 	private List<Meal> list;
 	String searchContent;
-	private Discount discount;
+	private Discount dist;
 	private String result;
 	
 	public String getResult() {
@@ -40,12 +40,14 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		this.result = result;
 	}
 
-	public Discount getDiscount() {
-		return discount;
+	
+
+	public Discount getDist() {
+		return dist;
 	}
 
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
+	public void setDist(Discount dist) {
+		this.dist = dist;
 	}
 
 	public String getSearchContent() {
@@ -68,7 +70,7 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		/*System.out.println(discount.getDescribe()+discount.getDiscount()
 		+discount.getMid()+discount.getStarttime()+discount.getEndtime());
 		System.out.println(discount.getStarttime().toString());*/
-		md.addDiscount(discount);
+		md.addDiscount(dist);
 		 Map<String,Object> map = new HashMap<String,Object>();
 
      map.put("message", "优惠信息添加成功");
@@ -86,9 +88,14 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		meal.setPrice(m.getPrice());
 		meal.setSales(m.getSales());
 		meal.setCategory(m.getCategory());
-		discount = md.getDiscount(m.getMid());
-		if(discount!=null)
-		discount.setDescribe(discount.getDescribe().trim());
+		dist = md.getDiscount(m.getMid());
+		System.out.println(dist);
+		if(dist!=null){
+			dist.setDescribe(dist.getDescribe().trim());
+			System.out.println(dist.getDescribe()+dist.getDid()+dist.getMid()+dist.getStarttime());
+			
+		}
+		
 		return SUCCESS;
 	}
 	public String userSearch(){
@@ -105,8 +112,16 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		else return "delFalse";
 	}
 	public String AllMeals(){
-		list= new MealDao().getHotMeals();
+		list= new MealDao().getHotMeals(0);
 		
+		return SUCCESS;
+	}
+	
+	public String specialOffer(){
+		ActionContext actionContext = ActionContext.getContext();
+        Map session = actionContext.getSession();
+        String uid=((String)session.get("uid"));
+		list=md.getSpecialOffer(uid);
 		return SUCCESS;
 	}
 	
@@ -120,17 +135,18 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	
 	
 	public String obtainMealsByCategory(){
-		//meal.setCategory("主食");
 		ActionContext actionContext = ActionContext.getContext();
         Map session = actionContext.getSession();
-        String uid=((String)session.get("uid"));
+        String uid=((String)session.get("uid"));//获取uid
 		Map<String,String> m = new HashMap<String,String>();
 		m.put("1", "主食");
 		m.put("2", "晚餐");
 		m.put("3", "饮料");
-		m.put("4", "小吃");
+		m.put("4", "小吃");//传递的参数的匹配关系
 		list = md.getByCategory(m.get(meal.getCategory()),uid);
-		return SUCCESS;
+		if(list!=null&&list.size()>0)//得到的餐品非空且有值
+			return SUCCESS;
+		else return "obtainMealsByCategoryError";
 	}
 	
 	

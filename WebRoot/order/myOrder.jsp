@@ -42,7 +42,7 @@ form{
   
   <body bgcolor="#A6A6A6">
 	<center >
-	<h1><b>我的主页</b></h1>
+	<h1><b>我的订单</b></h1>
 	<a href="index.jsp">返回主页</a>
     <div class="container-fluid">
       <div class="row">
@@ -58,7 +58,11 @@ form{
            
               <s:textfield name="oid" value="%{ oid }" label="订单编号"  disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
-              <s:textfield name="tid" value="%{ tid }" label="餐桌"  disabled="true"/>
+              <s:if test="tid==0">
+              <s:textfield name="tid" value="到店分配餐桌" label="餐桌"  disabled="true"/>
+              </s:if>
+              <s:else>
+              <s:textfield name="tid" value="%{ tid }" label="餐桌"  disabled="true"/></s:else>
               <s:textfield name="number" value="%{ number }" label="就餐人数"  disabled="true"/>
               <s:textfield name="totle" value="%{ totle }" label="总共金额"  disabled="true"/>
               <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>

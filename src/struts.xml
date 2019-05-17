@@ -25,6 +25,7 @@
 	
 		<action  name="cashierLogin" class="action.CashierAction" method="checkLogin">
 			<result name="success">/cashier/main.jsp</result>
+			<result name="input">/cashier/cashierLogin.jsp</result>
 		</action>
 		
 		<action  name="CashierSearch" class="action.CashierAction" method="search">
@@ -41,9 +42,20 @@
 	<package name="waiter" namespace="/" extends="struts-default,json-default">
 		<action  name="waiterLogin" class="action.WaiterAction" method="checkLogin">
 			<result name="success" type="redirectAction">obtainUnservedOrders</result>
+			<result name="input">/waiter/waiterLogin.jsp</result>
+		</action>
+		
+		<action  name="obtainNewOrders" class="action.WaiterAction" method="obtainNewOrders">
+			<result name="success">/waiter/main.jsp</result>
 		</action>
 		<action  name="obtainUnservedOrders" class="action.WaiterAction" method="obtainUnservedOrders">
 			<result name="success">/waiter/main.jsp</result>
+		</action>
+		
+		<action  name="newOrder" class="action.WaiterAction" method="newOrder">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
 		</action>
 		<action  name="changeOrderState" class="action.WaiterAction" method="changeOrderState">
 			<result type="json">
@@ -129,12 +141,17 @@
 			<result name="success">/index.jsp</result>
 	
 		</action>
+		<!-- 搜索今日特惠餐品 -->
 		
+		<action name="specialOffer" class="action.MealAction" method="specialOffer">
+		
+			<result name="success">/index.jsp</result>
+	
+		</action>
 		<!-- 用户搜索餐品 -->
 		<action name="userSearch" class="action.MealAction" method="userSearch">
 		
 			<result name="success">/index.jsp</result>
-			<result name="false">/admin/loginFalse.jsp</result>
 	
 		</action>
 		
@@ -230,7 +247,7 @@
 		<action name="adminLog" class="action.AdminAction">
 		
 			<result name="success">/admin/main.jsp</result>
-			<result name="false">/admin/loginFalse.jsp</result>
+			<result name="input">/admin/AdminLogin.jsp</result>
 	
 		</action>
 		<action name="logout" class="action.UserAction" method="logout">
@@ -249,12 +266,11 @@
 		<action name="userLogin" class="action.UserAction">
 		
 			<result name="success">/index.jsp</result>
-			<result name="false">/user/loginFalse.jsp</result>
+			<result name="input">/user/login.jsp</result>
 		</action>
 		<action name="userRegist" class="action.UserAction" method="regist">
-			<result type="json">
-                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
-            </result>
+			<result name="success">/user/main.jsp</result>
+			<result name="input">/user/login.jsp</result>
 		</action>
 		
 		<action name="checkusername" class="action.UserAction" method="checkusername">
@@ -263,14 +279,5 @@
             </result>
 		</action>
 	</package>
-	<package name="simpleton"  namespace="/" extends="struts-default,json-default">
-         
-        <action name="JsonAction" class="action.JsonAction" method="excuteAjax" >
-            <!-- 返回json类型数据 -->
-            <result type="json">
-                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
-            </result>
-        </action>
-         
-    </package>
+	
 </struts>

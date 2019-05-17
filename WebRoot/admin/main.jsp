@@ -50,8 +50,8 @@ a{text-decoration:none;}
 /*left*/
 .leftsidebar_box{width:160px;height:auto !important;overflow:visible !important;position:fixed;height:100% !important;background-color:#3992d0;}
 .line{height:2px;width:100%;background-image:url(<%=basePath%>admin/images/left/line_bg.png);background-repeat:repeat-x;}
-.leftsidebar_box dt{padding-left:40px;padding-right:10px;background-repeat:no-repeat;background-position:10px center;color:#f5f5f5;font-size:14px;position:relative;line-height:48px;cursor:pointer;}
-.leftsidebar_box dd{background-color:#317eb4;padding-left:40px;}
+.leftsidebar_box dt{padding-left:55px;padding-right:10px;background-repeat:no-repeat;background-position:10px center;color:#f5f5f5;font-size:14px;position:relative;line-height:48px;cursor:pointer;}
+.leftsidebar_box dd{background-color:#317eb4;padding-left:58px;}
 .leftsidebar_box dd a{color:#f5f5f5;line-height:20px;}
 .leftsidebar_box dt img{position:absolute;right:10px;top:20px;}
 .system_log dt{background-image:url(<%=basePath%>admin/images/left/system.png)}
@@ -78,7 +78,6 @@ a{text-decoration:none;}
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">用户管理员</a>s
-			<s:debug></s:debug>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -88,7 +87,7 @@ a{text-decoration:none;}
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="搜索...">
-				<input type="submit" value="搜索">
+				<input class="btn btn-default" type="submit" value="搜索">
 			</form>
 		</div>
 	</div>
@@ -97,17 +96,16 @@ a{text-decoration:none;}
 	<div class="container-fluid">
 		<div class="row">
 		
-			<div class="col-sm-3 col-md-2 sidebar">
-			<div class="container">
+			<div class="col-sm-3 col-md-2 sidebar" style="padding-left:0;padding-top:0px;">
+			<div class="container" style="padding-left:0;">
 
-			<div class="leftsidebar_box">
+			<div class="leftsidebar_box" style="width:210px">
 				<div class="line"></div>
 				<dl class="system_log">
 					<dt onClick="changeImage()">餐品管理<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
 					<dd class="first_dd"><a href="meal/addMeal.jsp">添加餐品</a></dd>
 					<dd><a href="getAllMeals">修改餐品信息</a></dd>
 					<dd><a href="getAllMeals">浏览餐品信息</a></dd>
-					<dd><a href="#">操作记录</a></dd>
 				</dl>
 			
 				<dl class="custom">
@@ -115,11 +113,12 @@ a{text-decoration:none;}
 					<dd class="first_dd"><a href="table/addTable.jsp">添加餐桌</a></dd>
 					<dd><a href="showAllTables">显示餐桌<span class="sr-only">(current)</span></a></dd>
 					<dd><a href="showAllTables">修改餐桌<span class="sr-only">(current)</span></a></dd>
-					<dd><a href="#">即将到期客户管理</a></dd>
 				</dl>
 				<dl class="statistics">
 					<dt>统计分析<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
-					<dd class="first_dd"><a href="salesStatistics">统计销量<span class="sr-only">(current)</span></a></dd>
+					<dd class="first_dd"><a href="salesStatistics">按照销量降序</a></dd>
+					<dd class="first_dd"><a href="salesStatistics?statisticMethod=1">按照销量升序</a></dd>
+					<dd class="first_dd"><a href="salesStatistics?statisticMethod=2">按照好评升序</a></dd>
 				</dl>
 			
 				
@@ -129,13 +128,13 @@ a{text-decoration:none;}
 		</div>
 				
 			</div>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:50px;">
 				<h1 class="page-header">统计结果</h1>
 
 				 <div class="row placeholders">
            <s:iterator value="list">
             <div class="col-xs-6 col-sm-3 placeholder">
-              
+              <b style="color:red">优惠：<s:property value="discount"/></b><br>
               <s:property value="mname"/>
 		   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
 		   		类别：<s:property value="category"/><br>
@@ -144,16 +143,16 @@ a{text-decoration:none;}
 		   	<s:url var="updateUrl" action="toUpdateMeal">
          <s:param name="mid" value="mid"/>
       </s:url>
-   		<a href="${updateUrl }">修改</a>
+   		<a  class="a a-default" href="${updateUrl }">修改</a>
    		
    		 <s:url var="delUrl" action="delMeal">
          <s:param name="mid" value="mid"/>
       	</s:url>
-      <a href="${delUrl}" onClick="return readyDel();">删除</a>
+      <a  class="a a-default" href="${delUrl}" onClick="return readyDel();">删除</a>
 	      <s:url var="setDiscountUrl" action="setDiscount">
 	         <s:param name="mid" value="mid"/>
 	      	</s:url>
-      	<a href="${setDiscountUrl }">设置此餐品的优惠信息</a>
+      	<a class="a a-default" href="${setDiscountUrl }">设置此餐品的优惠信息</a>
    	 
    		<br><br>
 		       

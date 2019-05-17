@@ -59,7 +59,14 @@ public class CashierAction extends ActionSupport implements ModelDriven<Cashier>
 		 session.remove("cid");
 		 return SUCCESS;
 	}
-	
+	public void validateCheckLogin() {
+		/*if(user.getUpass().length()<4||user.getUpass().length()>10){
+			this.addFieldError("upass", "密码长度为4-10");
+		}
+		if(!user.getUpass().equals(upass1)){
+			this.addFieldError("upass", "两次密码不一致");
+		}*/
+	}
 	
 	public String checkLogin() {
 		if (cd.checkLogin(cashier)){
@@ -68,8 +75,8 @@ public class CashierAction extends ActionSupport implements ModelDriven<Cashier>
 			 session.put("cid", cashier.getCid());
 			return SUCCESS;
 		}
-			
-		return SUCCESS;
+		this.addFieldError("cid", "用户名和密码不匹配");
+		return "input";
 	}
 	
 	public String  choiceTable(){

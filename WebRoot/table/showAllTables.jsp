@@ -24,38 +24,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <center> <h1><a href="<%=basePath%>/admin/main.jsp">返回主页</a></h1><br>
+    <center> <h4><a href="<%=basePath%>/admin/main.jsp">返回主页</a></h4>
  	
-    显示所有Table<s:debug></s:debug>
-    <h1>餐桌信息为：</h1><br>
- 	
- 
+   <s:debug></s:debug>
+    <h3>餐桌信息为：</h3>
+ 	<table border="1">
+ <tr style="color:red"><th width="100px">编号<th width="100px">可入座人数<th width="100px">状态<th width="100px">特色<th width="100px">操作</tr>
+ <s:if test="tables==null">
+ 	暂无餐桌信息
+ </s:if>
    <s:iterator value="tables">
-   	
-   		编号：<s:property value="tid"/>
-   		&nbsp;&nbsp;&nbsp;可入座人数：<s:property value="number"/>
-   		状态：<s:if test="used==0">可用</s:if>
-   		<s:else>不可用</s:else>
-   		<br>
-   		特色：<s:property value="describe"/>
-   		<br>
+   	<tr>
+   		<td><s:property value="tid"/>
+   		<td><s:property value="number"/>
+   		<td><s:if test="used==0">可用</s:if>
+   		<s:else>使用中</s:else>
+   		
+   		<td><s:property value="describe"/>
    		<s:url var="updateUrl" action="toUpdateTable">
          <s:param name="tid" value="tid"/>
       </s:url>
-   		<a href="${updateUrl }">修改</a>
+   		<td><a href="${updateUrl }">修改</a>
    		
    		 <s:url var="delUrl" action="delMeal">
          <s:param name="mid" value="mid"/>
       </s:url>
-      <a href="${delUrl}" onClick="return readyDel();">删除</a>
+     <a href="${delUrl}" onClick="return readyDel();">删除</a>
    	  <script>
       function readyDel(){
         return confirm("是否真的删除?");
       }
     </script>
-   		<br><br>
    </s:iterator>
-    	<br>
+   </table>
     	
     </center>
   </body>

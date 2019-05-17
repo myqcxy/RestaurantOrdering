@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <center><s:debug></s:debug>
+    <center>
     <s:form action="userUpdate" method="post" >
     	<s:textfield name="uid" label="用户名" disabled="true"/>
     	<s:hidden name="uid" value="%{uid}"/>

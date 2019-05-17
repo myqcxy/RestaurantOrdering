@@ -23,9 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body>
+<center><h1><b>登录</b></h1></center>
 <div id="wrapper" class="login-page">
 		<div id="login_form" class="form">
-	
+		<s:fielderror name="cid"></s:fielderror>
 		<form class="login-form" action="cashierLogin" method="post">
 				<input name="cid" type="text" placeholder="用户名" id="user_name"/>
 				<input name="cpass" type="password" placeholder="密码" id="password"/>
@@ -33,63 +34,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	</div>
-<%-- <script src="<%=basePath%>/js/jquery-2.1.1.min.js"></script> 
-<script type="text/javascript">
-	function check_login()
-	{
-	 var name=$("#user_name").val();
-	 var pass=$("#password").val();
-	 if(name=="admin" && pass=="admin")
-	 {
-	  alert("登录成功！");
-	  $("#user_name").val("");
-	  $("#password").val("");
-
-	 }
-	 else
-	 {
-	  $("#login_form").removeClass('shake_effect');  
-	  setTimeout(function()
-	  {
-	   $("#login_form").addClass('shake_effect')
-	  },1);  
-	 }
-	}
-	function check_register(){
-		var name = $("#r_user_name").val();
-		var pass = $("#r_password").val();
-		var email = $("r_email").val();
-		if(name!="" && pass=="" && email != "")
-		 {
-		  alert("注册成功！");
-		  $("#user_name").val("");
-		  $("#password").val("");
-		 }
-		 else
-		 {
-		  $("#login_form").removeClass('shake_effect');  
-		  setTimeout(function()
-		  {
-		   $("#login_form").addClass('shake_effect')
-		  },1);  
-		 }
-	}
-	$(function(){
-		$("#create").click(function(){
-			check_register();
-			return false;
-		})
-		$("#login").click(function(){
-			check_login();
-			return false;
-		})
-		$('.message a').click(function () {
-		    $('form').animate({
-		        height: 'toggle',
-		        opacity: 'toggle'
-		    }, 'slow');
-		});
-	})
-	</script> --%>
 </body>
 </html>

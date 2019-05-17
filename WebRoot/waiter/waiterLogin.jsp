@@ -23,75 +23,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body>
-<p class="center">登录用户名为：admin，密码为123456</p>
-<p class="center">在用户名和密码错误时，点击登录按钮可以看到表单的摇晃效果。</p>
-<div id="wrapper" class="login-page">
+
+ <center><h1><b>服务员登录</b></h1></center>
+		<div id="wrapper" class="login-page">
 		<div id="login_form" class="form">
-	
-		<form class="login-form" action="waiterLogin" method="post">
+		<s:fielderror name="wid"></s:fielderror>
+		<form class="login-form" action="waiterLogin" method="post" >
 				<input name="wid" type="text" placeholder="用户名" id="user_name"/>
 				<input name="wpass" type="password" placeholder="密码" id="password"/>
 				<input type="submit" id="login" value="登录"/>
 			</form>
 	</div>
 	</div>
-<%-- <script src="<%=basePath%>/js/jquery-2.1.1.min.js"></script> 
-<script type="text/javascript">
-	function check_login()
-	{
-	 var name=$("#user_name").val();
-	 var pass=$("#password").val();
-	 if(name=="admin" && pass=="admin")
-	 {
-	  alert("登录成功！");
-	  $("#user_name").val("");
-	  $("#password").val("");
 
-	 }
-	 else
-	 {
-	  $("#login_form").removeClass('shake_effect');  
-	  setTimeout(function()
-	  {
-	   $("#login_form").addClass('shake_effect')
-	  },1);  
-	 }
-	}
-	function check_register(){
-		var name = $("#r_user_name").val();
-		var pass = $("#r_password").val();
-		var email = $("r_email").val();
-		if(name!="" && pass=="" && email != "")
-		 {
-		  alert("注册成功！");
-		  $("#user_name").val("");
-		  $("#password").val("");
-		 }
-		 else
-		 {
-		  $("#login_form").removeClass('shake_effect');  
-		  setTimeout(function()
-		  {
-		   $("#login_form").addClass('shake_effect')
-		  },1);  
-		 }
-	}
-	$(function(){
-		$("#create").click(function(){
-			check_register();
-			return false;
-		})
-		$("#login").click(function(){
-			check_login();
-			return false;
-		})
-		$('.message a').click(function () {
-		    $('form').animate({
-		        height: 'toggle',
-		        opacity: 'toggle'
-		    }, 'slow');
-		});
-	})
-	</script> --%>
 </body>
 </html>

@@ -49,9 +49,24 @@ public class WaiterAction extends ActionSupport implements ModelDriven<Waiter> {
 	public String checkLogin(){
 		if(wd.checkLogin(waiter))
 		return SUCCESS;
+		this.addFieldError("wid", "用户名和密码不匹配");
+		return "input";
+	}
+	//获取没有接受的订单
+	public String obtainNewOrders(){
+		orders = od.getNewOrders();
 		return SUCCESS;
 	}
 	
+	public String newOrder(){
+		if(od.hasNewOrder()){
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("hadpay", 1001);
+	        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+	        result = json.toString();//给result赋值，传递给页面
+			return SUCCESS;
+		}else return SUCCESS;
+	}
 	public String changeOrderState(){
 		od.changeOrderState(oid,state);
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -60,6 +75,8 @@ public class WaiterAction extends ActionSupport implements ModelDriven<Waiter> {
 			stateString="已经送至厨师";
 		}if(state==2){
 			stateString="已经就餐";
+		}if(state==0){
+			stateString="已经接单";
 		}
 		map.put("stateString", stateString);
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据

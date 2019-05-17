@@ -67,8 +67,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			 session.put("uid", user.getUid());
 			return SUCCESS;
 		}
-		
-		else return "false";
+		this.addFieldError("upass", "用户名和密码不匹配");
+		return "input";
 	}
 	//注销
 	public String logout(){
@@ -95,16 +95,31 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
         result = json.toString();//给result赋值，传递给页面
         return SUCCESS;
 	}
+	
+	public void validateRegist() {
+		if(ud.uidIsExist(user.getUid()))
+			this.addFieldError("error", "用户名已经存在");
+		if(user.getUpass().length()<4||user.getUpass().length()>10){
+			this.addFieldError("error", "密码长度为4-10");
+		}
+		if(!user.getUpass().equals(upass1)){
+			this.addFieldError("error", "两次密码不一致");
+		}
+		String telRegex = "[1][3578]\\d{9}";
+		if(user.getPhone()==null || !user.getPhone().matches(telRegex)){
+			this.addFieldError("error", "手机号不正确");
+		}
+	}
+	
 	//注册
 	public String regist(){
-		System.out.println(user.getUid()+user.getUpass()+user.getPhone()+"111111");
 		if(ud.regist(user)){
 			Map session=ActionContext.getContext().getSession();
 			
 			   session.put("uid", user.getUid());
 			return SUCCESS;
 		}
-		return SUCCESS;
+		return INPUT;
 	}
 	
 	@Override

@@ -33,10 +33,11 @@ public class Order {
 	private String stateString;
 	private  static final Map<Integer,String> stateMap = new HashMap<Integer, String>(){
 	{
-		put(0,"未就餐");
+		put(0,"商家已经接单,未就餐");
 		put(2,"已就餐");
 		put(1,"已送至厨师");
-		
+		put(3,"等待商家接单");
+		put(4,"商家已经接单");
 	}};
 	
 	
