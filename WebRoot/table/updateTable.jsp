@@ -20,20 +20,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+<link href="./bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="./bootstrap/assets/css/ie10-viewport-bug-workaround.css"
+	rel="stylesheet">
+<link href="./bootstrap/dashboard.css" rel="stylesheet">
+<script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
   </head>
   
   <body>
-    <center>
-  	  请修改餐桌信息
-    	<s:form action="updateTable" method="post">
-	    	<s:textfield disabled="true" name="tid" label="编号"/>
-	    	<s:hidden name="tid"></s:hidden>
-	    	<s:textfield name="number" label="可入座人数"/>
-			<s:textfield name="used" label="已经入座人数"/>
-			<s:textarea name="describe" label="描述"/>
-    		<s:submit value="提交" ></s:submit>
+  <div class="container">
+  	<div class="row">
+  		<div class="col-xs-2"></div>
+  		<div class="col-xs-5">
+  		<div class="page-header">
+		 	<small><h3><a href="admin/main.jsp">返回我的主页</a></h3></small>
+		  
+		</div>
+  		 <div class="page-header">
+		  <h1>管理员 <small>请编辑餐桌信息</small></h1>
+		  
+		</div>
+		<s:fielderror id="mname" class="alert alert-warning" />
+		<s:form theme="simple" action="updateTable" method="post" >
+  	  <div class="input-group input-group-lg">
+		  <span class="input-group-addon" id="basic-addon1">餐桌编号</span>
+		  <input value="${tid}" readonly="true" name="tid" required="true" type="text" class="form-control"  aria-describedby="basic-addon1">
+		  
+		</div>
+		<%-- <s:fielderror id="price" class="alert alert-warning" /> --%>
+		<div class="input-group  input-group-lg">
+		  <span class="input-group-addon" id="basic-addon1">可入座人数</span>
+		  <input value="${number}"  name="number" required="true"  class="form-control" aria-describedby="basic-addon1">
+		</div>
+		<div class="input-group  input-group-lg">
+		  <span class="input-group-addon" id="basic-addon1">描述</span>
+		  <input  value="${describe}" name="describe" required="true"  type="text" class="form-control"  aria-describedby="basic-addon1">
+		</div>
+		 
+    	<s:submit style="margin-left: 353px;" class="btn  btn-lg" value="提交" ></s:submit>
     	</s:form>
-    </center>
+  		
+  		
+  		
+  		</div>
+  		
+  	</div>
+  </div>
   </body>
 </html>

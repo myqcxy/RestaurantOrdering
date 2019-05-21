@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,9 @@ public class OrderDao extends Dao{
 					o.setUid(rs.getString("uid"));
 					o.setTid(rs.getInt("tid"));
 					o.setPrice(rs.getFloat("price"));
-					o.setDate(rs.getDate("date"));
+					Timestamp timestamp = rs.getTimestamp("date");
+					
+					o.setDate(new java.util.Date(timestamp.getTime()));
 					o.setState(rs.getInt("state"));
 					o.setMid(rs.getString("mid"));
 					o.setMidString(new MealDao().getMealName(o.getMid()));
@@ -106,6 +109,7 @@ public class OrderDao extends Dao{
 					o.setPayState(rs.getInt("payState"));
 					o.setNote(rs.getString("note"));
 					o.setNumber(rs.getInt("number"));
+					o.setPrice(o.getTotle()-o.getDiscount());
 					orders.add(o);
 				
 				}

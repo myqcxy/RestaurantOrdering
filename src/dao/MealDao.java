@@ -122,7 +122,6 @@ public class MealDao {
 			      int row=pstmt.executeUpdate();
 			      isSuc=row>0;
 			    } catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				}
@@ -216,7 +215,7 @@ public class MealDao {
 		return re;
 	}
 
-	public List<Meal> getAllMeals(String mid, String uid) {
+	public List<Meal> getAllMeals(String mid, String uid, boolean repeat) {
 		
 		if(mid==null||mid.length()<1)
 			return null;
@@ -234,8 +233,6 @@ public class MealDao {
 					try (ResultSet rs = ps.executeQuery();) {
 						while(rs.next()){//如果还有house没有获取
 							ans=rs.getString("mid");
-						
-							
 						}
 					}
 					ps.close();//关闭ps
@@ -246,13 +243,14 @@ public class MealDao {
 				ans=ans.trim();
 			//	ans=ans.substring(0, ans.length()-1);
 				String []mids = ans.split(":");
+				
 				for(String m:mids){
 					boolean was=false;
 					for(Meal mm:meals){
 						if(mm.getMid()==Integer.parseInt(m))
 								was=true;
 					}
-					if(was) continue;
+					if(was&&!repeat) continue;
 					int sale = ans.split(m).length-1;
 					if(m.length()<1) break;
 					Meal meal = getMealById(Integer.parseInt(m));
@@ -462,6 +460,7 @@ public class MealDao {
 							m.setCategory(rs.getString("Category"));
 							m.setSales(rs.getInt("sales"));
 							m.setDiscount(this.getDicountByMid(m.getMid()));
+							
 							meals.add(m);
 						}
 					}
@@ -661,7 +660,7 @@ public class MealDao {
 		//创建一个List<Meal>对象
 				List<Meal> meals = new ArrayList<Meal>();
 				//sql语句
-				String sql = "select Discount.*,Meal.* from Discount,Meal  where Discount.mid=Meal.mid";
+				String sql = "select Discount.*,Meal.* from Discount,Meal  where Discount.mid=Meal.mid and getdate() between Discount.starttime and Discount.endtime ";
 				//使用PreparedStatement将SQL语句执行
 				PreparedStatement ps;
 				try {
@@ -671,7 +670,7 @@ public class MealDao {
 					try (ResultSet rs = ps.executeQuery();) {
 						while(rs.next()){//如果还有house没有获取
 							Meal m = getMealByResultSet(rs,uid);
-							
+							m.setDiscount(this.getDicountByMid(m.getMid()));
 							meals.add(m);
 							
 						}
@@ -697,6 +696,82 @@ public class MealDao {
 		m.setAddToCacheNumber(this.getAddToCacheNumber(m.getMid(), uid));
 		m.setDiscount(rs.getFloat("discount"));
 		return m;
+	}
+
+	public List<Meal> getHotMeals(String uid) {
+		//创建一个List<Meal>对象
+				List<Meal> meals = new ArrayList<Meal>();
+				//sql语句
+				
+				String sql = "select * from meal Order By sales Desc";
+				
+						//使用PreparedStatement将SQL语句执行
+						PreparedStatement ps;
+						try {
+							ps = con.prepareStatement(sql);
+							//逐个获取得到的结果
+							try (ResultSet rs = ps.executeQuery();) {
+								while(rs.next()){//如果还有house没有获取
+
+									Meal m = new Meal();
+									
+									m.setMid(rs.getInt("mid"));
+									m.setMname(rs.getString("mname"));
+									m.setPhoto(rs.getString("photo"));
+									m.setPrice(rs.getFloat("price"));
+									m.setPhoto("images/"+m.getPhoto());
+									m.setCategory(rs.getString("Category"));
+									m.setSales(rs.getInt("sales"));
+									m.setDiscount(this.getDicountByMid(m.getMid()));
+									m.setAddToCacheNumber(this.getAddToCacheNumber(m.getMid(), uid));
+									meals.add(m);
+								}
+							}
+							ps.close();//关闭ps
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						return meals;
+	}
+
+	public List<Meal> getLowPriceMeals(String uid) {
+		//创建一个List<Meal>对象
+		List<Meal> meals = new ArrayList<Meal>();
+		//sql语句
+		
+		String sql = "select * from meal Order By price";
+		
+				//使用PreparedStatement将SQL语句执行
+				PreparedStatement ps;
+				try {
+					ps = con.prepareStatement(sql);
+					//逐个获取得到的结果
+					try (ResultSet rs = ps.executeQuery();) {
+						while(rs.next()){//如果还有house没有获取
+
+							Meal m = new Meal();
+							
+							m.setMid(rs.getInt("mid"));
+							m.setMname(rs.getString("mname"));
+							m.setPhoto(rs.getString("photo"));
+							m.setPrice(rs.getFloat("price"));
+							m.setPhoto("images/"+m.getPhoto());
+							m.setCategory(rs.getString("Category"));
+							m.setSales(rs.getInt("sales"));
+							m.setDiscount(this.getDicountByMid(m.getMid()));
+							m.setAddToCacheNumber(this.getAddToCacheNumber(m.getMid(), uid));
+							meals.add(m);
+						}
+					}
+					ps.close();//关闭ps
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return meals;
 	}
 
 }

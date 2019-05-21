@@ -97,8 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="col-sm-3 col-md-2 sidebar" style="font-size:25px;background: black;">
           <ul class="nav nav-sidebar" >
           	<li class="active"><a href="specialOffer">今日特惠</a></li>
-          	<li ><a href="specialOffer">按销量降序</a></li>
-          	<li ><a href="specialOffer">按价格降序</a></li>
+          	<li ><a href="obtainMealsBySales">按销量降序</a></li>
+          	<li ><a href="obtainMealsByPrice">按价格升序</a></li>
           	
             <li >
 		            <s:url var="getByCategory1Url" action="getByCategory">

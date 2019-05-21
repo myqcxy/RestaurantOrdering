@@ -85,8 +85,12 @@ a{text-decoration:none;}
 				<li><a href="#">帮助</a></li>
 				<li><a href="admin/AdminLogin.jsp">注销</a></li>
 			</ul>
-			<form class="navbar-form navbar-right">
-				<input type="text" class="form-control" placeholder="搜索...">
+			<form action="adminSearch" class="navbar-form navbar-right">
+				<input name="searchText" type="text" class="form-control" placeholder="搜索...">
+				<select class="btn" name="searchCondition" >
+					<option value="mname">餐品名</option>
+					<option value="mid">餐品编号</option>
+				</select>
 				<input class="btn btn-default" type="submit" value="搜索">
 			</form>
 		</div>
@@ -136,6 +140,9 @@ a{text-decoration:none;}
             <div class="col-xs-6 col-sm-3 placeholder">
               <b style="color:red">优惠：<s:property value="discount"/></b><br>
               <s:property value="mname"/>
+              <%-- <table class="table">
+              <tr><td>￥:<td><s:property value="price"/>
+              </table> --%>
 		   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
 		   		类别：<s:property value="category"/><br>
 		   		销量：<s:property value="sales"/><br>

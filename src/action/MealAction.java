@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -67,9 +68,6 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	}
 	
 	public String addDiscount(){
-		/*System.out.println(discount.getDescribe()+discount.getDiscount()
-		+discount.getMid()+discount.getStarttime()+discount.getEndtime());
-		System.out.println(discount.getStarttime().toString());*/
 		md.addDiscount(dist);
 		 Map<String,Object> map = new HashMap<String,Object>();
 
@@ -89,10 +87,8 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		meal.setSales(m.getSales());
 		meal.setCategory(m.getCategory());
 		dist = md.getDiscount(m.getMid());
-		System.out.println(dist);
 		if(dist!=null){
 			dist.setDescribe(dist.getDescribe().trim());
-			System.out.println(dist.getDescribe()+dist.getDid()+dist.getMid()+dist.getStarttime());
 			
 		}
 		
@@ -107,13 +103,29 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		
 		return SUCCESS;
 	}
+	
+	public String obtainMealsByPrice(){
+		ActionContext actionContext = ActionContext.getContext();
+        Map session = actionContext.getSession();
+        String uid=((String)session.get("uid"));
+		list=md.getLowPriceMeals(uid);
+		
+		return SUCCESS;
+	}
+	public String obtainMealsBySales(){
+		ActionContext actionContext = ActionContext.getContext();
+        Map session = actionContext.getSession();
+        String uid=((String)session.get("uid"));
+		list=md.getHotMeals(uid);
+		return SUCCESS;
+	}
+	
 	public String delMeal(){
 		if(new MealDao().delMeal(meal.getMid())) return SUCCESS;
 		else return "delFalse";
 	}
 	public String AllMeals(){
-		list= new MealDao().getHotMeals(0);
-		
+		list= md.getHotMeals(0);
 		return SUCCESS;
 	}
 	
@@ -163,7 +175,7 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	
 	public String updateMeal(){
 		savePhoto();
-		if(new MealDao().updateMeal(meal)) return SUCCESS;
+		if(md.updateMeal(meal)) return SUCCESS;
 		else return "updateFalse";
 	
 	}
@@ -188,13 +200,26 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		}
 		meal.setPhoto(newFileName);
 	}
-	@Override
-	public String execute() throws Exception {
+	
+	
+	
+	
+	public void validateAddMeal() {
+		if(meal.getMname().length()<1){
+			this.addFieldError("mname", "餐品名称不能为空");
+		}else if(meal.getPrice()==0||!(meal.getPrice()+"").matches("^\\d+.\\d+?$")){
+			this.addFieldError("price", "价格须为正小数");
+			
+		}
+	}
 
+	
+	public String addMeal() throws Exception {
+		
 		savePhoto();
 		if(md.addMeal(meal))
 			return SUCCESS;
-		else return "false";
+		else return INPUT;
 	}
 
 	@Override

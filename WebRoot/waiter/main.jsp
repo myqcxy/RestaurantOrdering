@@ -143,7 +143,7 @@
 	src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 <script type="text/javascript">
    $("#newOrder").ready(function(){  
- 	 c = window.setInterval("getResult()",10000); //间隔多少秒去触发ajax
+ 	 c = window.setInterval("getResult()",1000); //间隔多少秒去触发ajax
  	 }); 
  
   function getResult(){
@@ -158,7 +158,7 @@
              /* alert("" + d.hadpay+""); */
              if(d.hadpay==1001){
              document.getElementById('newOrder').style.color="red";
-              document.getElementById('newOrderText').textContent="有新的订单,点此接受";
+              document.getElementById('newOrderText').textContent="有新的订单";
               document.getElementById('newOrderText').style="color:red;front:30px"
              }
              

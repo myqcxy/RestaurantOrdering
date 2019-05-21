@@ -62,7 +62,7 @@
 			
 			<form action="CashierSearch" method="post" class="navbar-form navbar-right">
 				<input name="searchText" type="text" class="form-control" placeholder="搜索...">
-				<select name="searchCondition">
+				<select class="btn" name="searchCondition">
 					<option value="uid">用户名</option>
 					<option value="oid">订单号</option>
 					<option value="phone">手机号</option>
@@ -91,13 +91,16 @@
 				 <div class="row placeholders"> <s:if test="%{user.uid!=null}">
 				 <div class="col-xs-6 col-sm-4 placeholder">
 				  
-			<s:form action="recharge" method="post" style="background-color:gray;color:black;">
+			<s:form class="form" action="recharge" method="post" style="background-color:gray;color:black;">
            
               <s:textfield class="rechargeUid" name="user.uid"  label="用户名"  disabled="true"/>
               <s:textfield type="hidden" name="user.uid"/>
               <s:textfield name="user.phone"  label="电话"  disabled="true"/>
               <s:textfield  name="user.balance" label="余额" id="balance" disabled="true"/>
-              <s:textfield class="rechargeAmount" name="rechargeAmount" label="充值金额"/>
+              <s:textfield name="user.integral" label="积分" readonly="true"/>
+              <s:textfield name="user.vipString" label="会员等级" readonly="true"/>
+              
+              <s:textfield type="number" class="rechargeAmount" name="rechargeAmount" label="充值金额"/>
               
               <s:submit value="充值" />
 		     	</s:form>

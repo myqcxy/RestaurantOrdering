@@ -4,7 +4,7 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
     "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-	<constant name="struts.devMode" value="true" />
+<!-- 	<constant name="struts.devMode" value="true" /> -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	
 	<package name="cashier" namespace="/" extends="struts-default,json-default">
@@ -72,6 +72,9 @@
             </result>
 		</action>
 		
+		<action name="adminSearch" class="action.AdminAction" method="adminSearch">
+			<result name="success">/admin/main.jsp</result>
+		</action>
 		<action name="setDiscount" class="action.MealAction" method="setDiscount">
 			<result name="success">/meal/setDiscount.jsp</result>
 		</action>
@@ -155,6 +158,17 @@
 	
 		</action>
 		
+		
+		<!-- 前端按照价格升序排搜索-->
+		<action name="obtainMealsByPrice" class="action.MealAction" method="obtainMealsByPrice">
+		
+			<result name="success">/index.jsp</result>
+		</action>
+		<!-- 前端按照销量降序搜索 -->
+		<action name="obtainMealsBySales" class="action.MealAction" method="obtainMealsBySales">
+		
+			<result name="success">/index.jsp</result>
+		</action>
 		<!-- 按照类别搜索餐品 -->
 		<action name="getByCategory" class="action.MealAction" method="obtainMealsByCategory">
 		
@@ -167,7 +181,6 @@
 		<action name="toUpdateMeal" class="action.MealAction" method="toUpdateMeal">
 		
 			<result name="success">/meal/updateMeal.jsp</result>
-			<result name="false">/admin/loginFalse.jsp</result>
 	
 		</action>
 		<!-- 更新Meal -->
@@ -186,10 +199,10 @@
 	
 		</action>
 		<!-- 添加meal -->
-		<action name="addMeal" class="action.MealAction">
+		<action name="addMeal" class="action.MealAction" method="addMeal">
 		
 			<result name="success" type="redirect">/meal/addMealSuccess.jsp</result>
-			<result name="flase">/meal/addMealFalse.jsp</result>
+			<result name="input">/meal/addMeal.jsp</result>
 		</action>
 		
 		<!-- 添加餐桌 -->
@@ -255,13 +268,25 @@
 			<result name="success">/index.jsp</result>
 		</action>
 		
+		<action name="modifyPhone" class="action.UserAction" method="modifyPhone">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
+		
+		
+		<action name="modifyPassWord" class="action.UserAction" method="modifyPassWord">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
 		<action name="userUpdate" class="action.UserAction" method="userUpdate">
-			<result name="input">/user/edit.jsp</result>
-			<result name="success">/index.jsp</result>
+			<result name="input">/user/main.jsp</result>
+			<result name="success">/user/main.jsp</result>
 		</action>
 		<action name="userEdit" class="action.UserAction" method="userEdit">
-		
-			<result name="success">/user/edit.jsp</result>
+			<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
+			<result name="success">/user/main.jsp</result>
 		</action>
 		<action name="userLogin" class="action.UserAction">
 		
@@ -270,14 +295,35 @@
 		</action>
 		<action name="userRegist" class="action.UserAction" method="regist">
 			<result name="success">/user/main.jsp</result>
-			<result name="input">/user/login.jsp</result>
+			<result name="input">/user/regist.jsp</result>
 		</action>
 		
+		<action name="retrievePassword" class="action.UserAction" method="retrievePassword">
+			<result name="success">/user/retrievePasswordSuccess.jsp</result>
+			<result name="input">/user/toFindPassword.jsp</result>
+		</action>
+		<action name="toFindPassword" class="action.UserAction" method="toFindPassword">
+			<result name="success">/user/toFindPassword.jsp</result>
+			<result name="input">/user/regist.jsp</result>
+		</action>
+		<action name="findPassword" class="action.UserAction" method="findPassword">
+			<result type="json">
+                <param name="root">result</param>
+            </result>
+		</action>
 		<action name="checkusername" class="action.UserAction" method="checkusername">
 			<result type="json">
                 <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
             </result>
 		</action>
+		
+		<action name="emailer" 
+         class="action.Emailer"
+         method="execute">
+         <result name="success">/success.jsp</result>
+         <result name="error">/error.jsp</result>
+      </action>
+		
 	</package>
 	
 </struts>

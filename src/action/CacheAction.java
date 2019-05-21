@@ -34,7 +34,7 @@ public class CacheAction extends ActionSupport implements ModelDriven<Cache> {
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
 		Cache cache = new CacheDao().getCache(uid);
-		list = new MealDao().getAllMeals(cache.getMid(),uid);
+		list = new MealDao().getAllMeals(cache.getMid(),uid,false);
 		 return SUCCESS;
 		
 	}
@@ -49,7 +49,7 @@ public class CacheAction extends ActionSupport implements ModelDriven<Cache> {
         cache.setUid((String)session.get("uid"));
         Map<String,Object> map = new HashMap<String,Object>();
         if(cd.delFromCache(cache)){
-        	list=new MealDao().getAllMeals(cache.getMid(),cache.getUid());
+        	list=new MealDao().getAllMeals(cache.getMid(),cache.getUid(),false);
        	 int num=new MealDao().getAddToCacheNumber(Integer.parseInt(cache.getMid()), cache.getUid());
             map.put("number", num);
             JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
@@ -70,7 +70,7 @@ public class CacheAction extends ActionSupport implements ModelDriven<Cache> {
         Map<String,Object> map = new HashMap<String,Object>();
 
          if(cd.addToCache(cache)){
-        	 list=new MealDao().getAllMeals(cache.getMid(),cache.getUid());
+        	 list=new MealDao().getAllMeals(cache.getMid(),cache.getUid(),false);
         	 int num=new MealDao().getAddToCacheNumber(Integer.parseInt(cache.getMid()), cache.getUid());
              map.put("number", num);
              JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据

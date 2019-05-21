@@ -70,7 +70,6 @@ public class UserDao {
 		boolean isSuc=false;
 		 try (
 			        PreparedStatement pstmt = con.prepareStatement(sql);) {
-			 System.out.println(user.getUid()+user.getUpass()+user.getPhone()+"2222");
 			      pstmt.setString(1,user.getUid());
 			      pstmt.setString(2,user.getUpass());
 			      pstmt.setString(3,user.getPhone());
@@ -97,6 +96,12 @@ public class UserDao {
 				user.setUpass(rs.getString("upass"));
 				user.setBalance(rs.getFloat("balance"));
 				user.setPhone(rs.getString("phone"));
+				user.setIntegral(rs.getInt("integral"));
+				user.setVip(rs.getInt("vip"));
+				String email = rs.getString("email");
+				if(email!=null)
+				user.setEmail(email.trim());
+				else user.setEmail("");
 			}
 			
 		} catch (SQLException e) {
@@ -115,6 +120,76 @@ public class UserDao {
 			      pstmt.setString(3,user.getUid());
 			      pstmt.setString(1,user.getUpass());
 			      pstmt.setString(2,user.getPhone());
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
+
+	public boolean modifyPassWord(User user) {
+		String sql="update  [User] set upass=?,sid=''  where uid=?";
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      
+			      pstmt.setString(1,user.getUpass());
+			      pstmt.setString(2,user.getUid().trim());
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
+
+	public boolean modifyPhone(User user) {
+		String sql="update  [User] set phone=? where uid=?";
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      pstmt.setString(2,user.getUid());
+			      pstmt.setString(1,user.getPhone());
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
+
+	public User hasSid(String sid) {
+		User u=null;
+		String sql = "select * from [User] where sid=?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, sid);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				String uid=rs.getString("uid");
+				u=this.getUser(uid);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+
+	public boolean setSid(String sid, String uid) {
+		String sql="update  [User] set sid=? where uid=?";
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      
+			      pstmt.setString(1,sid);
+			      pstmt.setString(2,uid);
 			      int row=pstmt.executeUpdate();
 			      isSuc=row>0;
 			    } catch (SQLException e) {

@@ -20,18 +20,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+<link href="./bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="./bootstrap/assets/css/ie10-viewport-bug-workaround.css"
+	rel="stylesheet">
+<link href="./bootstrap/dashboard.css" rel="stylesheet">
+<script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
   </head>
   
   <body>
-    <center>
-  	  输入添加的餐桌信息
-    	<s:form action="addTable" method="post">
-    	<s:textfield name="number" label="入座人数"/>
+    
+  <div class="container">
+  	<div class="row">
+  		<div class="col-xs-2"></div>
+  		<div class="col-xs-5">
+  	
+  		 <div class="page-header">
+		 	<small><h3><a href="admin/main.jsp">返回我的主页</a></h3></small>
+		  
+		</div>
+  		 <div class="page-header">
+		  <h1>管理员 <small>输入需要添加的餐桌信息</small></h1>
+		  
+		</div>
+		<s:fielderror id="mname" class="alert alert-warning" />
+		<s:form theme="simple" action="addTable" method="post" enctype="multipart/form-data">
+  	  <div class="input-group input-group-lg">
+		  <span class="input-group-addon" id="basic-addon1">入座人数</span>
+		  <input name="number"  required="true" type="number" class="form-control" placeholder="正整数" aria-describedby="basic-addon1">
+		  
+		</div>
+		<div class="input-group  input-group-lg">
+		  <span class="input-group-addon" id="basic-addon1">描述</span>
+		  <input  name="describe"  required="true"  type="textarea" class="form-control"  aria-describedby="basic-addon1">
+		</div>
 		
-		<s:textarea name="describe" label="描述"/>
-    	<s:submit value="提交" ></s:submit>
+    	<s:submit style="margin-left: 353px;" class="btn  btn-lg" value="提交" ></s:submit>
     	</s:form>
-    </center>
+  		
+  		
+  		
+  		</div>
+  		
+  	</div>
+  </div>
+  	
+  
   </body>
 </html>

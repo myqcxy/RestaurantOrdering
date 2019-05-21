@@ -54,7 +54,6 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
         orders = od.getOrders(uid);
-       
         return SUCCESS;
 	}
 	
@@ -76,11 +75,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
         order.setPrice(od.getOrderPrice(uid));
         order.setState(3);
         order.setMid(new CacheDao().getMid(uid));
-        list = new MealDao().getAllMeals(order.getMid(),uid);
+        list = new MealDao().getAllMeals(order.getMid(),uid,false);
         order.setTotle(order.getPrice());
         order.setMethod(0);
         order.setPayMethod(0);
-       
+        order.setPrice(order.getTotle()-order.getDiscount());
      
 		if(od.toPay(order)) return SUCCESS;
 		else return "toPayFalse";
@@ -97,7 +96,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
         
         order.setState(3);
         order.setMid(new CacheDao().getMid(uid));
-        list = new MealDao().getAllMeals(order.getMid(),uid);
+        list = new MealDao().getAllMeals(order.getMid(),uid,true);
         order.setTotle(od.getOrderPrice(uid));
         order.setMethod(0);
         order.setDiscount(od.getDiscount(order.getMid()));

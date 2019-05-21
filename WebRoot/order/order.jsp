@@ -20,39 +20,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<meta charset="utf-8">
-
+<link href="./bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="./bootstrap/assets/css/ie10-viewport-bug-workaround.css"
+	rel="stylesheet">
+<link href="./bootstrap/dashboard.css" rel="stylesheet">
+<script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
 
     
 
   </head>
   
   <body>
-	<center>
 
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <div class="row placeholders">
-           <s:iterator value="list">
-            <div class="col-xs-6 col-sm-3 placeholder">
-             
-              <s:property value="mname"/>
-		   		&nbsp;&nbsp;&nbsp;￥:<s:property value="price"/><br>
-		   		类别：<s:property value="category"/><br>
-		   		<img alt="图片走丢了" src="${ photo }" width="100px" height="100px" ><br>
-		   		
-		   		
-            </div>
-            
+        <div class="col-xs-3"></div>
+        <div class="col-xs-5">
+        <div class="page-header">
+		  <h1>下单 <small>请确认下单信息</small></h1>
+		  
+		</div>
+        <table class="table">
+        	<tr><th>餐品图片<th>餐品名<th>价格<th>折扣<th>类别
+        	<s:iterator value="list">
+        	<tr><td><img alt="图片走丢了" src="${ photo }" width="40px" height="30px">
+            <td>  <s:property value="mname"/>
+		   		<td>￥:<s:property value="price"/>
+		   		<td><s:property value="discount"/>
+		   		<td><s:property value="category"/>
             </s:iterator>
-            
-            <s:form >
+        </table>
+   		<table class="table">
+   			<s:form theme="simple">
+            	<tr><th>总金额<th><s:textfield name="totle" readonly="true" class="totle"/>
+            	<tr><th>折扣<th><s:textfield name="discount" label="折扣"  readonly="true" class="discount"/>
+            	<tr><th>应付<th><s:textfield name="price" label="应付"  readonly="true" class="price"/>
+            	<tr><th>电话<th><s:textfield type="number" name="user.phone" label="电话" class="phone"/>
+           <tr>
+           <th>人数:
+           <th>
+            	<select name="searchCondition" class="number">
+					<option value="1">1人</option>
+					<option value="2">2人</option>
+					<option value="3">3人</option>
+					<option value="4">4人</option>
+					<option value="5">5人</option>
+					<option value="6">6人</option>
+					<option value="7">7人</option>
+					<option value="8">8人</option>
+					<option value="9">9人</option>
+					<option value="10">10人以上</option>
+					
+				</select>
+            	<tr><th>备注<th><s:textarea name="note" label="备注" class="note"/>
+            	 <% String isok=(String)session.getAttribute("placeAnOrderRes");
+             	if(isok.equalsIgnoreCase("ok")){
+             		%>
+             		<tr>
+             		<td>
+             		<input class="btn" type="button" onclick="topay(1)" value="去付款"><td>
+             		<input class="btn" type="button"  onclick="topay(2)" value="预约，到店付款">
+             		<% 
+             	}else {
+             	%><tr><td><td>
+             		<input type="button" class="btn" onclick="topay(2)" value="余额不足，先预约，到店付款">
+             		<% 
+             	}
+			  %>
+            	
+           </s:form>
+   		</table>
+           <%--  <s:form theme="simple">
             	<s:textfield name="totle" label="总金额" readonly="true" class="totle"/>
             	<s:textfield name="discount" label="折扣"  readonly="true" class="discount"/>
             	<s:textfield name="price" label="应付"  readonly="true" class="price"/>
             	<s:textfield name="user.phone" label="电话" class="phone"/>
-           <%--  	<s:textfield  label="人数" /> --%>
            <tr>
            <td>人数:
            <td>
@@ -85,14 +127,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              	}
 			  %>
             	
-           </s:form>
-          </div>
+           </s:form> --%>
  
           
         </div>
       </div>
     </div>
-</center>
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
   <script type="text/javascript">

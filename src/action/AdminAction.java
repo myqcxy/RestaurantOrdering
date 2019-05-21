@@ -9,6 +9,8 @@ import com.opensymphony.xwork2.ModelDriven;
 
 import dao.AdminDao;
 import dao.MealDao;
+import dao.OrderDao;
+import dao.UserDao;
 import model.Admin;
 import model.Meal;
 import model.Order;
@@ -19,7 +21,29 @@ public class AdminAction extends ActionSupport implements ModelDriven<Admin>{
 	int statisticMethod;
 	private List<Meal> list;
 	private List<Order> orders;
-	
+	String searchText;
+	String searchCondition;
+	private MealDao md= new MealDao();
+	public String getSearchText() {
+		return searchText;
+	}
+
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+
 	public int getStatisticMethod() {
 		return statisticMethod;
 	}
@@ -28,11 +52,29 @@ public class AdminAction extends ActionSupport implements ModelDriven<Admin>{
 	public void setStatisticMethod(int statisticMethod) {
 		this.statisticMethod = statisticMethod;
 	}
-
+	//管理员搜索框
+	public String adminSearch(){
+		if(searchCondition==null) return SUCCESS;
+		if(searchCondition.equals("mid")){
+			
+			
+			Meal m = md.getMealById(Integer.parseInt(searchText) );
+			if(m!=null&&m.getMname()!=null&&m.getMname().length()>0){
+				list=new ArrayList<Meal>();
+				list.add(m);
+			}
+			
+		}
+	
+		if(searchCondition.equals("mname")){
+			list=md.userSearch(searchText, null);
+		}
+		return SUCCESS;
+		
+	}
 
 	@Override
 	public String execute() throws Exception {
-	//	System.out.println(admin.getAid());
 		if(ad.login(admin))
 		return SUCCESS;
 		this.addFieldError("aid", "用户名和密码不匹配");

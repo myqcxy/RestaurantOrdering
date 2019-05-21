@@ -29,10 +29,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="login_form" class="form">
 		<form class="registerform" action="userRegist" method="post">
 		<s:fielderror name="error"></s:fielderror>
-				<input type="text" name="uid" placeholder="用户名" id="r_user_name"/>
-				<input type="password" name="upass" placeholder="密码" id="r_password" />
-				<input type="password" name="upass1" placeholder="确认密码" id="r_password" />
-				<input type="text" name="phone" placeholder="电话" id="r_emial"/>
+				<input required="true" type="text" name="uid" placeholder="用户名" id="r_user_name"/>
+				<input required="true" type="password" name="upass" placeholder="密码" id="r_password" />
+				<input required="true" type="password" name="upass1" placeholder="确认密码" id="r_password" />
+				<input required="true" type="number" name="phone" placeholder="电话" id="r_emial"/>
+				<input required="true" type="text" name="email" id="r_emial" placeholder="邮箱" >
 				<button typde="submit" id="create">创建账户</button>
 				<p class="message">已经有了一个账户? <a href="<%=basePath%>user/login.jsp">立刻登录</a></p>
 			</form>
@@ -40,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
   
-    <center>
+    <%-- <center>
     <table align="center">
 
         <tbody><tr>
@@ -73,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tbody>
   
     </table>
-</center>
+</center> --%>
 <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 <script>
 //页面加载使用
