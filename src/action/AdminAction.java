@@ -81,14 +81,18 @@ public class AdminAction extends ActionSupport implements ModelDriven<Admin>{
 		return "input";
 	}
 	
-	
 	@Override
 	public Admin getModel() {
 		
 		return admin;
 	}
 	public String salesStatistics(){
-		list = new MealDao().getHotMeals(statisticMethod);
+		if(statisticMethod==2){
+			orders = md.getMealsByPraise(statisticMethod);
+		}else if(statisticMethod==3){
+			orders=md.getMealsByPraise(statisticMethod);
+		}
+		else list = md.getHotMeals(statisticMethod);
 		return SUCCESS;
 	}
 	public List<Meal> getList() {

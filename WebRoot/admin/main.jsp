@@ -40,7 +40,6 @@
 body{margin:0;padding:0;overflow-x:hidden;}
 html, body{height:100%;}
 img{border:none;}
-*{font-family:'微软雅黑';font-size:12px;color:#626262;}
 dl,dt,dd{display:block;margin:0;}
 a{text-decoration:none;}
 
@@ -77,7 +76,7 @@ a{text-decoration:none;}
 					class="icon-bar"></span> <span class="icon-bar"></span> 
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">用户管理员</a>s
+			<a class="navbar-brand" href="admin/main.jsp">用户管理员</a>s
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -123,6 +122,7 @@ a{text-decoration:none;}
 					<dd class="first_dd"><a href="salesStatistics">按照销量降序</a></dd>
 					<dd class="first_dd"><a href="salesStatistics?statisticMethod=1">按照销量升序</a></dd>
 					<dd class="first_dd"><a href="salesStatistics?statisticMethod=2">按照好评升序</a></dd>
+					<dd class="first_dd"><a href="salesStatistics?statisticMethod=3">按照好评降序</a></dd>
 				</dl>
 			
 				
@@ -165,9 +165,50 @@ a{text-decoration:none;}
 		       
 		   		
             </div></s:iterator>
+            <s:iterator value="orders">
+          
+          <div class="col-xs-6 col-sm-4 placeholder">
+            <s:form style="background-color:gray;color:black;height: 420px;">
             
+         	
+              <s:textfield name="oid" value="%{ oid }" label="订单编号" class="choiceTableoid%{oid} sss" disabled="true"/>
+              <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
+              
+          	
+          		<s:textfield name="tid"  label="餐桌编号"  readonly="true"/>
+          		
+          	
+              <s:textfield name="number" label="就餐人数"  class="choiceTablenumber%{oid}" disabled="true"/>
+              <s:textfield name="totle" value="%{ totle }" label="总共金额"  disabled="true"/>
+              <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>
+               <s:textfield label="使用积分" value="%{integral}" disabled="true"/>
+              <s:textfield label="积分折扣" value="%{integral/10}" disabled="true"/>
+              <s:textfield name="price" value="%{ price }" label="支付金额（元）"  disabled="true"/>
+              <s:date name="date" var="vf" format="yyyy年MM月dd日 HH:mm:ss"/> 
+              <s:textfield name="date" value="%{vf}" label="下单时间"  disabled="true"/> 
+              <s:textfield name="state" value="%{ stateString }" label="订单状态"  disabled="true"/>
+              <s:textfield name="mid" value="%{ midString }" label="购买餐品"  disabled="true"/>
+              <s:textfield name="phone" value="%{ phone }" label="联系电话"  disabled="true"/>
+               <s:textfield name="note" value="%{ note }" label="批注"  disabled="true"/>
+               <input type="hidden" id="order${oid}" value="${grade}">
+               <tr><td>
+             
+             	评价等级 <td><select disabled="true" id="select<s:property value="oid"/>" value="%{grade}" class="select<s:property value="oid"/>" name="evaluationLevel">
+					<option value="0">选择评价等级</option>
+					<option value="1">很不满意 ★</option>
+					<option value="2">较不满意 ★★</option>
+					<option value="3">基本满意 ★★★</option>
+					<option value="4">满意 ★★★★</option>
+					<option value="5">非常满意 ★★★★★</option>
+				</select>
+             <s:textfield name="payState" value="%{ payStateString }" label="付款状态"  disabled="true"/>
+             
+             
+     			
+		     	</s:form>
+             </div></s:iterator> 
           </div>
-
+		
 				
 				
 			</div>
@@ -198,6 +239,14 @@ a{text-decoration:none;}
 	
 </script>
 <script type="text/javascript">
+$(function(){
+  	$(".sss").each(function(){
+  		var id=$(this).val();
+  		var order=$("#order"+id).val();
+  		
+  		$(".select"+id).val(order);
+  	});
+  });
 $(".leftsidebar_box dt").css({"background-color":"#3992d0"});
 $(".leftsidebar_box dt img").attr("src","<%=basePath%>admin/images/left/select_xl01.png");
 $(function(){

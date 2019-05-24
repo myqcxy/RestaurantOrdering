@@ -14,6 +14,7 @@ import java.util.Map;
 
 import model.Discount;
 import model.Meal;
+import model.Order;
 
 public class MealDao {
 	Connection con = DBConnection.getConnect();
@@ -771,6 +772,56 @@ public class MealDao {
 				}
 				
 				return meals;
+	}
+
+	public List<Order> getMealsByPraise(int statisticMethod) {
+		//创建一个List<Order>对象
+				List<Order> orders = new ArrayList<Order>();
+				//sql语句
+				String sql = "select * from [Order]  where grade>0 Order By grade Desc";
+				if(statisticMethod==3){
+					sql="select * from [Order]  where grade>0 Order By grade";
+				}
+				//使用PreparedStatement将SQL语句执行
+				PreparedStatement ps;
+				try {
+					ps = con.prepareStatement(sql);
+					//逐个获取得到的结果
+					try (ResultSet rs = ps.executeQuery();) {
+				
+						while(rs.next()){//如果还有house没有获取
+							Order o  = new Order();
+							o.setOid(rs.getLong("oid"));
+							o.setUid(rs.getString("uid"));
+							o.setTid(rs.getInt("tid"));
+							o.setPrice(rs.getFloat("price"));
+							Timestamp timestamp = rs.getTimestamp("date");
+							
+							o.setDate(new java.util.Date(timestamp.getTime()));
+							o.setState(rs.getInt("state"));
+							o.setMid(rs.getString("mid"));
+							o.setMidString(new MealDao().getMealName(o.getMid()));
+							o.setTotle(rs.getFloat("totle"));
+							o.setPhone(rs.getString("phone"));
+							o.setMethod(rs.getInt("method"));
+							o.setDiscount(rs.getFloat("discount"));
+							o.setPayMethod(rs.getInt("payMethod"));
+							o.setPayState(rs.getInt("payState"));
+							o.setNote(rs.getString("note"));
+							o.setNumber(rs.getInt("number"));
+							o.setIntegral(rs.getInt("integral"));
+							o.setGrade(rs.getInt("grade"));
+							orders.add(o);
+						
+						}
+					}
+					ps.close();//关闭ps
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(orders.isEmpty()) return null;
+				return orders;
 	}
 
 }

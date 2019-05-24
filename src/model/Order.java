@@ -32,7 +32,14 @@ public class Order {
 	private int state;//¶©µ¥×´Ì¬  Î´¾Í²Í£¨Ä¬ÈÏ£©£º0£»
 	private String stateString;
 	private int integral;
+	private int grade;
 	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
 	public int getIntegral() {
 		return integral;
 	}

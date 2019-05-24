@@ -55,7 +55,7 @@ form{
           
             <s:form style="color:#0314FB">
            
-              <s:textfield name="oid" value="%{ oid }" label="订单编号"  disabled="true"/>
+              <s:textfield name="oid" class="sss" value="%{ oid }" label="订单编号"  disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
               <s:if test="tid==0">
               <s:textfield name="tid" value="到店分配餐桌" label="餐桌"  disabled="true"/>
@@ -68,6 +68,9 @@ form{
               <s:textfield label="积分折扣" value="%{integral/10}" disabled="true"/>
               <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>
               <s:textfield name="price" value="%{ price }" label="支付金额（元）"  disabled="true"/>
+              
+              <input type="hidden" id="order${oid}" value="${grade}">
+              
               <s:date name="date" var="vf" format="yyyy年MM月dd日 HH:mm:ss"/> 
               <s:textfield name="date" value="%{vf}" label="下单时间"  disabled="true"/> 
               <s:textfield name="state" value="%{ stateString }" label="订单状态"  disabled="true"/>
@@ -80,7 +83,8 @@ form{
               <s:if test="state==2">
              <tr><td>
              
-             	评价等级 <td><select id="select<s:property value="oid"/>" class="select<s:property value="oid"/>" name="evaluationLevel">
+             	评价等级 <td><select id="select<s:property value="oid"/>" value="%{grade}" class="select<s:property value="oid"/>" name="evaluationLevel">
+					<option value="0">选择评价等级</option>
 					<option value="1">很不满意 ★</option>
 					<option value="2">较不满意 ★★</option>
 					<option value="3">基本满意 ★★★</option>
@@ -98,6 +102,14 @@ form{
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
   <script type="text/javascript">
+  $(function(){
+  	$(".sss").each(function(){
+  		var id=$(this).val();
+  		var order=$("#order"+id).val();
+  		
+  		$(".select"+id).val(order);
+  	});
+  });
           function topay(aa){
           $.ajax({
               type:"post",
@@ -134,8 +146,6 @@ form{
               dataType:"json",//设置需要返回的数据类型
               success:function(data){
                   alert("评价成功！");
-                  $("#select"+commentOid).attr("disabled","disabled");
-                  $("#button"+commentOid).attr("style","display:none;");
               },
               error:function(){
                   alert("系统异常，请稍后重试！");

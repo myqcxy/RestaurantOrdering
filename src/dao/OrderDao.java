@@ -111,6 +111,7 @@ public class OrderDao extends Dao{
 					o.setNote(rs.getString("note"));
 					o.setNumber(rs.getInt("number"));
 					o.setIntegral(rs.getInt("integral"));
+					o.setGrade(rs.getInt("grade"));
 					orders.add(o);
 				
 				}
@@ -175,6 +176,7 @@ public class OrderDao extends Dao{
 							o.setPayState(rs.getInt("payState"));
 							o.setNote(rs.getString("note"));
 							o.setNumber(rs.getInt("number"));
+							o.setGrade(rs.getInt("grade"));
 							orders.add(o);
 						
 						}
@@ -221,6 +223,7 @@ public class OrderDao extends Dao{
 					o.setPayState(rs.getInt("payState"));
 					o.setNote(rs.getString("note"));
 					o.setNumber(rs.getInt("number"));
+					o.setGrade(rs.getInt("grade"));
 					orders.add(o);
 				
 				}
@@ -285,6 +288,7 @@ public class OrderDao extends Dao{
 							o.setPayState(rs.getInt("payState"));
 							o.setNote(rs.getString("note"));
 							o.setNumber(rs.getInt("number"));
+							o.setGrade(rs.getInt("grade"));
 							orders.add(o);
 						
 						}
@@ -335,7 +339,7 @@ public class OrderDao extends Dao{
 
 
 	public boolean comment(Comment comment) {
-		String sql="update Comment set grade=? where oid=?";
+		String sql="update [Order] set grade=? where oid=?";
 		boolean isSuc=false;
 		
 		 try (
@@ -403,6 +407,7 @@ public class OrderDao extends Dao{
 					o.setNote(rs.getString("note"));
 					o.setNumber(rs.getInt("number"));
 					o.setIntegral(rs.getInt("integral"));
+					o.setGrade(rs.getInt("grade"));
 					orders.add(o);
 				
 				}
