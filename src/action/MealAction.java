@@ -174,7 +174,7 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	}
 	
 	public String updateMeal(){
-		savePhoto();
+		if(mphoto!=null&&mphoto.length()>0) savePhoto();
 		if(md.updateMeal(meal)) return SUCCESS;
 		else return "updateFalse";
 	
@@ -195,7 +195,6 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 		try {
 			FileUtils.copyFile(mphoto, new File(f,newFileName));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		meal.setPhoto(newFileName);
@@ -216,7 +215,7 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	
 	public String addMeal() throws Exception {
 		
-		savePhoto();
+		if(mphoto!=null&&mphoto.length()>0) savePhoto();
 		if(md.addMeal(meal))
 			return SUCCESS;
 		else return INPUT;

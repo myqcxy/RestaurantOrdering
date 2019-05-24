@@ -101,6 +101,8 @@
               <s:textfield name="number" label="就餐人数"  class="choiceTablenumber%{oid}" disabled="true"/>
               <s:textfield name="totle" value="%{ totle }" label="总共金额"  disabled="true"/>
               <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>
+               <s:textfield label="使用积分" value="%{integral}" disabled="true"/>
+              <s:textfield label="积分折扣" value="%{integral/10}" disabled="true"/>
               <s:textfield name="price" value="%{ price }" label="支付金额（元）"  disabled="true"/>
               <s:date name="date" var="vf" format="yyyy年MM月dd日 HH:mm:ss"/> 
               <s:textfield name="date" value="%{vf}" label="下单时间"  disabled="true"/> 

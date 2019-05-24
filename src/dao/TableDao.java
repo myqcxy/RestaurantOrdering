@@ -34,7 +34,7 @@ public class TableDao {
 		//创建一个List<Table>对象
 		List<Table> tables = new ArrayList<Table>();
 		//sql语句
-		String sql = "select * from [Table]";
+		String sql = "select * from [Table] where used!=3";
 		//使用PreparedStatement将SQL语句执行
 		PreparedStatement ps;
 		try {
@@ -133,6 +133,21 @@ public class TableDao {
 			e.printStackTrace();
 		}
 		return tid;
+	}
+
+	public boolean delTable(int tid) {
+		boolean isSuc=false;
+	    String sql = "update [Table] set used=3 where tid=?";
+	    try (
+	        PreparedStatement pstmt = con.prepareStatement(sql);) {
+	      pstmt.setInt(1,tid);
+	      int row=pstmt.executeUpdate();
+	      isSuc=row>0;
+	    } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	    return isSuc;
 	}
 
 	

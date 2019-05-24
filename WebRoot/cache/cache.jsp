@@ -84,7 +84,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="./bootstrap/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
-  <s:debug></s:debug>
  
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>

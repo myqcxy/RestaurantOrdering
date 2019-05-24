@@ -89,6 +89,7 @@ public class CacheDao extends Dao{
 					cache.setMid(rs.getString("mid"));
 					cache.setUid(uid);
 					cache.setCid(rs.getInt("cid"));
+					if(cache.getMid()!=null)
 					cache.setMid(cache.getMid().trim());
 				
 				}

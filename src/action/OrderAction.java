@@ -23,9 +23,22 @@ import net.sf.json.JSONObject;
 public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	Order order = new Order();
 	OrderDao od = new OrderDao();
+	UserDao ud = new UserDao();
 	User user;
 	Comment comment;
 	String result;
+	int useIntegral;
+	
+	public int getUseIntegral() {
+		return useIntegral;
+	}
+
+
+	public void setUseIntegral(int useIntegral) {
+		this.useIntegral = useIntegral;
+	}
+
+
 	public String getResult() {
 		return result;
 	}
@@ -72,17 +85,20 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
         order.setUid(uid);
-        order.setPrice(od.getOrderPrice(uid));
         order.setState(3);
         order.setMid(new CacheDao().getMid(uid));
         list = new MealDao().getAllMeals(order.getMid(),uid,false);
-        order.setTotle(order.getPrice());
         order.setMethod(0);
         order.setPayMethod(0);
-        order.setPrice(order.getTotle()-order.getDiscount());
-     
+        if(useIntegral==0){
+        	order.setIntegral(0);
+        }else {
+        	ud.delIntegral(uid,order.getIntegral());
+        }
 		if(od.toPay(order)) return SUCCESS;
 		else return "toPayFalse";
+        //System.out.println("积分："+order.getIntegral()+"总金额："+order.getTotle()+"应付："+order.getPrice());
+       // return SUCCESS;
 
 	}
 	
@@ -91,7 +107,6 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 		ActionContext actionContext = ActionContext.getContext();
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
-	//	od.placeAnOrder(order,uid);
         order.setUid(uid);
         
         order.setState(3);
@@ -104,6 +119,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
         order.setPayMethod(0);
         order.setPayState(0);
         order.setNote("");
+        int integral = ud.getIntegral(uid,order.getPrice());
+        order.setIntegral(integral);
         float balance=new UserDao().getBalance(uid);
         if(balance>=order.getPrice()){
         	session.put("placeAnOrderRes", "ok");

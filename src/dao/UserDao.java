@@ -198,4 +198,76 @@ public class UserDao {
 				}
 			    return isSuc;
 	}
+
+	public boolean emailIsRegisted(String email) {
+		boolean isExist = true;
+		String sql = "select * from [User] where email=?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+			
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isExist;
+	}
+
+	public boolean modifyEmail(User user) {
+		String sql="update  [User] set email=?  where uid=?";
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      
+			      pstmt.setString(1,user.getEmail());
+			      pstmt.setString(2,user.getUid().trim());
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
+
+	public int getIntegral(String uid, float price) {
+		String sql = "select * from [User] where uid=?";
+		int integral=0;
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, uid);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				integral=rs.getInt("integral");
+			}
+			if(integral>(int)(price-1)*10){
+				integral=(int)(price-1)*10;
+			}
+			integral-=integral%10;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return integral;
+	}
+
+	public boolean delIntegral(String uid, int integral) {
+		String sql="update  [User] set integral=integral-?  where uid=?";
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      
+			      pstmt.setInt(1,integral);
+			      pstmt.setString(2,uid);
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
 }

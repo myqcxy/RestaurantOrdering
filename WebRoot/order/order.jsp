@@ -52,9 +52,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </table>
    		<table class="table">
    			<s:form theme="simple">
-            	<tr><th>总金额<th><s:textfield name="totle" readonly="true" class="totle"/>
+            	<tr><th>总金额<th><s:textfield name="totle" value="%{totle}" readonly="true" class="totle"/>
+            	<tr><th>可用积分<th><s:textfield name="integral"  label="积分可抵"  readonly="true" class="integral"/>
+            	<tr><th>积分可抵<th><s:textfield style="width:50px;" name="integral" value="%{integral/10}"   readonly="true" />
+            	<label><input type="radio"  onclick="usedIntegral()" value="1" name="useIntegral" id="Integraluser" checked="checked">使用积分</label>
+            	<label><input type="radio" onclick="nouseIntegral()" value="0" name="useIntegral" id="Integralnext">下次再用</label>
             	<tr><th>折扣<th><s:textfield name="discount" label="折扣"  readonly="true" class="discount"/>
-            	<tr><th>应付<th><s:textfield name="price" label="应付"  readonly="true" class="price"/>
+            	<tr><th>应付<th><s:textfield name="price" id="price1" label="应付" value="%{price-integral/10}"  readonly="true" class="price"/>
             	<tr><th>电话<th><s:textfield type="number" name="user.phone" label="电话" class="phone"/>
            <tr>
            <th>人数:
@@ -90,44 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	
            </s:form>
    		</table>
-           <%--  <s:form theme="simple">
-            	<s:textfield name="totle" label="总金额" readonly="true" class="totle"/>
-            	<s:textfield name="discount" label="折扣"  readonly="true" class="discount"/>
-            	<s:textfield name="price" label="应付"  readonly="true" class="price"/>
-            	<s:textfield name="user.phone" label="电话" class="phone"/>
-           <tr>
-           <td>人数:
-           <td>
-            	<select name="searchCondition" class="number">
-					<option value="1">1人</option>
-					<option value="2">2人</option>
-					<option value="3">3人</option>
-					<option value="4">4人</option>
-					<option value="5">5人</option>
-					<option value="6">6人</option>
-					<option value="7">7人</option>
-					<option value="8">8人</option>
-					<option value="9">9人</option>
-					<option value="10">10人以上</option>
-					
-				</select>
-            	<s:textarea name="note" label="备注" class="note"/>
-            	 <% String isok=(String)session.getAttribute("placeAnOrderRes");
-             	if(isok.equalsIgnoreCase("ok")){
-             		%>
-             		<tr>
-             		<td>
-             		<input type="button" onclick="topay(1)" value="去付款"><td>
-             		<input type="button"  onclick="topay(2)" value="预约，到店付款">
-             		<% 
-             	}else {
-             	%><tr><td><td>
-             		<input type="button"  onclick="topay(2)" value="余额不足，先预约，到店付款">
-             		<% 
-             	}
-			  %>
-            	
-           </s:form> --%>
+          
  
           
         </div>
@@ -135,7 +102,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
+  
   <script type="text/javascript">
+  	function usedIntegral(){
+  		
+  		document.getElementById("price1").value = '<s:property value="%{price-integral/10}"/>'; 
+  	
+  	};
+  	function nouseIntegral(){
+  	
+  		document.getElementById("price1").value = '<s:property value="%{price}"/>'; 
+  	
+  	};
           function topay(aa){
           $.ajax({
               type:"post",
@@ -143,6 +121,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               data:{//设置数据源
               	totle:$(".totle").val(),
               	discount:$(".discount").val(),
+              	integral:$(".integral").val(),
+              	useIntegral:$('input[type=radio][name=useIntegral]:checked').val(),
               	price:$(".price").val(),
               	phone:$(".phone").val(),
               	number:$(".number").val(),

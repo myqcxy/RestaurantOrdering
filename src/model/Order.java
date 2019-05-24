@@ -31,6 +31,14 @@ public class Order {
 	private Date date;//下单日期
 	private int state;//订单状态  未就餐（默认）：0；
 	private String stateString;
+	private int integral;
+	
+	public int getIntegral() {
+		return integral;
+	}
+	public void setIntegral(int integral) {
+		this.integral = integral;
+	}
 	private  static final Map<Integer,String> stateMap = new HashMap<Integer, String>(){
 	{
 		put(0,"商家已经接单,未就餐");

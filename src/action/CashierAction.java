@@ -139,7 +139,6 @@ public class CashierAction extends ActionSupport implements ModelDriven<Cashier>
 	}
 	//≥‰÷µ
 	public String recharge() {
-		
 		  float balance = cd.recharge(user.getUid(),rechargeAmount);
 		  user = new UserDao().getUser(user.getUid());
 		  orders = new OrderDao().getOrders(user.getUid());

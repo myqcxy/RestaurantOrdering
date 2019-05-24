@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body>
-<center><h1><b>登录</b></h1></center>
+<center><h1><b>收银员登录</b></h1></center>
 <div id="wrapper" class="login-page">
 		<div id="login_form" class="form">
 		<s:fielderror name="cid"></s:fielderror>

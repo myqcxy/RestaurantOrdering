@@ -17,8 +17,8 @@ import model.Order;
 public class OrderDao extends Dao{
 
 	public boolean toPay(Order order) {
-		String sql="insert into [Order](uid,price,mid,number,totle,phone,method,discount,payMethod,payState,note) "
-				+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="insert into [Order](uid,price,mid,number,totle,phone,method,discount,payMethod,payState,note,integral) "
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		boolean isSuc=false;
 		
 		 try (
@@ -35,6 +35,7 @@ public class OrderDao extends Dao{
 			      pstmt.setInt(9, order.getPayMethod());
 			      pstmt.setInt(10, order.getPayState());
 			      pstmt.setString(11, order.getNote());
+			      pstmt.setInt(12, order.getIntegral());
 			      new MealDao().updateSales(order.getMid());
 			      int row=pstmt.executeUpdate();
 			      isSuc=row>0;
@@ -109,7 +110,7 @@ public class OrderDao extends Dao{
 					o.setPayState(rs.getInt("payState"));
 					o.setNote(rs.getString("note"));
 					o.setNumber(rs.getInt("number"));
-					o.setPrice(o.getTotle()-o.getDiscount());
+					o.setIntegral(rs.getInt("integral"));
 					orders.add(o);
 				
 				}
@@ -401,6 +402,7 @@ public class OrderDao extends Dao{
 					o.setPayState(rs.getInt("payState"));
 					o.setNote(rs.getString("note"));
 					o.setNumber(rs.getInt("number"));
+					o.setIntegral(rs.getInt("integral"));
 					orders.add(o);
 				
 				}

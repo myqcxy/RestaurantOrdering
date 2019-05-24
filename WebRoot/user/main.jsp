@@ -82,7 +82,6 @@ a{text-decoration:none;}
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a>您好！<s:property value="#session.uid"/></a></li>
-				<li><a href="#">帮助</a></li>
 				<li><a href="admin/AdminLogin.jsp">注销</a></li>
 			</ul>
 		
@@ -103,6 +102,7 @@ a{text-decoration:none;}
 					<dd class="first_dd"><a class="a" onclick="changeright('user')">个人信息</a></dd>
 					<dd class="first_dd"><a class="a" onclick="changeright('changePass')">修改密码</a></dd>
 					<dd><a onclick="changeright('changePhone')">更换手机号</a></dd>
+					<dd><a onclick="changeright('changeEmail')">绑定邮箱</a></dd>
 				</dl>
 				
 			
@@ -145,16 +145,14 @@ a{text-decoration:none;}
 						 	
 						 	</table>
 						 </form>
-						<%--  <div class="redenvelopes" hidden="true">
-							 <s:iterator>
-								 <table class="table" >
-								 	
-								 	<tr><th>可抵消<th><s:property value="price"/>
-								 	<tr><th>描述<th><s:property value="describe"/>
-								 	
-								 	</table>
-							 	</s:iterator>
-						 </div> --%>
+						<form action="modifyEmail" onsubmit="return false;" class="form changeEmail" hidden="true" namespace="/">
+						 	<table class="table" >
+						 	<s:textfield type="hidden" name="uid" value="%{uid}"/>
+						 	<tr><th>邮箱<th><input type="email" name="email" required="true" class="email">
+						 	<tr><th><td><input  onclick="modifyEmail()" class="btn" type="submit" value="确认更改">
+						 	
+						 	</table>
+						 </form>
 	         		 </div>
 			</div>
 		</div>
@@ -176,11 +174,33 @@ a{text-decoration:none;}
 	src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 
 <script type="text/javascript">
-/* var uid;
-var pass;
-var pass1;
-var phone; */
+function modifyEmail(){
+var a='<%=session.getAttribute("uid")%>';
+     if(a == "null"){
+     	window.location.href="<%=basePath%>/user/login.jsp";
+     }else{
+		var uid='<s:property value="uid"/>';
+		var uemail=$(".email").val();
 
+$.ajax({
+    type:"post",
+    url:"modifyEmail",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+    data:{//设置数据源
+    	'uid':uid,
+    	'email':uemail
+    },
+    dataType:"json",//设置需要返回的数据类型
+    success:function(data){
+        var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
+        //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
+         alert(""+d.message+"  ");
+    },
+    error:function(){
+        alert("系统异常，请稍后重试！");
+    }//这里不要加","
+});
+}
+}
 function modifyPhone(){
 		var a='<%=session.getAttribute("uid")%>';
      if(a == "null"){
@@ -247,6 +267,7 @@ function changeright(show1){
 	$(".user").hide();
 	$(".changePass").hide();
 	$(".changePhone").hide();
+	$(".changeEmail").hide();
 	$("."+show1).show();
 	
 };

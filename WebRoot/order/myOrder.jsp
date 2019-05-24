@@ -46,7 +46,6 @@ form{
 	<a href="index.jsp">返回主页</a>
     <div class="container-fluid">
       <div class="row">
-        <s:debug></s:debug>
           <s:if test="orders==null">
           	<h1 class="page-header">
 				暂无订单
@@ -65,6 +64,8 @@ form{
               <s:textfield name="tid" value="%{ tid }" label="餐桌"  disabled="true"/></s:else>
               <s:textfield name="number" value="%{ number }" label="就餐人数"  disabled="true"/>
               <s:textfield name="totle" value="%{ totle }" label="总共金额"  disabled="true"/>
+              <s:textfield label="使用积分" value="%{integral}" disabled="true"/>
+              <s:textfield label="积分折扣" value="%{integral/10}" disabled="true"/>
               <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>
               <s:textfield name="price" value="%{ price }" label="支付金额（元）"  disabled="true"/>
               <s:date name="date" var="vf" format="yyyy年MM月dd日 HH:mm:ss"/> 

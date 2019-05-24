@@ -249,7 +249,11 @@
 		
 			<result name="success" >/table/updateTable.jsp</result>
 		</action>
+		<action name="delTable" class="action.TableAction" method="delTable">
 		
+			<result name="success" type="redirectAction">showAllTables</result>
+			<result name="delTableFalse" >/table/showAllTables.jsp</result>
+		</action>
 		<action name="updateTable" class="action.TableAction" method="updateTable">
 		
 			<result name="success" type="redirectAction">showAllTables</result>
@@ -274,7 +278,11 @@
             </result>
 		</action>
 		
-		
+		<action name="modifyEmail" class="action.UserAction" method="modifyEmail">
+			<result type="json">
+                <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
+            </result>
+		</action>
 		<action name="modifyPassWord" class="action.UserAction" method="modifyPassWord">
 			<result type="json">
                 <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
@@ -316,14 +324,6 @@
                 <param name="root">result<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --></param>
             </result>
 		</action>
-		
-		<action name="emailer" 
-         class="action.Emailer"
-         method="execute">
-         <result name="success">/success.jsp</result>
-         <result name="error">/error.jsp</result>
-      </action>
-		
 	</package>
 	
 </struts>

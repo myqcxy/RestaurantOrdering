@@ -44,15 +44,8 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">收银员</a>
-			<s:debug></s:debug>
+			
+			<a class="navbar-brand" href="cashier/main.jsp">收银员</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -75,11 +68,11 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+			<!-- <div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 				</ul>
 
-			</div>
+			</div> -->
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				
 					<h1 style="color:red"><div id="datetime" class="page-header">
@@ -91,7 +84,7 @@
 				 <div class="row placeholders"> <s:if test="%{user.uid!=null}">
 				 <div class="col-xs-6 col-sm-4 placeholder">
 				  
-			<s:form class="form" action="recharge" method="post" style="background-color:gray;color:black;">
+			<s:form class="form" onsubmit="return readChong()" action="recharge" method="post" style="background-color:gray;color:black;">
            
               <s:textfield class="rechargeUid" name="user.uid"  label="用户名"  disabled="true"/>
               <s:textfield type="hidden" name="user.uid"/>
@@ -102,7 +95,7 @@
               
               <s:textfield type="number" class="rechargeAmount" name="rechargeAmount" label="充值金额"/>
               
-              <s:submit value="充值" />
+             <tr><td> <input  type="submit" value="充值" /><td><input onclick="resetPassword()" type="button" value="重置密码" />
 		     	</s:form>
 				 
 				 </div></s:if>
@@ -110,7 +103,7 @@
 				  <s:iterator value="orders">
           
           <div class="col-xs-6 col-sm-4 placeholder">
-            <s:form style="background-color:gray;color:black;">
+            <s:form style="background-color:gray;color:black;height: 420px;">
             
          	
               <s:textfield name="oid" value="%{ oid }" label="订单编号" class="choiceTableoid%{oid}" disabled="true"/>
@@ -126,6 +119,8 @@
               <s:textfield name="number" label="就餐人数"  class="choiceTablenumber%{oid}" disabled="true"/>
               <s:textfield name="totle" value="%{ totle }" label="总共金额"  disabled="true"/>
               <s:textfield name="discount" value="%{ discount }" label="折扣"  disabled="true"/>
+               <s:textfield label="使用积分" value="%{integral}" disabled="true"/>
+              <s:textfield label="积分折扣" value="%{integral/10}" disabled="true"/>
               <s:textfield name="price" value="%{ price }" label="支付金额（元）"  disabled="true"/>
               <s:date name="date" var="vf" format="yyyy年MM月dd日 HH:mm:ss"/> 
               <s:textfield name="date" value="%{vf}" label="下单时间"  disabled="true"/> 
@@ -166,14 +161,42 @@
 
 </body>
 <script>
-	function readyDel() {
-		return confirm("是否真的删除?");
+	function readChong() {
+		return confirm("是否真的充值?");
 	}
 </script>
 <script type="text/javascript"
 	src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 <script type="text/javascript">
+function resetPassword(){
+	
+	if(confirm("是否重置密码为‘123456’")){
+		$.ajax({
+		    type:"post",
+		    url:"modifyPassWord",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+		    data:{//设置数据源
+		    	'uid':'<s:property value="user.uid"/>',
+		    	'upass':'123456',
+		    	'upass1':'123456'
+		    },
+		    dataType:"json",//设置需要返回的数据类型
+		    success:function(data){
+		        var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
+		        //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
+		        /*  alert(uid+pass+pass1+"111"); */
+		        /*  $("#updatemessage").text(""+d.message+"");  */
+		         alert(""+d.message+"  ");
+		       /*  changeright('changePass'); */
+		    },
+		    error:function(){
+		        alert("系统异常，请稍后重试！");
+		    }//这里不要加","
+		});
+		
+	}
+
+};
 	function choiceTable(aa){
 	$.ajax({
          type:"post",

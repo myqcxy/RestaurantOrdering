@@ -12,7 +12,7 @@ import model.Table;
 public class TableAction extends ActionSupport implements ModelDriven<Table> {
 	Table table = new Table();
 	List<Table> tables = new ArrayList<Table>();
-	
+	TableDao td = new TableDao();
 	public List<Table> getTables() {
 		return tables;
 	}
@@ -50,7 +50,13 @@ public class TableAction extends ActionSupport implements ModelDriven<Table> {
 		return "addTableFalse";
 	}
 
-
+	public String delTable(){
+		if(td.delTable(table.getTid())){
+			return SUCCESS;
+		}
+		this.addFieldError("delTableError", "餐桌使用中，请稍后重试");
+		return "delTableFalse";
+	}
 
 
 	@Override

@@ -98,7 +98,27 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			this.addFieldError("upass", "两次密码不一致");
 		}
 	}
-	
+	public String modifyEmail(){
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(user.getEmail()==null||user.getEmail().length()<1||!user.getEmail().contains("@")){
+			map.put("message", "邮箱格式不正确");
+		}
+		else if(ud.emailIsRegisted(user.getEmail())){
+			map.put("message", "邮箱已经绑定其他账户，可以找回密码");
+		}
+		else if(ud.modifyEmail(user)){
+			map.put("message", "邮箱修改成功");
+		}else{
+			map.put("message", "修改失败，请稍后重试");
+		}
+		
+			
+		JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+		result = json.toString();//给result赋值，传递给页面
+		
+		
+		return SUCCESS;
+	}
 	public String modifyPhone() throws IOException{
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(user.getPhone()!=null&&user.getPhone().trim().length()==11){
@@ -126,7 +146,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 				map.put("message", "密码修改失败，请稍后重试");
 			}
 		}else{
-			System.out.println(user.getUpass()+upass1+"1111111");
 			map.put("message", "密码不能为空或两次密码不同");
 		}
 			
@@ -190,18 +209,20 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	}
 	
 	public void validateRegist() {
+		String telRegex = "[1][3578]\\d{9}";
 		if(ud.uidIsExist(user.getUid()))
 			this.addFieldError("error", "用户名已经存在");
-		if(user.getUpass().length()<4||user.getUpass().length()>10){
+		else if(user.getUpass().length()<4||user.getUpass().length()>10){
 			this.addFieldError("error", "密码长度为4-10");
 		}
-		if(!user.getUpass().equals(upass1)){
+		else if(!user.getUpass().equals(upass1)){
 			this.addFieldError("error", "两次密码不一致");
 		}
-		String telRegex = "[1][3578]\\d{9}";
-		if(user.getPhone()==null || !user.getPhone().matches(telRegex)){
+		
+		else if(user.getPhone()==null || !user.getPhone().matches(telRegex)){
 			this.addFieldError("error", "手机号不正确");
 		}
+		
 	}
 	
 	//注册

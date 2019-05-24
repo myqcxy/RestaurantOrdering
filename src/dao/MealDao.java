@@ -241,7 +241,6 @@ public class MealDao {
 					e.printStackTrace();
 				}
 				ans=ans.trim();
-			//	ans=ans.substring(0, ans.length()-1);
 				String []mids = ans.split(":");
 				
 				for(String m:mids){

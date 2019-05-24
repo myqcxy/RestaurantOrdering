@@ -46,7 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <input name="mname" required="true" type="text" class="form-control" placeholder="例如：黄焖鸡" aria-describedby="basic-addon1">
 		  
 		</div>
-		<%-- <s:fielderror id="price" class="alert alert-warning" /> --%>
 		<div class="input-group  input-group-lg">
 		  <span class="input-group-addon" id="basic-addon1">餐品价格</span>
 		  <input name="price" required="true"  type="number" class="form-control" placeholder="大于0的小数" aria-describedby="basic-addon1">

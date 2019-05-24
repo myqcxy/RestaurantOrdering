@@ -32,6 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <s:if test="tables==null">
  	暂无餐桌信息
  </s:if>
+ <s:fielderror id="delTableError" name="delTableError"></s:fielderror>
    <s:iterator value="tables">
    	<tr>
    		<td><s:property value="tid"/>
@@ -45,8 +46,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </s:url>
    		<td><a href="${updateUrl }">修改</a>
    		
-   		 <s:url var="delUrl" action="delMeal">
-         <s:param name="mid" value="mid"/>
+   		 <s:url var="delUrl" action="delTable">
+         <s:param name="tid" value="tid"/>
       </s:url>
      <a href="${delUrl}" onClick="return readyDel();">删除</a>
    	  <script>
