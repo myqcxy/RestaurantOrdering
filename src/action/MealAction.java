@@ -18,8 +18,10 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import dao.MealDao;
+import dao.ShopDao;
 import model.Discount;
 import model.Meal;
+import model.Shop;
 import net.sf.json.JSONObject;
 
 public class MealAction extends ActionSupport implements ModelDriven<Meal> {
@@ -142,6 +144,8 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
 		list = md.initRecommend(uid);
+		Shop shop = new ShopDao().getShop();
+		actionContext.getApplication().put("shop", shop);
 		return SUCCESS;
 	}
 	

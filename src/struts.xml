@@ -6,7 +6,16 @@
 <struts>
 <!-- 	<constant name="struts.devMode" value="true" /> -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<package name="shopManage" namespace="/" extends="struts-default,json-default">
+		<action  name="manageShop" class="action.ShopAction" method="manageShop">
+			<result name="success">/admin/main.jsp</result>
+		</action>
 	
+	<action  name="updateShop" class="action.ShopAction" method="updateShop">
+			<result name="success">/admin/main.jsp</result>
+		</action>
+	
+	</package>
 	<package name="cashier" namespace="/" extends="struts-default,json-default">
 	
 		<action  name="choiceTable" class="action.CashierAction" method="choiceTable">
@@ -15,7 +24,7 @@
             </result>
 		</action>
 	
-	<action  name="cashierLogout" class="action.CashierAction" method="cashierLogout">
+		<action  name="cashierLogout" class="action.CashierAction" method="cashierLogout">
 			<result name="success">/cashier/cashierLogin.jsp</result>
 		</action>
 	

@@ -103,13 +103,24 @@ a{text-decoration:none;}
 			<div class="container" style="padding-left:0;">
 
 			<div class="leftsidebar_box" style="width:210px">
-				<div class="line"></div>
+				<!-- <div class="line">
+				
+				
+				</div> -->
+				
+				<dl class="syetem_management">
+					<dt onClick="changeImage()">店铺管理<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
+					<dd class="first_dd"><a href="manageShop">管理店铺信息</a></dd>
+				</dl>
+				
 				<dl class="system_log">
 					<dt onClick="changeImage()">餐品管理<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
 					<dd class="first_dd"><a href="meal/addMeal.jsp">添加餐品</a></dd>
 					<dd><a href="getAllMeals">修改餐品信息</a></dd>
 					<dd><a href="getAllMeals">浏览餐品信息</a></dd>
 				</dl>
+				
+				
 			
 				<dl class="custom">
 					<dt onClick="changeImage()">餐桌管理<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
@@ -136,6 +147,18 @@ a{text-decoration:none;}
 				<h1 class="page-header">统计结果</h1>
 
 				 <div class="row placeholders">
+				 <s:if test="sname!=null">
+				 <form action="updateShop" type="post">
+				 	<table class="table">
+				 		<tr><td>店铺名<td><input value="${sname} " name="sname" type="text" required="true">
+				 		<tr><td>地址<td><input value="${address }" name="address" type="text" required="true">
+				 		<tr><td>联系电话<td><input value="${phone }" name="phone" type="text" required="true">
+				 		<tr><td>QQ<td><input value="${qq }" name="qq" type="text" required="true">
+				 		<tr><td>微信<td><input value="${wechat }" name="wechat" type="text" required="true">
+				 		<tr><td><td><input type="submit" class="btn" value="更改">
+				 		
+				 	</table>
+				 </form></s:if>
            <s:iterator value="list">
             <div class="col-xs-6 col-sm-3 placeholder">
               <b style="color:red">优惠：<s:property value="discount"/></b><br>
