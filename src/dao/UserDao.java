@@ -66,13 +66,14 @@ public class UserDao {
 	}
 
 	public boolean regist(User user) {
-		String sql="insert into [User](uid,upass,phone) values(?,?,?)";
+		String sql="insert into [User](uid,upass,phone,email) values(?,?,?,?)";
 		boolean isSuc=false;
 		 try (
 			        PreparedStatement pstmt = con.prepareStatement(sql);) {
 			      pstmt.setString(1,user.getUid());
 			      pstmt.setString(2,user.getUpass());
 			      pstmt.setString(3,user.getPhone());
+			      pstmt.setString(4, user.getEmail());
 			      int row=pstmt.executeUpdate();
 			      isSuc=row>0;
 			    } catch (SQLException e) {

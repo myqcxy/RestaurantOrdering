@@ -77,7 +77,7 @@ a{text-decoration:none;}
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"><s:property value="#session.uid"/>的个人中心</a>s
+			<a class="navbar-brand" href="#">餐厅主页</a>s
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -115,7 +115,7 @@ a{text-decoration:none;}
 					<div class="row placeholders">
 					
 						 <form action="" class="form user">
-						 	<table class="table">
+						 	<table class="table table-striped">
 						 	<tr><th>用户名<th><s:property value="uid"/>
 						 	
 						 	<tr><th>电话<td><s:property value="phone"/>

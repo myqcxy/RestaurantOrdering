@@ -28,11 +28,12 @@ public class CashierDao extends Dao {
 	}
 
 	public float recharge(String uid, float amount) {
-		String sql="update [User] set balance = (select balance from [User] where uid='user')+? where uid=?";
+		String sql="update [User] set balance = (select balance from [User] where uid=?)+? where uid=?";
 		 try (
 			        PreparedStatement pstmt = con.prepareStatement(sql);) {
-			      pstmt.setFloat(1,amount);
-			      pstmt.setString(2,uid);
+			 	  pstmt.setString(1, uid);
+			      pstmt.setFloat(2,amount);
+			      pstmt.setString(3,uid);
 			      pstmt.executeUpdate();
 			      pstmt.close();
 			      

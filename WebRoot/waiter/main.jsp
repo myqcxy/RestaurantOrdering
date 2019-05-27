@@ -51,18 +51,19 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">服务员</a>
+			<a class="navbar-brand" href="waiter/main.jsp">服务员</a>
 			
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
+			<li><a href="waiter/chat.jsp" target="view_window">有人咨询</a></li>
 				<li> <a>您好！waiter</a>
 				<li><a onclick="getResult()" type="button" class="a a-default" aria-label="Left Align">
 						  <span style="font-size:25px;" id="newOrder" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 						</a></li>
 				<li><a href="obtainNewOrders" class="navbar-brand" id="newOrderText"></a></li>
 				<li><a href="#">帮助</a></li>
-				<li><a href="admin/AdminLogin.jsp">注销</a></li>
+				<li><a href="waiter/waiterLogin.jsp">注销</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="搜索...">

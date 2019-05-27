@@ -53,7 +53,7 @@ form{
           </s:if>
           <s:iterator value="orders">
           
-            <s:form style="color:#0314FB">
+            <s:form style="color:#0314FB" >
            
               <s:textfield name="oid" class="sss" value="%{ oid }" label="订单编号"  disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>

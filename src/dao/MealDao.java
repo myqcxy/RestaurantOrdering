@@ -256,7 +256,8 @@ public class MealDao {
 					Meal meal = getMealById(Integer.parseInt(m));
 					meal.setSales(sale);
 					meal.setDiscount(this.getDicountByMid(meal.getMid()));
-					meals.add(meal);
+					if(meal.getMid()>1)
+						meals.add(meal);
 				}
 				return meals;
 	}

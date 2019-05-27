@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="model.Shop"%>
+<%@page import="dao.ShopDao"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
@@ -53,12 +54,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">欢迎来到<%= ((Shop)application.getAttribute("shop")).getSname() %></a>
+          <% Shop shop = new ShopDao().getShop(); %>
+          <a class="navbar-brand" href="#">欢迎来到<front style="color:red"><%= shop.getSname() %></front></a>
           
         </div>
         <div id="navbar" class="navbar-collapse collapse navbar-right">
           <ul class="menu" >
-          
+         <li> <a href="user/chat.jsp">联系卖家</a></li>
           <li> <form action="userSearch" method="post" class="navbar-form">
             <input name="searchContent" type="text" class="form-control" placeholder="搜索餐品...">
             <input type="submit" class="btn btn-defalut" value="搜索">
@@ -76,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <li width=100><a ><%= uname %></a>
 					<ul class="submenu">
 					 <li><a href="userEdit">个人信息</a>
-						 <li><a href="settlement">购物车</a></li>
+						 <li><a href="settlement"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>购物车</a></li>
 						<li><a href="myOrder">我的订单</a></li>
 						<li><a href="logout">注销</a></li>
 					</ul>
@@ -164,12 +166,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 <footer class="footer navbar-fixed-bottom ">
       <center>
-          <div class="container" style="margin:0px;background-color: white;margin-left: 230px;">
-          <table>
-          	<tr><td>地址:<td><%= ((Shop)application.getAttribute("shop")).getAddress() %>
-          	<td>&nbsp;&nbsp; 电话：<td><%= ((Shop)application.getAttribute("shop")).getPhone() %>
-          	<tr><td>QQ:<td><%= ((Shop)application.getAttribute("shop")).getQq() %>
-          	<td>&nbsp;&nbsp; 微信：<td><%= ((Shop)application.getAttribute("shop")).getWechat() %>
+          <div class="container" style="margin:0px;background-color: white;margin-left: 232px;">
+          <table class="table-small">
+          	<tr><td>地址:<td><%= shop.getAddress() %>
+          	<td>&nbsp;&nbsp; 电话：<td><%= shop.getPhone() %>
+          	<tr><td>QQ:<td><%= shop.getQq() %>
+          	<td>&nbsp;&nbsp; 微信：<td><%= shop.getWechat() %>
           </table>
 	    </div></center> 
 	</footer>

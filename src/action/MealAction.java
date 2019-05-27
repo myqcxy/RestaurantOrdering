@@ -144,8 +144,6 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
 		list = md.initRecommend(uid);
-		Shop shop = new ShopDao().getShop();
-		actionContext.getApplication().put("shop", shop);
 		return SUCCESS;
 	}
 	
