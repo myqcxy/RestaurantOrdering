@@ -57,7 +57,20 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-
+	public String drawBack(){
+		
+			ActionContext actionContext = ActionContext.getContext();
+	        Map session = actionContext.getSession();
+	        String uid=((String)session.get("uid"));
+			Order oo = od.getOrdersById(order.getOid()).get(0);
+			System.out.println(oo.getPayState()+"1111111111122");
+			if(ud.drawBack(uid,oo.getIntegral(),oo.getPrice(),oo.getPayState())&&od.drawBack(order.getOid())){
+				
+			}
+		
+	
+		return SUCCESS;
+	}
 
 	private List<Meal> list = new ArrayList<Meal>();
 	private List<Order> orders;

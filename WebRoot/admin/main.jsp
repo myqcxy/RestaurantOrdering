@@ -134,6 +134,8 @@ a{text-decoration:none;}
 					<dd class="first_dd"><a href="salesStatistics?statisticMethod=1">按照销量升序</a></dd>
 					<dd class="first_dd"><a href="salesStatistics?statisticMethod=2">按照好评升序</a></dd>
 					<dd class="first_dd"><a href="salesStatistics?statisticMethod=3">按照好评降序</a></dd>
+					<dd class="first_dd"><a href="seachDrawback">搜索撤销订单</a></dd>
+					
 				</dl>
 			
 				

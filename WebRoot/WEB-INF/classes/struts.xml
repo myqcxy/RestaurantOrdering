@@ -55,6 +55,9 @@
 			<result name="input">/waiter/waiterLogin.jsp</result>
 		</action>
 		
+		<action  name="drawBack" class="action.OrderAction" method="drawBack">
+			<result name="success" type="redirectAction">myOrder</result>
+		</action>
 		<action  name="obtainNewOrders" class="action.WaiterAction" method="obtainNewOrders">
 			<result name="success">/waiter/main.jsp</result>
 		</action>
@@ -87,6 +90,10 @@
 		</action>
 		<action name="setDiscount" class="action.MealAction" method="setDiscount">
 			<result name="success">/meal/setDiscount.jsp</result>
+		</action>
+		
+		<action name="seachDrawback" class="action.AdminAction" method="seachDrawback">
+			<result name="success">/admin/main.jsp</result>
 		</action>
 		<action name="salesStatistics" class="action.AdminAction" method="salesStatistics">
 			<result name="success">/admin/main.jsp</result>
@@ -205,13 +212,13 @@
 		<action name="delMeal" class="action.MealAction" method="delMeal">
 		
 			<result name="success" type="redirectAction">getAllMeals</result>
-			<result name="false">/meal/updateMealFalse.jsp</result>
+			<result name="delFalse">/meal/updateMealFalse.jsp</result>
 	
 		</action>
 		<!-- 添加meal -->
 		<action name="addMeal" class="action.MealAction" method="addMeal">
 		
-			<result name="success" type="redirect">/meal/addMealSuccess.jsp</result>
+			<result name="success">/meal/addMealSuccess.jsp</result>
 			<result name="input">/meal/addMeal.jsp</result>
 		</action>
 		
@@ -312,7 +319,7 @@
 			<result name="input">/user/login.jsp</result>
 		</action>
 		<action name="userRegist" class="action.UserAction" method="regist">
-			<result name="success">/user/main.jsp</result>
+			<result name="success">/user/login.jsp</result>
 			<result name="input">/user/regist.jsp</result>
 		</action>
 		
@@ -323,6 +330,11 @@
 		<action name="toFindPassword" class="action.UserAction" method="toFindPassword">
 			<result name="success">/user/toFindPassword.jsp</result>
 			<result name="input">/user/regist.jsp</result>
+		</action>
+		<action name="showme" class="action.UserAction" method="showme">
+			<result type="json">
+                <param name="root">result</param>
+            </result>
 		</action>
 		<action name="findPassword" class="action.UserAction" method="findPassword">
 			<result type="json">

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -66,7 +67,15 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		}
 		else return ERROR;
 	}
-	
+	public String showme(){
+		User u = ud.getUser(user.getUid());
+		Gson gson = new Gson();
+		result = gson.toJson(u);
+		
+		
+		return SUCCESS;
+		
+	}
 	public String findPassword(){
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(user==null) return SUCCESS;

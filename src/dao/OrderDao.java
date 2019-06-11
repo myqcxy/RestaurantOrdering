@@ -81,7 +81,7 @@ public class OrderDao extends Dao{
 		//创建一个List<Order>对象
 		List<Order> orders = new ArrayList<Order>();
 		//sql语句
-		String sql = "select * from [Order] Where uid=? Order By date Desc";
+		String sql = "select * from [Order] Where uid=? and state!=5 Order By date Desc";
 		//使用PreparedStatement将SQL语句执行
 		PreparedStatement ps;
 		try {
@@ -149,7 +149,7 @@ public class OrderDao extends Dao{
 		//创建一个List<Order>对象
 				List<Order> orders = new ArrayList<Order>();
 				//sql语句
-				String sql = "select * from [Order] Where oid=? Order By date Desc";
+				String sql = "select * from [Order] Where oid=? and state!=5 Order By date Desc";
 				//使用PreparedStatement将SQL语句执行
 				PreparedStatement ps;
 				try {
@@ -178,7 +178,7 @@ public class OrderDao extends Dao{
 							o.setNumber(rs.getInt("number"));
 							o.setGrade(rs.getInt("grade"));
 							orders.add(o);
-						
+							System.out.println(o.getMid());
 						}
 					}
 					ps.close();//关闭ps
@@ -195,7 +195,7 @@ public class OrderDao extends Dao{
 		//创建一个List<Order>对象
 		List<Order> orders = new ArrayList<Order>();
 		//sql语句
-		String sql = "select * from [Order] Where phone like ? Order By date Desc";
+		String sql = "select * from [Order] Where phone like ? and state!=5 Order By date Desc";
 		phone = "%"+phone+"%";
 		//使用PreparedStatement将SQL语句执行
 		PreparedStatement ps;
@@ -262,7 +262,7 @@ public class OrderDao extends Dao{
 		//创建一个List<Order>对象
 				List<Order> orders = new ArrayList<Order>();
 				//sql语句
-				String sql = "select * from [Order] Where (state=0 or state=1) and tid is not null Order By date Desc";
+				String sql = "select * from [Order] Where (state=0 or state=1) and tid is not null and state!=5 Order By date Desc";
 				//使用PreparedStatement将SQL语句执行
 				PreparedStatement ps;
 				try {
@@ -419,6 +419,24 @@ public class OrderDao extends Dao{
 		}
 		
 		return orders;
+	}
+
+
+	public boolean drawBack(Long oid) {
+		String sql="update [Order] set state=5 where oid=?";
+		boolean isSuc=false;
+		
+		 try (
+			      PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      pstmt.setLong(1,oid);
+			   
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
 	}
 
 

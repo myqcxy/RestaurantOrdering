@@ -82,7 +82,7 @@ a{text-decoration:none;}
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a>您好！<s:property value="#session.uid"/></a></li>
-				<li><a href="admin/AdminLogin.jsp">注销</a></li>
+				<li><a href="user/login.jsp">注销</a></li>
 			</ul>
 		
 		</div>
@@ -99,7 +99,7 @@ a{text-decoration:none;}
 				<dl class="custom">
 					<dt onClick="changeImage()">个人信息<img src="<%=basePath%>admin/images/left/select_xl01.png"></dt>
 					<!-- <dd class="first_dd"><a  href="meal/addMeal.jsp">修改密码</a></dd> -->
-					<dd class="first_dd"><a class="a" onclick="changeright('user')">个人信息</a></dd>
+					<dd class="first_dd"><a class="a" onclick="changeright('user');showme();">个人信息</a></dd>
 					<dd class="first_dd"><a class="a" onclick="changeright('changePass')">修改密码</a></dd>
 					<dd><a onclick="changeright('changePhone')">更换手机号</a></dd>
 					<dd><a onclick="changeright('changeEmail')">绑定邮箱</a></dd>
@@ -116,14 +116,14 @@ a{text-decoration:none;}
 					
 						 <form action="" class="form user">
 						 	<table class="table table-striped">
-						 	<tr><th>用户名<th><s:property value="uid"/>
+						 	<tr><th>用户名<th id="uid" ><s:property value="uid"/>
 						 	
-						 	<tr><th>电话<td><s:property value="phone"/>
-						 	<tr><th>邮箱<td><s:property value="email"/>
+						 	<tr><th>电话<td id="phone"><s:property  value="phone"/>
+						 	<tr><th>邮箱<td id="email"><s:property  value="email"/>
 						 	
-						 	<tr><th>余额<td><s:property value="balance"/>
-						 	<tr><th>积分<td><s:property value="integral"/>
-						 	<tr><th>会员等级<td><s:property value="vipString"/>
+						 	<tr><th>余额<td id="balance"><s:property  value="balance"/>
+						 	<tr><th>积分<td id="integral"><s:property  value="integral"/>
+						 	<tr><th>会员等级<td id="vipString"><s:property  value="vipString"/>
 						 	</table>
 						 </form>
 						 <form  class="form changePass" hidden="true">
@@ -174,6 +174,40 @@ a{text-decoration:none;}
 	src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
 
 <script type="text/javascript">
+
+function showme(){
+var a='<%=session.getAttribute("uid")%>';
+     if(a == "null"){
+     	window.location.href="<%=basePath%>/user/login.jsp";
+     }else{
+		var uid='<s:property value="uid"/>';
+
+	$.ajax({
+	    type:"post",
+	    url:"showme",//需要用来处理ajax请求的action,excuteAjax为处理的方法名，JsonAction为action名
+	    data:{//设置数据源
+	    	'uid':uid,
+	    },
+	    dataType:"json",//设置需要返回的数据类型
+	    success:function(data){
+	        var d = eval("("+data+")");//将数据转换成json类型，可以把data用alert()输出出来看看到底是什么样的结构
+	        //得到的d是一个形如{"key":"value","key1":"value1"}的数据类型，然后取值出来
+	         document.getElementById("uid").innerHTML=d.uid;
+	         document.getElementById("phone").innerHTML=d.phone;
+	         document.getElementById("email").innerHTML=d.email;
+	         document.getElementById("balance").innerHTML=d.balance;
+	         document.getElementById("integral").innerHTML=d.integral;
+	         document.getElementById("vipString").innerHTML=d.vipString;
+	    },
+	    error:function(){
+	        alert("系统异常，请稍后重试！");
+	    }//这里不要加","
+	});
+}
+}
+
+
+
 function modifyEmail(){
 var a='<%=session.getAttribute("uid")%>';
      if(a == "null"){

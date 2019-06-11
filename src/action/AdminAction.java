@@ -86,6 +86,10 @@ public class AdminAction extends ActionSupport implements ModelDriven<Admin>{
 		
 		return admin;
 	}
+	public String seachDrawback(){
+		orders=md.getDrawbackOrders();
+		return SUCCESS;
+	}
 	public String salesStatistics(){
 		if(statisticMethod==2){
 			orders = md.getMealsByPraise(statisticMethod);

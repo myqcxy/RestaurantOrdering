@@ -42,6 +42,12 @@ public class TableAction extends ActionSupport implements ModelDriven<Table> {
 	
 	
 	@Override
+	public void validate() {
+		super.validate();
+	}
+
+
+	@Override
 	public String execute() throws Exception {
 		
 		if(new TableDao().addTable(table))

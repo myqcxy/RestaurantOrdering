@@ -70,10 +70,16 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
 	}
 	
 	public String addDiscount(){
-		md.addDiscount(dist);
-		 Map<String,Object> map = new HashMap<String,Object>();
-
-     map.put("message", "优惠信息添加成功");
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(dist.getStarttime().getTime()>dist.getEndtime().getTime()){
+			map.put("message", "优惠开始时间不能大于结束时间");
+		}else if(dist.getDis()>=md.getPrice(dist.getMid())){
+			map.put("message", "优惠金额不能大于餐品价格");
+		}
+		else if(md.addDiscount(dist))
+		 
+			map.put("message", "优惠信息添加成功");
+		else map.put("message", "优惠信息添加失败");
      JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
      
      result = json.toString();//给result赋值，传递给页面
@@ -144,6 +150,8 @@ public class MealAction extends ActionSupport implements ModelDriven<Meal> {
         Map session = actionContext.getSession();
         String uid=((String)session.get("uid"));
 		list = md.initRecommend(uid);
+		Meal mm = md.getMealById(1019);
+		list.add(mm);
 		return SUCCESS;
 	}
 	

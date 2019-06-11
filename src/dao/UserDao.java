@@ -271,4 +271,27 @@ public class UserDao {
 				}
 			    return isSuc;
 	}
+
+	public boolean drawBack(String uid, int integral, float price, int payState) {
+		if(payState==2) return true;
+		System.out.println(integral+"sssssssssss");
+		String sql="update  [User] set integral=integral+?-?, balance=balance+? where uid=?";
+		
+			
+		boolean isSuc=false;
+		 try (
+			        PreparedStatement pstmt = con.prepareStatement(sql);) {
+			      
+			      pstmt.setInt(1,integral);
+			      pstmt.setInt(2, (int)price);
+			      pstmt.setFloat(3, price);
+			      pstmt.setString(4,uid);
+			      int row=pstmt.executeUpdate();
+			      isSuc=row>0;
+			    } catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			    return isSuc;
+	}
 }

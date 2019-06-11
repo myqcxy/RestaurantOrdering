@@ -51,7 +51,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="waiter/main.jsp">服务员</a>
+			<a class="navbar-brand" href="obtainUnservedOrders">服务员</a>
 			
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
@@ -62,7 +62,7 @@
 						  <span style="font-size:25px;" id="newOrder" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 						</a></li>
 				<li><a href="obtainNewOrders" class="navbar-brand" id="newOrderText"></a></li>
-				<li><a href="#">帮助</a></li>
+				<!-- <li><a href="#">帮助</a></li> -->
 				<li><a href="waiter/waiterLogin.jsp">注销</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">

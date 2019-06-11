@@ -16,6 +16,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	
+    <!-- <link href="./bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+   <!--  <link href="./bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+  <!--   <link href="./bootstrap/dashboard.css" rel="stylesheet"> -->
+
+   <%--  <script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script> --%>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -23,6 +31,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <style>
 <!--
+#returnain{
+
+text-decoration:none;
+font-size: 29px;
+}
+a{
+text-decoration:none;
+}
 input{
 	color: #0A0A0A;
 	BACKGROUND-COLOR: #FFFFFF;
@@ -43,7 +59,7 @@ form{
   <body bgcolor="#A6A6A6">
 	<center >
 	<h1><b>我的订单</b></h1>
-	<a href="index.jsp">返回主页</a>
+	<a id="returnain" href="index.jsp">返回主页</a>
     <div class="container-fluid">
       <div class="row">
           <s:if test="orders==null">
@@ -54,7 +70,12 @@ form{
           <s:iterator value="orders">
           
             <s:form style="color:#0314FB" >
-           
+           		<s:if test="tid==0">
+           		<s:url var="drawBackUrl" action="drawBack">
+		         <s:param name="oid" value="oid"/>
+		      </s:url>
+              	<a href="${ drawBackUrl}" onclick="return readyDrawBack()">撤回订单</a>
+              </s:if>
               <s:textfield name="oid" class="sss" value="%{ oid }" label="订单编号"  disabled="true"/>
               <s:textfield name="uid" value="%{ uid }" label="下单人"  disabled="true"/>
               <s:if test="tid==0">
@@ -102,6 +123,9 @@ form{
   </body>
   <script type="text/javascript" src="<%=basePath%>/scripts/jquery-3.4.1.js"></script>
   <script type="text/javascript">
+  function readyDrawBack(){
+  	return confirm("是否撤回");
+  };
   $(function(){
   	$(".sss").each(function(){
   		var id=$(this).val();

@@ -21,18 +21,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
    <body>
 
-  <center><h1><b>用户登录</b></h1></center>
 	<center>
 	<div id="wrapper" class="login-page">
 		<div id="login_form" class="form">
-		
+		<h1><b>用户登录</b></h1>
 		<form class="login-form" action="userLogin" method="post">
 		<s:fielderror name="error"></s:fielderror>
 				<input type="text" placeholder="用户名" name="uid" id="user_name"/>
-				<input type="password" placeholder="密码"  name="upass" id="password"/>
+				<input type="password" placeholder="密码"  name="upass" id="passwaord"/>
 				<button type="submit" id="login">登　录</button>
 				<p class="message">还没有账户? <a href="<%=basePath%>user/regist.jsp">立刻创建</a></p>
-				<p class="message">忘记密码? <input type="button" onclick="retrivePassword()" value="找回密码"></p>
+				<p class="message">忘记密码? <a onclick="retrivePassword()">找回密码</a> <!-- <input type="button" onclick="retrivePassword()" value="找回密码"> --></p>
 			</form>
 	</div>
 	</div>
